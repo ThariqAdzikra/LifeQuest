@@ -6,7 +6,7 @@
     <title>@yield('title', 'LifeQuest - Jejak Kebiasaan Positif Anda')</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
     <style>
         * {
@@ -23,7 +23,7 @@
             min-height: 100vh;
         }
 
-        /* Navbar Glass Effect */
+        /* --- STYLE UNTUK NAVBAR --- */
         nav {
             position: fixed;
             top: 0;
@@ -145,16 +145,29 @@
         .profile-trigger {
             display: flex;
             align-items: center;
+            gap: 0.75rem; 
             cursor: pointer;
             background: none;
             border: none;
-            padding: 0.25rem;
-            border-radius: 9999px;
+            padding: 0.25rem 0.75rem 0.25rem 0.25rem; 
+            border-radius: 9999px; 
             transition: background-color 0.3s ease;
         }
 
         .profile-trigger:hover {
             background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-name {
+            color: #e0e0e0;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .profile-trigger:hover .profile-name {
+            color: #00d4ff;
         }
 
         .profile-avatar {
@@ -168,24 +181,27 @@
             justify-content: center;
             font-weight: 600;
             font-size: 0.8rem;
+            flex-shrink: 0; 
         }
 
         .dropdown-menu {
             position: absolute;
             right: 0;
             top: 120%;
-            width: 200px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(167, 139, 250, 0.1));
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 8px;
+            width: 220px;
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95), rgba(15, 20, 50, 0.95));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
             padding: 0.5rem 0;
             z-index: 10;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2), 0 0 20px rgba(0, 212, 255, 0.1);
         }
 
         .dropdown-menu a, .dropdown-menu button {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             width: 100%;
             text-align: left;
             padding: 0.75rem 1.5rem;
@@ -195,100 +211,118 @@
             background: none;
             border: none;
             cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
         }
 
         .dropdown-menu a:hover, .dropdown-menu button:hover {
             background-color: rgba(0, 212, 255, 0.1);
             color: #00d4ff;
         }
+        
+        .dropdown-menu a i, .dropdown-menu button i {
+            font-size: 1rem;
+        }
+
+        .dropdown-menu form {
+            margin: 0;
+        }
+        /* --- AKHIR STYLE NAVBAR --- */
+
 
         main {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px - 200px);
+            margin-top: 80px; 
+            min-height: calc(100vh - 80px - 250px); 
         }
         
+        /* --- STYLE FOOTER --- */
         footer {
             background: linear-gradient(135deg, #0a0e27, #0f1432);
             border-top: 1px solid rgba(0, 212, 255, 0.2);
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
             text-align: center;
         }
         
         .footer-content { max-width: 1200px; margin: 0 auto; }
-        .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, #00d4ff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
-        .footer-links a { color: #b0b0c0; text-decoration: none; transition: all 0.3s ease; }
-        .footer-links a:hover { color: #00d4ff; text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
-        .footer-bottom { color: #707080; font-size: 0.9rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; }
+        .footer-logo { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 1.8rem; 
+            margin-bottom: 1rem; 
+            background: linear-gradient(135deg, #00d4ff, #a78bfa); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+        }
+        .footer-tagline { 
+            margin-bottom: 2.5rem; 
+            color: #b0b0c0; 
+            font-size: 1.05rem;
+            font-style: italic;
+        }
+        
+        .footer-links { 
+            display: flex; 
+            justify-content: center; 
+            gap: 2.5rem; 
+            margin-bottom: 2.5rem; 
+            flex-wrap: wrap; 
+        }
+        .footer-links a { 
+            color: #b0b0c0; 
+            text-decoration: none; 
+            transition: all 0.3s ease; 
+            font-weight: 500; 
+        }
+        .footer-links a:hover { 
+            color: #00d4ff; 
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); 
+        }
+        
+        .footer-social { 
+            display: flex; 
+            justify-content: center; 
+            gap: 1.5rem; 
+            margin-bottom: 2.5rem; 
+        }
+        .footer-social a { 
+            color: #b0b0c0; 
+            text-decoration: none; 
+            font-size: 1.5rem; 
+            transition: all 0.3s ease; 
+        }
+        .footer-social a:hover { 
+            color: #00d4ff; 
+            transform: scale(1.1) translateY(-3px); 
+        }
+
+        .footer-bottom { 
+            color: #707080; 
+            font-size: 0.9rem; 
+            border-top: 1px solid rgba(255, 255, 255, 0.1); 
+            padding-top: 2rem; 
+        }
+        /* --- AKHIR STYLE FOOTER --- */
 
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
+            }
+            main {
+                margin-top: 70px;
+            }
+            footer {
+                padding: 3rem 1rem;
+            }
+            .footer-links {
+                gap: 1.5rem;
             }
         }
     </style>
     @stack('styles')
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <div class="nav-left">
-                @auth
-                    <a href="{{ route('dashboard') }}" class="logo">LifeQuest</a>
-                    <div class="nav-menu">
-                        <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
-                        <a href="{{ route('quests.index') }}" class="{{ request()->routeIs('quests.*') ? 'active' : '' }}">Quest Saya</a>
-                        <a href="{{ route('achievements.index') }}" class="{{ request()->routeIs('achievements.*') ? 'active' : '' }}">Achievements</a>
-                        <a href="{{ route('leaderboard') }}" class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">Leaderboard</a>
-                    </div>
-                @else
-                    <a href="{{ route('landing') }}" class="logo">LifeQuest</a>
-                @endauth
-            </div>
-            <div class="nav-auth">
-                @auth
-                    <div x-data="{ open: false }" class="profile-dropdown">
-                        <button @click="open = !open" class="profile-trigger">
-                            @if (Auth::user()->avatar)
-                                <img src="{{ asset('storage/'. Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
-                            @else
-                                <div class="profile-avatar">
-                                    {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
-                                </div>
-                            @endif
-                        </button>
-
-                        <div x-show="open" 
-                             @click.away="open = false" 
-                             x-transition:enter="transition ease-out duration-100"
-                             x-transition:enter-start="transform opacity-0 scale-95"
-                             x-transition:enter-end="transform opacity-100 scale-100"
-                             x-transition:leave="transition ease-in duration-75"
-                             x-transition:leave-start="transform opacity-100 scale-100"
-                             x-transition:leave-end="transform opacity-0 scale-95"
-                             class="dropdown-menu"
-                             style="display: none;">
-                            
-                             <div style="padding: 0.75rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.5rem;">
-                                 <div style="font-weight: 600;">{{ Auth::user()->name }}</div>
-                                 <div style="font-size: 0.8rem; color: #b0b0c0;">{{ Auth::user()->email }}</div>
-                             </div>
-
-                            <a href="{{ route('profile.edit') }}">Profile</a>
-
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit">Logout</button>
-                            </form>
-                        </div>
-                    </div>
-                @else
-                    <a href="{{ route('login') }}" class="login-link">Login</a>
-                    <a href="{{ route('register') }}" class="register-link">Register</a>
-                @endauth
-            </div>
-        </div>
-    </nav>
+    
+    @include('layouts.navigation')
 
     <main>
         @yield('content')
@@ -297,19 +331,31 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo">LifeQuest</div>
-            <p style="margin-bottom: 2rem; color: #b0b0c0;">Bergabunglah dengan ribuan warrior dalam misi mengubah hidup mereka</p>
+            <p class="footer-tagline">"Ubah kebiasaan kecil menjadi pencapaian besar. Mulai petualanganmu hari ini."</p>
+            
             <div class="footer-links">
-                <a href="{{ route('login') }}">Login</a>
-                <a href="{{ route('register') }}">Register</a>
+                <a href="{{ route('dashboard') }}">Dashboard</a>
+                <a href="{{ route('quests.index') }}">Quest Saya</a>
+                <a href="{{ route('profile.edit') }}">Profile</a>
                 <a href="#">Blog</a>
                 <a href="#">Dukungan</a>
             </div>
+
+            <div class="footer-social">
+                <a href="#" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+                <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" title="Discord"><i class="bi bi-discord"></i></a>
+                <a href="#" title="GitHub"><i class="bi bi-github"></i></a>
+            </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2025 LifeQuest. Semua hak dilindungi. | Dibuat dengan ⚡ untuk warrior sejati</p>
+                <p>&copy; {{ date('Y') }} LifeQuest. Semua hak dilindungi. | Dibuat dengan ⚡ untuk warrior sejati</p>
             </div>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    
     @stack('scripts')
 </body>
 </html>
