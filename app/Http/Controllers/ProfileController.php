@@ -2,81 +2,141 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage; // <-- DITAMBAHKAN
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit()
     {
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => Auth::user(),
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        // Ambil data user yang sedang login
-        $user = $request->user();
+        $user = Auth::user();
 
-        // Isi model user dengan data yang sudah divalidasi (nama & email)
-        $user->fill($request->validated());
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+        ]);
 
-        // Jika user mengganti email, reset status verifikasi emailnya
+        // Update name dan email
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+
+        // Handle avatar upload
+        if ($request->hasFile('avatar')) {
+            // Hapus avatar lama jika ada
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+
+            // Simpan avatar baru ke folder avatars
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
+
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
 
-        // --- [LOGIKA BARU UNTUK UPLOAD FOTO PROFIL] ---
-        // Cek apakah ada file 'avatar' yang di-upload dalam request
-        if ($request->hasFile('avatar')) {
-            // Validasi file yang di-upload
-            $request->validateWithBag('updateProfileInformation', [
-                'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-            ]);
-
-            // Hapus avatar lama dari storage jika ada
-            if ($user->avatar) {
-                Storage::disk('public')->delete($user->avatar);
-            }
-
-            // Simpan file avatar yang baru di folder 'storage/app/public/avatars'
-            // dan simpan path-nya ke variabel
-            $path = $request->file('avatar')->store('avatars', 'public');
-
-            // Simpan path file yang baru ke kolom 'avatar' di database
-            $user->avatar = $path;
-        }
-        // --- [AKHIR DARI LOGIKA BARU] ---
-
-        // Simpan semua perubahan pada data user
         $user->save();
 
-        // Redirect kembali ke halaman edit profil dengan pesan sukses
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    /**
+     * Update the user's profile photo.
+     */
+    public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+        ]);
+
+        $user = Auth::user();
+
+        // Hapus foto lama jika ada
+        if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+            Storage::disk('public')->delete($user->photo);
+        }
+
+        // Simpan foto baru
+        $path = $request->file('photo')->store('profile-photos', 'public');
+        
+        $user->photo = $path;
+        $user->save();
+
+        return redirect()->route('profile.edit')->with('status', 'photo-updated');
+    }
+
+    /**
+     * Delete the user's profile photo.
+     */
+    public function deletePhoto()
+    {
+        $user = Auth::user();
+
+        if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+            Storage::disk('public')->delete($user->photo);
+            $user->photo = null;
+            $user->save();
+        }
+
+        return redirect()->route('profile.edit')->with('status', 'photo-deleted');
+    }
+
+    /**
+     * Update the user's password.
+     */
+    public function updatePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->route('profile.edit')->with('status', 'password-updated');
     }
 
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request)
     {
-        $request->validateWithBag('userDeletion', [
+        $request->validate([
             'password' => ['required', 'current_password'],
         ]);
 
         $user = $request->user();
+
+        // Hapus avatar jika ada
+        if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+            Storage::disk('public')->delete($user->avatar);
+        }
+
+        // Hapus foto profil jika ada (backward compatibility)
+        if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+            Storage::disk('public')->delete($user->photo);
+        }
 
         Auth::logout();
 
@@ -85,6 +145,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return redirect('/');
     }
 }
