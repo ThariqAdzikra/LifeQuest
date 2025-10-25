@@ -23,6 +23,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        
+        // --- TAMBAHAN STATS ---
+        // Ini ditambahkan agar stats bisa diisi
+        // saat registrasi atau di-update massal.
+        'exp',
+        'gold',
+        'intelligence',
+        'strength',
+        'stamina',
+        'agility',
+        // --- AKHIR TAMBAHAN ---
     ];
 
     /**
@@ -47,4 +58,24 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    // --- TAMBAKAN RELASI UNTUK QUEST ---
+
+    /**
+     * Relasi ke Quest (Quest yang *dibuat* oleh user ini).
+     */
+    public function quests()
+    {
+        return $this->hasMany(Quest::class, 'creator_id');
+    }
+
+    /**
+     * Relasi ke QuestLog (Quest yang *diambil* oleh user ini).
+     */
+    public function questLogs()
+    {
+        return $this->hasMany(QuestLog::class);
+    }
+    
+    // --- AKHIR TAMBAHAN RELASI ---
 }

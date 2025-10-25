@@ -1,0 +1,264 @@
+.profile-container {
+    padding: 120px 2rem 4rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.profile-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #00d4ff, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.profile-card {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(167, 139, 250, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+}
+.profile-card header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+.profile-card header p {
+    color: #b0b0c0;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+.profile-card label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #b0b0c0;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.profile-card .input-field {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+.profile-card .input-field:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Styling untuk tombol-tombol RPG/Sci-fi */
+.btn {
+    padding: 0.8rem 1.8rem;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+.btn-primary {
+    background: linear-gradient(135deg, #00d4ff, #a78bfa);
+    color: #0a0e27;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+}
+.btn-secondary {
+    padding: 0.7rem 1.5rem;
+    border: 1px solid #a78bfa;
+    color: #a78bfa;
+    background: transparent;
+}
+.btn-secondary:hover {
+    background: rgba(167, 139, 250, 0.1);
+    transform: translateY(-2px);
+}
+.btn-danger {
+    background: linear-gradient(135deg, #ff4d4d, #ff8c00);
+    color: #fff;
+}
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 77, 77, 0.4);
+}
+
+/* Styling untuk upload avatar */
+.avatar-upload-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.avatar-preview-container {
+    flex-shrink: 0;
+}
+.avatar-preview-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(0, 212, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.avatar-preview-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00d4ff, #a78bfa);
+    color: #0a0e27;
+    border: 3px solid rgba(0, 212, 255, 0.5);
+}
+.avatar-upload-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.avatar-upload-actions .btn-secondary {
+    width: max-content;
+}
+.avatar-upload-info {
+    font-size: 0.8rem;
+    color: #b0b0c0;
+    margin-top: 0.25rem;
+}
+.hidden-file-input {
+    display: none;
+}
+
+/* Styling untuk Modal (Cropper & Delete) */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(10, 14, 39, 0.95);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.modal-content {
+    background: #1a1a2e;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 650px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+}
+.modal-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+.modal-description {
+    color: #b0b0c0;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Cropper Container Styling */
+.cropper-wrapper {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 1rem;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cropper-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+/* Cropper.js Custom Styling */
+.cropper-container {
+    direction: ltr;
+    font-size: 0;
+    line-height: 0;
+    position: relative;
+    touch-action: none;
+    user-select: none;
+}
+
+.cropper-view-box {
+    outline: 2px solid #00d4ff;
+    outline-color: rgba(0, 212, 255, 0.75);
+}
+
+.cropper-point {
+    background-color: #00d4ff;
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+}
+
+.cropper-line {
+    background-color: #00d4ff;
+    opacity: 0.5;
+}
+
+.cropper-point.point-se {
+    background-color: #00d4ff;
+    width: 12px;
+    height: 12px;
+}
+
+.cropper-dashed {
+    border: 0 dashed rgba(0, 212, 255, 0.5);
+}
+
+.cropper-dashed.dashed-h {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.cropper-dashed.dashed-v {
+    border-left-width: 1px;
+    border-right-width: 1px;
+}
+
+.text-sm { font-size: 0.875rem; }
+.text-gray-600 { color: #b0b0c0; }
+.mt-4 { margin-top: 1rem; }
+.mt-1 { margin-top: 0.25rem; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.gap-4 { gap: 1rem; }
