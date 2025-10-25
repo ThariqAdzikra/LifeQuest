@@ -1,0 +1,207 @@
+.quest-board-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.quest-tabs {
+    display: flex;
+    border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+    margin-bottom: 2rem;
+}
+
+.tab-link {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #b0b0c0;
+    border: none;
+    background: transparent;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+
+.tab-link:hover {
+    color: #e0e0e0;
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.tab-link.active {
+    color: #00d4ff;
+    border-bottom-color: #00d4ff;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeInUp 0.5s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.quest-card {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(167, 139, 250, 0.1));
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.quest-card:hover {
+    transform: translateY(-5px);
+    border-color: #00d4ff;
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+}
+
+.quest-info h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #00d4ff;
+    letter-spacing: 1px;
+}
+.quest-info p {
+    color: #b0b0c0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.quest-rewards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.reward-tag {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.reward-tag i {
+    font-size: 1.2rem;
+}
+.reward-tag .bi-star-fill { color: #facc15; }
+.reward-tag .bi-coin { color: #eab308; }
+.reward-tag .bi-brain { color: #00d4ff; }
+.reward-tag .bi-person-arms-up { color: #ff006e; }
+.reward-tag .bi-lightning-charge-fill { color: #a78bfa; }
+.reward-tag .bi-wind { color: #34d399; }
+.reward-tag .bi-gem { color: #f472b6; }
+
+
+.quest-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 150px;
+    flex-shrink: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #b0b0c0;
+    font-weight: 600;
+}
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(0, 212, 255, 0.5);
+    border-radius: 8px;
+    color: #e0e0e0;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+.form-control:focus {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: #00d4ff;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+    outline: none;
+}
+.form-control::placeholder {
+    color: #888;
+}
+select.form-control {
+    appearance: none;
+}
+
+
+select.form-control option {
+    background: #1a1a2e; 
+    color: #e0e0e0;      
+}
+
+
+.btn {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn i {
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    font-size: 1.1rem;
+}
+.btn-primary {
+    background: linear-gradient(135deg, #00d4ff, #a78bfa);
+    color: #0a0e27;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.6);
+}
+.btn-danger {
+    background: rgba(255, 0, 110, 0.2);
+    color: #ff80b3;
+    border: 2px solid rgba(255, 0, 110, 0.5);
+    backdrop-filter: blur(10px);
+}
+.btn-danger:hover {
+    background: rgba(255, 0, 110, 0.4);
+    border-color: #ff006e;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 0, 110, 0.4);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
