@@ -1,0 +1,477 @@
+/* ============================================
+   ACHIEVEMENT PAGE - RPG THEME STYLES
+   ============================================ */
+
+/* Stats Container - Grid Layout */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+/* Primary Stat Cards (Level, EXP, Gold) */
+.stat-card-primary {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(167, 139, 250, 0.08));
+    border: 1px solid rgba(0, 212, 255, 0.25);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.stat-card-primary::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+    50% { transform: scale(1.1) rotate(180deg); opacity: 0.6; }
+}
+
+.stat-card-primary:hover {
+    border-color: rgba(0, 212, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
+    transform: translateY(-4px);
+}
+
+.stat-card-primary .stat-value {
+    font-family: 'Orbitron', 'Courier New', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px currentColor;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-card-primary .stat-label {
+    font-size: 1.1rem;
+    color: #cbd5e1;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+/* EXP Progress Bar */
+.exp-bar-container {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 25px;
+    height: 24px;
+    margin-top: 1.5rem;
+    overflow: hidden;
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    position: relative;
+    z-index: 1;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.exp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00d4ff, #a78bfa, #00d4ff);
+    background-size: 200% 100%;
+    border-radius: 25px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    animation: shimmer 2s linear infinite;
+    position: relative;
+}
+
+.exp-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+    border-radius: 25px 25px 0 0;
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.exp-text {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+/* Attribute Stat Cards */
+.stat-card-attribute {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card-attribute::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.stat-card-attribute:hover::before {
+    left: 100%;
+}
+
+.stat-card-attribute:hover {
+    border-color: rgba(0, 212, 255, 0.5);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0, 212, 255, 0.1);
+    border: 2px solid currentColor;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.stat-card-attribute:hover .stat-icon {
+    transform: rotate(360deg) scale(1.1);
+}
+
+.stat-icon.intelligence { 
+    color: #00d4ff; 
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+.stat-icon.strength { 
+    color: #ff006e; 
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+}
+
+.stat-icon.stamina { 
+    color: #34d399; 
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+}
+
+.stat-icon.agility { 
+    color: #a78bfa; 
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+}
+
+.stat-info .stat-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-info .stat-value {
+    font-family: 'Orbitron', 'Courier New', monospace;
+    font-size: 2rem;
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   ACHIEVEMENT CARDS - RPG STYLE
+   ============================================ */
+
+.unlocked-achievements-container {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.achievement-card {
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.08), rgba(234, 179, 8, 0.08));
+    border: 2px solid rgba(250, 204, 21, 0.3);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    box-shadow: 0 4px 24px rgba(250, 204, 21, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animated background glow */
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(250, 204, 21, 0.15) 0%, transparent 60%);
+    animation: rotateGlow 8s linear infinite;
+    z-index: 0;
+}
+
+@keyframes rotateGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.achievement-card:hover {
+    border-color: rgba(250, 204, 21, 0.6);
+    box-shadow: 0 8px 32px rgba(250, 204, 21, 0.3);
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Achievement Icon Container */
+.achievement-icon {
+    width: 90px;
+    height: 90px;
+    min-width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.2), rgba(234, 179, 8, 0.2));
+    border: 3px solid #facc15;
+    border-radius: 50%;
+    color: #facc15;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 30px rgba(250, 204, 21, 0.4), inset 0 0 20px rgba(250, 204, 21, 0.1);
+    transition: all 0.4s ease;
+}
+
+.achievement-card:hover .achievement-icon {
+    transform: rotate(360deg) scale(1.1);
+    box-shadow: 0 0 40px rgba(250, 204, 21, 0.6), inset 0 0 30px rgba(250, 204, 21, 0.2);
+}
+
+/* Icon shimmer effect */
+.achievement-icon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, rgba(255, 255, 255, 0.3), transparent 30%);
+    animation: iconShimmer 3s linear infinite;
+}
+
+@keyframes iconShimmer {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.achievement-icon i {
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.8));
+}
+
+/* Achievement Info */
+.achievement-info {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.achievement-info h3 {
+    font-family: 'Orbitron', 'Segoe UI', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #facc15;
+    font-weight: 700;
+    text-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
+    letter-spacing: 0.5px;
+}
+
+.achievement-info p {
+    color: #cbd5e1;
+    line-height: 1.6;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Quest Rewards Tags */
+.quest-rewards {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.reward-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(250, 204, 21, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #facc15;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.reward-tag:hover {
+    background: rgba(250, 204, 21, 0.1);
+    border-color: rgba(250, 204, 21, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);
+}
+
+.reward-tag i {
+    font-size: 1rem;
+}
+
+/* Unlocked Date */
+.achievement-info .unlocked-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #34d399;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    border-radius: 6px;
+    backdrop-filter: blur(5px);
+}
+
+.unlocked-date i {
+    font-size: 0.9rem;
+}
+
+/* Empty State */
+.unlocked-achievements-container p {
+    color: #94a3b8;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: 1.1rem;
+}
+
+/* Section Title */
+.achievement-section-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2rem;
+    margin-top: 3.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #facc15, #eab308);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-shadow: 0 0 30px rgba(250, 204, 21, 0.3);
+}
+
+.achievement-section-title i {
+    color: #facc15;
+    filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.6));
+    -webkit-text-fill-color: #facc15;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .achievement-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .achievement-icon {
+        width: 80px;
+        height: 80px;
+        min-width: 80px;
+        font-size: 2.5rem;
+    }
+
+    .achievement-info h3 {
+        font-size: 1.3rem;
+    }
+
+    .quest-rewards {
+        justify-content: center;
+    }
+
+    .stat-card-primary .stat-value {
+        font-size: 2rem;
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    .stat-info .stat-value {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .achievement-section-title {
+        font-size: 1.5rem;
+    }
+
+    .achievement-card {
+        padding: 1.25rem;
+    }
+
+    .achievement-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+}
