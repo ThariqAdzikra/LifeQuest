@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Achievement; // <-- TAMBAHKAN INI
 
 // 2. Menambahkan "implements MustVerifyEmail"
 class User extends Authenticatable implements MustVerifyEmail
@@ -77,5 +78,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(QuestLog::class);
     }
     
+    // --- TAMBAHAN RELASI BARU ---
+
+    /**
+     * Relasi many-to-many ke Achievement (Achievement yang *dimiliki* user).
+     */
+    public function achievements()
+    {
+        // Menentukan nama pivot table 'user_achievements'
+        return $this->belongsToMany(Achievement::class, 'user_achievements')
+                    ->withPivot('unlocked_at') // Mengambil 'unlocked_at'
+                    ->orderBy('user_achievements.unlocked_at', 'desc'); // Urutkan dari yg terbaru
+    }
+
     // --- AKHIR TAMBAHAN RELASI ---
 }

@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Services\AchievementService; // <-- TAMBAHKAN INI
+use Illuminate\Support\Facades\Log; // <-- TAMBAHKAN INI (Untuk error logging)
 
 class QuestController extends Controller
 {
@@ -79,6 +81,9 @@ class QuestController extends Controller
             ->first();
 
         if (!$lastCompletedLog) return true;
+        
+        $lastCompletionTime = $lastCompletedLog->updated_at; // Ambil waktu selesai
+        
         if ($quest->frequency == 'once') return false;
         if ($quest->frequency == 'daily') return $lastCompletionTime->isBefore($now->startOfDay());
         if ($quest->frequency == 'weekly') return $lastCompletionTime->isBefore($now->startOfWeek());
@@ -148,7 +153,8 @@ class QuestController extends Controller
     /**
      * Menyelesaikan quest (tombol 'Selesaikan' di 'Quest Saya').
      */
-    public function complete(Request $request, $logId)
+    // --- MODIFIKASI DI SINI: Tambahkan AchievementService ---
+    public function complete(Request $request, $logId, AchievementService $achievementService)
     {
         $log = QuestLog::where('id', $logId)->where('user_id', Auth::id())->firstOrFail();
         
@@ -173,6 +179,17 @@ class QuestController extends Controller
         $log->status = 'completed';
         $log->updated_at = Carbon::now(); 
         $log->save();
+
+        // 3. --- PERUBAHAN DI SINI ---
+        // Panggil AchievementService untuk mengecek apakah user dapat achievement baru
+        try {
+            // Kita panggil servisnya SETELAH user di-save
+            $achievementService->checkAndGrantAchievements($user);
+        } catch (\Exception $e) {
+            // Jika gagal cek achievement, jangan sampai menghentikan user
+            Log::error("Failed to check achievements for user {$user->id}: " . $e->getMessage());
+        }
+        // --- AKHIR PERUBAHAN ---
 
         return redirect()->route('quests.index')->with('success', 'Quest ' . $quest->title . ' selesai! Reward didapat!');
     }
