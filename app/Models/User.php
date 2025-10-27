@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Achievement; // <-- TAMBAHKAN INI
+use App\Models\Achievement; // <-- INI SUDAH BENAR
 
 // 2. Menambahkan "implements MustVerifyEmail"
 class User extends Authenticatable implements MustVerifyEmail
@@ -26,8 +26,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         
         // --- TAMBAHAN STATS ---
-        // Ini ditambahkan agar stats bisa diisi
-        // saat registrasi atau di-update massal.
         'exp',
         'gold',
         'intelligence',
@@ -60,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    // --- TAMBAKAN RELASI UNTUK QUEST ---
+    // --- RELASI QUEST (SUDAH BENAR) ---
 
     /**
      * Relasi ke Quest (Quest yang *dibuat* oleh user ini).
@@ -78,7 +76,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(QuestLog::class);
     }
     
-    // --- TAMBAHAN RELASI BARU ---
+    // --- RELASI ACHIEVEMENT (SUDAH BENAR) ---
 
     /**
      * Relasi many-to-many ke Achievement (Achievement yang *dimiliki* user).
@@ -91,5 +89,32 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->orderBy('user_achievements.unlocked_at', 'desc'); // Urutkan dari yg terbaru
     }
 
-    // --- AKHIR TAMBAHAN RELASI ---
+    // ==========================================================
+    // --- PENYESUAIAN (TAMBAHAN UNTUK HITUNG LEVEL OTOMATIS) ---
+    // ==========================================================
+
+    /**
+     * Tambahkan 'level' ke output JSON/array.
+     * Ini membuat $user->level bisa langsung dipakai di Blade.
+     */
+    protected $appends = ['level'];
+
+    /**
+     * Accessor untuk menghitung Level berdasarkan EXP.
+     * Ini adalah logika yang kita pakai di halaman Stats & Leaderboard.
+     */
+    public function getLevelAttribute()
+    {
+        $exp = $this->attributes['exp'] ?? 0;
+        
+        if ($exp <= 0) {
+            return 1;
+        }
+        
+        // Rumus: 100 * (level-1)^2 = exp
+        // (level-1)^2 = exp / 100
+        // level-1 = sqrt(exp / 100)
+        // level = floor(sqrt(exp / 100)) + 1
+        return floor(pow($exp / 100, 0.5)) + 1;
+    }
 }

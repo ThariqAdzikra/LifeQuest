@@ -10,11 +10,11 @@
 
 @section('content')
 <div class="quest-board-container">
-    {{-- Judul Halaman --}}
-    <h1 style="font-size: 2.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, #00d4ff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-family: 'Orbitron', sans-serif;">
+    {{-- Judul Halaman menggunakan class --}}
+    <h1 class="page-title">
         Quest Board
     </h1>
-    <p style="color: #b0b0c0; margin-bottom: 2rem;">Selesaikan tugas, raih prestasi, dan tingkatkan level karakter Anda di dunia nyata.</p>
+    <p class="page-subtitle">Selesaikan tugas, raih prestasi, dan tingkatkan level karakter Anda di dunia nyata.</p>
 
     {{-- Navigasi Tab --}}
     <div class="quest-tabs">
@@ -26,12 +26,18 @@
 
     {{-- Konten Tab 1: Quest Saya (Yang sedang diambil) --}}
     <div id="myQuests" class="tab-content active">
-        <h2 class="section-title" style="text-align: left; font-size: 1.8rem; margin-bottom: 1.5rem;">Quest Aktif</h2>
+        
+        {{-- Menggunakan section-header style dari dashboard --}}
+        <div class="section-header">
+            <i class="bi bi-person-check-fill"></i>
+            <h2 class="section-title">Quest Aktif</h2>
+        </div>
         
         @forelse ($myQuests as $log)
-        <div class="quest-card">
+        {{-- Menambahkan class .glass-card --}}
+        <div class="quest-card glass-card">
             <div class="quest-info">
-                <span class="reward-tag" style="margin-bottom: 0.5rem;"><i class="bi bi-clock"></i> Frekuensi: {{ ucfirst($log->quest->frequency) }}</span>
+                <span class="reward-tag"><i class="bi bi-clock"></i> Frekuensi: {{ ucfirst($log->quest->frequency) }}</span>
                 <h3>{{ $log->quest->title }}</h3>
                 <p>{{ $log->quest->description }}</p>
                 <div class="quest-rewards">
@@ -48,26 +54,33 @@
                 <form action="{{ route('quests.complete', $log->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
-                    <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="bi bi-check-lg"></i> Selesaikan</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Selesaikan</button>
                 </form>
                 <form action="{{ route('quests.cancel', $log->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger" style="width: 100%;"><i class="bi bi-x-lg"></i> Batalkan</button>
+                    <button type="submit" class="btn btn-danger"><i class="bi bi-x-lg"></i> Batalkan</button>
                 </form>
             </div>
         </div>
         @empty
-        <p style="color: #b0b0c0;">Anda belum mengambil quest apapun. Kunjungi tab "Quest Tersedia" untuk memulai!</p>
+        {{-- Menggunakan class .empty-state-text --}}
+        <p class="empty-state-text">Anda belum mengambil quest apapun. Kunjungi tab "Quest Tersedia" untuk memulai!</p>
         @endforelse
     </div>
 
     {{-- Konten Tab 2: Quest Tersedia (Admin & User lain) --}}
     <div id="availableQuests" class="tab-content">
-        <h2 class="section-title" style="text-align: left; font-size: 1.8rem; margin-bottom: 1.5rem;">Quest Resmi (Admin)</h2>
+        
+        {{-- Menggunakan section-header style dari dashboard --}}
+        <div class="section-header">
+            <i class="bi bi-patch-check-fill"></i>
+            <h2 class="section-title">Quest Resmi (Admin)</h2>
+        </div>
         
         @forelse ($adminQuests as $quest)
-        <div class="quest-card">
+        {{-- Menambahkan class .glass-card --}}
+        <div class="quest-card glass-card">
             <div class="quest-info">
                 <h3>{{ $quest->title }} ({{ ucfirst($quest->difficulty) }})</h3>
                 <p>{{ $quest->description }}</p>
@@ -84,22 +97,27 @@
             <div class="quest-actions">
                 <form action="{{ route('quests.take', $quest->id) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="bi bi-plus-lg"></i> Ambil Quest</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Ambil Quest</button>
                 </form>
             </div>
         </div>
         @empty
-        <p style="color: #b0b0c0;">Tidak ada quest resmi yang tersedia saat ini.</p>
+        <p class="empty-state-text">Tidak ada quest resmi yang tersedia saat ini.</p>
         @endforelse
         
-        <h2 class="section-title" style="text-align: left; font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1.5rem;">Quest Komunitas</h2>
+        {{-- Menggunakan section-header style dari dashboard --}}
+        <div class="section-header" style="margin-top: 3rem;">
+            <i class="bi bi-people-fill"></i>
+            <h2 class="section-title">Quest Komunitas</h2>
+        </div>
         
         @forelse ($userQuests as $quest)
-        <div class="quest-card">
+        {{-- Menambahkan class .glass-card --}}
+        <div class="quest-card glass-card">
             <div class="quest-info">
                 <h3>{{ $quest->title }}</h3>
                 <p>{{ $quest->description }}</p>
-                <small style="color: #a78bfa; margin-top: 0.5rem; display: block;">Dibuat oleh: {{ $quest->creator->name }}</small>
+                <small>Dibuat oleh: {{ $quest->creator->name }}</small>
                 <div class="quest-rewards">
                      <span class="reward-tag"><i class="bi bi-star-fill"></i> {{ $quest->exp_reward }} EXP</span>
                      <span class="reward-tag"><i class="bi bi-coin"></i> {{ $quest->gold_reward }} Gold</span>
@@ -113,86 +131,98 @@
             <div class="quest-actions">
                 <form action="{{ route('quests.take', $quest->id) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="bi bi-plus-lg"></i> Ambil Quest</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Ambil Quest</button>
                 </form>
 
-                {{-- --- PERUBAHAN DI SINI: Tombol Hapus --- --}}
-                {{-- Tampilkan tombol Hapus HANYA jika user yang login adalah pembuat quest --}}
                 @if(Auth::id() == $quest->creator_id)
                 <form action="{{ route('quests.destroy', $quest->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus quest ini? Ini tidak dapat diurungkan.');">
                     @csrf
                     @method('DELETE')
-                    {{-- Style tombol hapus disesuaikan agar pas --}}
-                    <button type="submit" class="btn btn-danger" style="width: 100%; padding: 0.75rem 1rem; font-size: 0.9rem;">
+                    <button type="submit" class="btn btn-danger">
                         <i class="bi bi-trash-fill"></i> Hapus
                     </button>
                 </form>
                 @endif
-                {{-- --- AKHIR PERUBAHAN --- --}}
-                
             </div>
         </div>
         @empty
-        <p style="color: #b0b0c0;">Tidak ada quest dari komunitas yang tersedia saat ini.</p>
+        <p class="empty-state-text">Tidak ada quest dari komunitas yang tersedia saat ini.</p>
         @endforelse
     </div>
 
     {{-- Konten Tab 3: Buat Quest Sendiri --}}
     <div id="createQuest" class="tab-content">
-        <h2 class="section-title" style="text-align: left; font-size: 1.8rem; margin-bottom: 1.5rem;">Buat Quest Kustom</h2>
         
-        <form action="{{ route('quests.store') }}" method="POST" style="max-width: 800px;">
-            @csrf
-            <div class="form-group">
-                <label for="title">Judul Quest</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="Contoh: Belajar Laravel 1 Jam" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Deskripsi</label>
-                <textarea id="description" name="description" rows="4" class="form-control" placeholder="Deskripsikan aktivitas yang harus dilakukan..."></textarea>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        {{-- Menggunakan section-header style dari dashboard --}}
+        <div class="section-header">
+            <i class="bi bi-pencil-square"></i>
+            <h2 class="section-title">Buat Quest Kustom</h2>
+        </div>
+        
+        {{-- Membungkus form dalam .glass-card --}}
+        <div class="glass-card" style="padding: 2rem;">
+            <form action="{{ route('quests.store') }}" method="POST">
+                @csrf
                 <div class="form-group">
-                    <label for="difficulty">Kesulitan</label>
-                    <select id="difficulty" name="difficulty" class="form-control">
-                        <option value="easy">Mudah</option>
-                        <option value="medium">Sedang</option>
-                        <option value="hard">Sulit</option>
-                    </select>
+                    <label for="title">Judul Quest</label>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="Contoh: Belajar Laravel 1 Jam" required>
                 </div>
                 <div class="form-group">
-                    <label for="frequency">Frekuensi</label>
-                    <select id="frequency" name="frequency" class="form-control">
-                        <option value="once">Sekali Jalan</option>
-                        <option value="daily">Harian</option>
-                        <option value="weekly">Mingguan</option>
-                    </select>
+                    <label for="description">Deskripsi</label>
+                    <textarea id="description" name="description" rows="4" class="form-control" placeholder="Deskripsikan aktivitas yang harus dilakukan..."></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="stat_reward_type">Hadiah Stat</label>
-                    <select id="stat_reward_type" name="stat_reward_type" class="form-control">
-                        <option value="">Tidak Ada</option>
-                        <option value="intelligence">Intelligence (Belajar, Membaca)</option>
-                        <option value="strength">Strength (Olahraga Angkat Beban)</option>
-                        <option value="stamina">Stamina (Lari, Kardio)</option>
-                        <option value="agility">Agility (Olahraga, Refleks)</option>
-                    </select>
+                
+                {{-- Menggunakan class untuk grid --}}
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="difficulty">Kesulitan</label>
+                        <select id="difficulty" name="difficulty" class="form-control">
+                            <option value="easy">Mudah</option>
+                            <option value="medium">Sedang</option>
+                            <option value="hard">Sulit</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency">Frekuensi</label>
+                        <select id="frequency" name="frequency" class="form-control">
+                            <option value="once">Sekali Jalan</option>
+                            <option value="daily">Harian</option>
+                            <option value="weekly">Mingguan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="stat_reward_type">Hadiah Stat</label>
+                        <select id="stat_reward_type" name="stat_reward_type" class="form-control">
+                            <option value="">Tidak Ada</option>
+                            <option value="intelligence">Intelligence (Belajar, Membaca)</option>
+                            <option value="strength">Strength (Olahraga Angkat Beban)</option>
+                            <option value="stamina">Stamina (Lari, Kardio)</option>
+                            <option value="agility">Agility (Olahraga, Refleks)</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-             <p style="color: #b0b0c0; font-size: 0.9rem; margin-bottom: 1.5rem;">Hadiah EXP, Gold, dan Poin Stat akan dihitung otomatis berdasarkan Kesulitan.</p>
-            
-             <button type="submit" class="btn btn-primary"><i class="bi bi-save-fill"></i> Simpan Quest</button>
-        </form>
+                {{-- Menggunakan class untuk hint text --}}
+                 <p class="form-hint">Hadiah EXP, Gold, dan Poin Stat akan dihitung otomatis berdasarkan Kesulitan.</p>
+                
+                 <button type="submit" class="btn btn-primary"><i class="bi bi-save-fill"></i> Simpan Quest</button>
+            </form>
+        </div>
     </div>
     
     {{-- Konten Tab 4: Riwayat Quest Selesai --}}
     <div id="completedQuests" class="tab-content">
-         <h2 class="section-title" style="text-align: left; font-size: 1.8rem; margin-bottom: 1.5rem;">Quest Selesai</h2>
+         
+         {{-- Menggunakan section-header style dari dashboard --}}
+         <div class="section-header">
+            <i class="bi bi-archive-fill"></i>
+            <h2 class="section-title">Quest Selesai</h2>
+         </div>
          
          @forelse ($completedQuests as $log)
-         <div class="quest-card" style="opacity: 0.7; border-color: rgba(52, 211, 153, 0.5);">
+         {{-- Menambahkan class .glass-card dan class .history --}}
+         <div class="quest-card glass-card history">
             <div class="quest-info">
-                <h3 style="color: #34d399; text-decoration: line-through;">{{ $log->quest->title }}</h3>
+                <h3>{{ $log->quest->title }}</h3>
                 <p>Diselesaikan pada: {{ $log->updated_at->format('d F Y, H:i') }}</p>
                 <div class="quest-rewards">
                     <span class="reward-tag"><i class="bi bi-star-fill"></i> {{ $log->quest->exp_reward }} EXP</span>
@@ -206,7 +236,7 @@
             </div>
         </div>
          @empty
-         <p style="color: #b0b0c0;">Anda belum menyelesaikan quest apapun.</p>
+         <p class="empty-state-text">Anda belum menyelesaikan quest apapun.</p>
          @endforelse
     </div>
 
