@@ -76,6 +76,34 @@
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
 
+/* === BARU: Style untuk Ikon Mata Password === */
+.input-wrapper {
+    position: relative;
+}
+
+/* Input di dalam wrapper akan memiliki padding kanan lebih besar */
+.input-wrapper > input {
+    /* Padding-right ditambah untuk memberi ruang bagi ikon */
+    padding-right: 3rem; 
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 1rem; /* Jarak ikon dari tepi kanan input */
+    transform: translateY(-50%);
+    color: #b0b0c0; /* Warna ikon standar */
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: #00d4ff; /* Warna ikon saat di-hover */
+}
+/* === AKHIR BARU === */
+
+
 .checkbox-group {
     display: flex;
     align-items: center;
