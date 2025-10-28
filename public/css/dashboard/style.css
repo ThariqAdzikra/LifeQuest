@@ -573,4 +573,11 @@ body::before {
     .activity-list-wrapper {
         max-height: 250px;
     }
+
+    /* === BLOK INI DITAMBAHKAN === */
+    .stat-label {
+        font-size: 0.75rem; /* Mengecilkan font */
+        letter-spacing: 0;  /* Menghapus spasi antar huruf */
+    }
+    /* === AKHIR BLOK TAMBAHAN === */
 }

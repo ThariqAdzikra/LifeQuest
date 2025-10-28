@@ -24,7 +24,8 @@
                             "Kesuksesan adalah hasil dari persiapan kecil yang dilakukan berulang kali."
                         </div>
                     </div>
-                    <img src="{{ asset('images/char.png') }}" alt="Character" class="character-image d-none d-md-block">
+                    {{-- --- PERUBAHAN DI SINI: Hapus d-none d-md-block --- --}}
+                    <img src="{{ asset('images/char.png') }}" alt="Character" class="character-image">
                 </div>
             </div>
         </div>

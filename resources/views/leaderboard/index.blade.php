@@ -4,13 +4,16 @@
 
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+{{-- Memanggil file CSS kustom untuk leaderboard --}}
 <link rel="stylesheet" href="{{ asset('css/leaderboard/style.css') }}">
 @endpush
 
 @section('content')
 
+{{-- Menggunakan container yang sama dengan halaman lain --}}
 <div class="leaderboard-container">
     
+    {{-- Judul Halaman (gaya dari patokan) --}}
     <h1 class="page-title">
         <i class="bi bi-bar-chart-line-fill page-title-icon"></i>
         Leaderboard
@@ -18,9 +21,11 @@
     <p class="page-subtitle">Lihat posisimu di antara para petualang LifeQuest lainnya.</p>
 
     {{-- 
-      (DIUBAH) Hanya tampilkan jika 'is_admin' adalah 0 (BUKAN 'role')
+      ==================================================================
+      KARTU PERINGKAT PENGGUNA (HANYA TAMPIL JIKA BUKAN ADMIN)
+      ==================================================================
     --}}
-    @if(Auth::user()->is_admin == 0 && $currentUserRank)
+    @if(Auth::user()->role !== 'admin' && $currentUserRank)
         <div class="glass-card user-rank-card">
             <div class="rank-display">
                 <div class="rank-label">Peringkat Anda</div>
@@ -31,13 +36,11 @@
                 <div class="user-stats">
                     <span>
                         <i class="bi bi-shield-fill-check"></i> 
-                        {{-- Ini sudah benar karena DB Anda punya 'level' --}}
-                        Level {{ $currentUser->level }} 
+                        Level {{ $currentUser->level }}
                     </span>
                     <span>
                         <i class="bi bi-star-fill"></i> 
-                        {{-- (DIUBAH) Menggunakan 'experience_points' (BUKAN 'exp') --}}
-                        {{ number_format($currentUser->experience_points) }} EXP
+                        {{ number_format($currentUser->exp) }} EXP
                     </span>
                     <span>
                         <i class="bi bi-coin"></i> 
@@ -50,11 +53,14 @@
     {{-- Akhir dari kondisi --}}
 
 
+    {{-- Judul Section (gaya dari patokan) --}}
     <h2 class="section-title-sub">
         <i class="bi bi-trophy-fill"></i> Top 20 Users
     </h2>
 
+    {{-- Daftar Leaderboard --}}
     <div class="glass-card leaderboard-list">
+        {{-- Header Tabel --}}
         <div class="leaderboard-header">
             <div class="header-rank">Rank</div>
             <div class="header-user">User</div>
@@ -63,6 +69,7 @@
             <div class="header-gold">Gold</div>
         </div>
 
+        {{-- Body Tabel (Looping) --}}
         @foreach ($topUsers as $user)
             @php
                 $rank = $loop->iteration;
@@ -70,11 +77,13 @@
                 if ($rank == 1) $rankClass = 'rank-1';
                 if ($rank == 2) $rankClass = 'rank-2';
                 if ($rank == 3) $rankClass = 'rank-3';
+                // Highlight juga baris jika itu adalah user yang sedang login
                 if ($user->id == $currentUser->id) $rankClass .= ' current-user-row';
             @endphp
         
             <div class="leaderboard-row {{ $rankClass }}">
                 <div class="rank-col">
+                    {{-- Ikon untuk Top 3 --}}
                     @if($rank == 1) <i class="bi bi-trophy-fill"></i>
                     @elseif($rank == 2) <i class="bi bi-award-fill"></i>
                     @elseif($rank == 3) <i class="bi bi-patch-check-fill"></i>
@@ -85,12 +94,10 @@
                     {{ $user->name }}
                 </div>
                 <div class="level-col">
-                    {{-- Ini sudah benar --}}
                     {{ $user->level }}
                 </div>
                 <div class="exp-col">
-                    {{-- (DIUBAH) Menggunakan 'experience_points' (BUKAN 'exp') --}}
-                    {{ number_format($user->experience_points) }}
+                    {{ number_format($user->exp) }}
                 </div>
                 <div class="gold-col">
                     {{ number_format($user->gold) }}
