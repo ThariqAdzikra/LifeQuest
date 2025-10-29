@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,9 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
-        // FUNGSI getStatIcon() TELAH DIHAPUS DARI SINI
-        // KITA PINDAHKAN KE app/Helpers/helpers.php
-        //
+        // Menggunakan Bootstrap 5 untuk pagination
+        Paginator::useBootstrapFive();
     }
 }

@@ -12,6 +12,17 @@ class Quest extends Model
     // Izinkan semua kolom diisi (atau tentukan $fillable)
     protected $guarded = [];
 
+    // --- TAMBAHAN DI SINI ---
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+    // --- AKHIR TAMBAHAN ---
+
     /**
      * Relasi ke User (pembuat quest).
      */

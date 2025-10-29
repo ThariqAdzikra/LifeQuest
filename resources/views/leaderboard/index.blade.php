@@ -25,7 +25,8 @@
       KARTU PERINGKAT PENGGUNA (HANYA TAMPIL JIKA BUKAN ADMIN)
       ==================================================================
     --}}
-    @if(Auth::user()->role !== 'admin' && $currentUserRank)
+    {{-- [PERBAIKAN] Menggunakan 'is_admin == 0' agar konsisten dengan controller --}}
+    @if(Auth::user()->is_admin == 0 && $currentUserRank)
         <div class="glass-card user-rank-card">
             <div class="rank-display">
                 <div class="rank-label">Peringkat Anda</div>
@@ -36,15 +37,18 @@
                 <div class="user-stats">
                     <span>
                         <i class="bi bi-shield-fill-check"></i> 
+                        {{-- Menggunakan $currentUser->level (dari Accessor) --}}
                         Level {{ $currentUser->level }}
                     </span>
+                    {{-- [PERUBAHAN] Menampilkan stat baru (Quest Admin Selesai) --}}
+                    <span>
+                        <i class="bi bi-patch-check-fill"></i> 
+                        {{ $currentUserQuestCount }} Quest Admin
+                    </span>
+                    {{-- [PERBAIKAN] Menggunakan 'exp' (sesuai User.php) --}}
                     <span>
                         <i class="bi bi-star-fill"></i> 
                         {{ number_format($currentUser->exp) }} EXP
-                    </span>
-                    <span>
-                        <i class="bi bi-coin"></i> 
-                        {{ number_format($currentUser->gold) }} Gold
                     </span>
                 </div>
             </div>
@@ -65,8 +69,9 @@
             <div class="header-rank">Rank</div>
             <div class="header-user">User</div>
             <div class="header-level">Level</div>
-            <div class="header-exp">EXP</div>
-            <div class="header-gold">Gold</div>
+            {{-- [PERUBAHAN] Label kolom diganti --}}
+            <div class="header-exp">Quest Admin</div>
+            <div class="header-gold">Total EXP</div>
         </div>
 
         {{-- Body Tabel (Looping) --}}
@@ -94,13 +99,16 @@
                     {{ $user->name }}
                 </div>
                 <div class="level-col">
+                    {{-- Menggunakan $user->level (dari Accessor) --}}
                     {{ $user->level }}
                 </div>
+                {{-- [PERBAIKAN] Menampilkan 'quest_logs_count' (dari Controller) --}}
                 <div class="exp-col">
-                    {{ number_format($user->exp) }}
+                    {{ $user->quest_logs_count }}
                 </div>
+                {{-- [PERBAIKAN] Menampilkan 'exp' (sesuai User.php) --}}
                 <div class="gold-col">
-                    {{ number_format($user->gold) }}
+                    {{ number_format($user->exp) }}
                 </div>
             </div>
         @endforeach
