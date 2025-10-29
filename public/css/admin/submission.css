@@ -1,0 +1,370 @@
+/* =================================
+   GAYA GLOBAL (DARI PATOKAN STYLE GUIDE)
+   ================================= */
+body {
+    background-color: #0a0e27;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Default) */
+    color: #cbd5e1;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../../images/heroLanding.jpg'); /* Path disesuaikan */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(10px);
+    opacity: 0.3;
+    z-index: -2;
+}
+
+/* =================================
+   LAYOUT CONTAINER
+   ================================= */
+.quest-board-container {
+    max-width: 1140px; 
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* =================================
+   JUDUL HALAMAN & SECTION
+   ================================= */
+.page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #00d4ff, #00aeff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-weight: 700; 
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; 
+}
+
+.page-subtitle {
+    color: #94a3b8; 
+    margin-bottom: 0; /* Hapus margin bawah agar pas di header */
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+
+/* [PERUBAHAN] Style header agar sama dengan halaman lain */
+.page-header-admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    flex-wrap: wrap; 
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.75rem;
+}
+
+.section-header i {
+    font-size: 1.2rem;
+    color: #00d4ff; 
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-size: 1.5rem;
+    color: #e2e8f0; 
+    margin: 0;
+}
+
+/* =================================
+   GAYA KARTU
+   ================================= */
+.glass-card {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem; 
+    transition: all 0.3s ease;
+    overflow: hidden;
+    padding: 2rem; /* Padding default */
+}
+
+/* Wrapper untuk list submission */
+.manage-quest-wrapper {
+    padding: 1.5rem;
+}
+.manage-quest-wrapper:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* =================================
+   GAYA TOMBOL
+   ================================= */
+.btn {
+    padding: 0.75rem 1.5rem; 
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; 
+    white-space: nowrap; 
+}
+.btn i {
+    font-size: 1.1rem;
+    margin: 0; 
+}
+
+.btn-primary {
+    background: #00d4ff;
+    color: #0a0e27; 
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    background: #00aeff; 
+}
+
+.btn-danger {
+    background: rgba(220, 38, 38, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(220, 38, 38, 0.4);
+}
+.btn-danger:hover {
+    background: rgba(220, 38, 38, 0.3);
+    border-color: #ef4444;
+    color: #ffffff;
+}
+
+.btn-success {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+.btn-success:hover {
+    background: rgba(16, 185, 129, 0.3);
+    border-color: #10b981;
+    color: #ffffff;
+}
+
+/* =================================
+   GAYA SPESIFIK SUBMISSION
+   ================================= */
+
+/* Alert Notifikasi */
+.alert-success-glass {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #10b981;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+.alert-danger-glass {
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.4);
+    color: #f87171;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+/* Kartu Submission (reuse .quest-card-inner) */
+.quest-card-inner {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+}
+.quest-card-inner:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 212, 255, 0.3);
+    background: rgba(15, 23, 42, 0.7);
+}
+.quest-card-inner:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Teks jika kosong */
+.empty-state-text {
+    color: #94a3b8;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    margin: 0;
+    flex: 1;
+}
+
+.quest-info {
+    flex-grow: 1;
+    min-width: 300px; 
+}
+.quest-info h3 {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #e2e8f0; 
+    letter-spacing: 1px;
+}
+.quest-info .quest-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+.quest-info .quest-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.quest-info .quest-meta i {
+    color: #00d4ff;
+}
+
+/* Kotak Catatan User */
+.submission-notes-user {
+    color: #cbd5e1; 
+    background: rgba(0,0,0,0.2); 
+    padding: 0.75rem 1rem; 
+    border-radius: 8px; 
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+.submission-notes-user strong {
+    color: #e2e8f0;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+/* Tombol Aksi (Approve/Reject) */
+.quest-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 160px; 
+    flex-shrink: 0;
+    margin-left: auto;
+}
+.quest-actions .btn,
+.quest-actions form {
+    width: 100%;
+    margin: 0;
+}
+.quest-actions .btn {
+    width: 100%;
+}
+
+/* =================================
+   PAGINASI
+   ================================= */
+.pagination-links {
+    /* [PERUBAHAN] Sesuaikan margin untuk di dalam card */
+    margin-top: 1.5rem; 
+    margin-bottom: 0; /* Hapus margin bawah */
+    padding: 0; /* Hapus padding */
+    display: flex;
+    justify-content: center;
+}
+.pagination-links .pagination {
+    display: flex !important; 
+    gap: 0.5rem;
+    margin: 0 auto !important;
+    padding-left: 0 !important;
+    list-style: none !important;
+}
+.page-item {
+    display: inline-block;
+}
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #94a3b8;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+.page-link:hover {
+    background: rgba(0, 212, 255, 0.1);
+    color: #e2e8f0;
+    transform: translateY(-2px);
+}
+.page-item.active .page-link {
+    background: #00d4ff;
+    border-color: #00d4ff;
+    color: #0a0e27;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+.page-item.disabled .page-link {
+    background: transparent;
+    border-color: transparent;
+    color: #475569;
+    opacity: 0.5;
+}
+
+/* =================================
+   GAYA SWEETALERT
+   ================================= */
+.swal2-popup {
+    background: #0f172a !important; 
+    color: #cbd5e1 !important; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem !important; 
+}
+.swal2-title {
+    color: #e2e8f0 !important;
+}
+.swal2-confirm {
+    background: #00d4ff !important;
+    color: #0a0e27 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3) !important;
+}
+.swal2-cancel {
+    background: rgba(220, 38, 38, 0.15) !important;
+    color: #f87171 !important;
+    border: 1px solid rgba(220, 38, 38, 0.4) !important;
+    border-radius: 8px !important;
+}

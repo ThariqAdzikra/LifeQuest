@@ -3,6 +3,7 @@
    ================================= */
 body {
     background-color: #0a0e27;
+    /* [SESUAI GUIDELINE] Font 'Poppins' sebagai default */
     font-family: 'Poppins', sans-serif;
     color: #cbd5e1;
     overflow-x: hidden;
@@ -42,13 +43,21 @@ body::before {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    /* [SESUAI GUIDELINE] Font 'Orbitron' untuk judul */
     font-family: 'Orbitron', sans-serif;
+    font-weight: 700; /* [FIX] Menambahkan ketebalan font */
+    
+    /* [FIX] Agar ikon dan teks sejajar */
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; 
 }
 
 .page-subtitle {
     color: #94a3b8; 
     margin-bottom: 2rem;
     font-size: 1.1rem;
+    /* Font default 'Poppins' diwarisi dari <body> */
 }
 
 /* =================================
@@ -63,12 +72,14 @@ body::before {
     padding-bottom: 0.75rem;
 }
 
+/* [SESUAI GUIDELINE] Ikon Bootstrap (bi) diberi warna aksen */
 .section-header i {
     font-size: 1.2rem;
     color: #00d4ff; /* Aksen cyan */
 }
 
 .section-title {
+    /* [SESUAI GUIDELINE] Font 'Orbitron' untuk sub-judul */
     font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
     color: #e2e8f0; 
@@ -95,6 +106,7 @@ body::before {
     transition: all 0.3s ease;
     border-bottom: 3px solid transparent;
     margin-bottom: -1px; 
+    /* Font 'Poppins' diwarisi dari <body> */
 }
 
 .tab-link:hover {
@@ -141,6 +153,7 @@ body::before {
 /* =================================
    GAYA KARTU (DISAMAKAN DENGAN .GLASS-CARD)
    ================================= */
+/* [SESUAI GUIDELINE] Efek Glassmorphism */
 .glass-card {
     background: rgba(15, 23, 42, 0.7);
     backdrop-filter: blur(12px);
@@ -297,6 +310,7 @@ body::before {
 }
 
 .quest-info h3 {
+    /* [SESUAI GUIDELINE] Font 'Orbitron' untuk judul kartu */
     font-family: 'Orbitron', sans-serif;
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
@@ -308,6 +322,7 @@ body::before {
     line-height: 1.6;
     font-size: 0.95rem;
     margin-bottom: 1rem;
+    /* Font 'Poppins' diwarisi dari <body> */
 }
 
 /* Style untuk meta Frekuensi & Kesulitan */
@@ -324,6 +339,7 @@ body::before {
     align-items: center;
     gap: 0.5rem;
 }
+/* [SESUAI GUIDELINE] Ikon Bootstrap (bi) diberi warna aksen */
 .quest-info .quest-meta i {
     color: #00d4ff;
 }
@@ -343,7 +359,7 @@ body::before {
 }
 
 .reward-tag {
-    font-size: 0.85rem; 
+    font-size: 0.9rem; /* Sedikit diperbesar untuk 'Orbitron' */
     font-weight: 600;
     color: #cbd5e1; 
     display: flex;
@@ -353,17 +369,20 @@ body::before {
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    /* [FIX] Terapkan 'Orbitron' ke stat/angka sesuai patokan 'Achievements' */
+    font-family: 'Orbitron', sans-serif;
 }
+/* [SESUAI GUIDELINE] Ikon Bootstrap (bi) diberi warna semantik */
 .reward-tag i {
     font-size: 1.1rem;
 }
 .reward-tag .bi-star-fill { color: #facc15; }
 .reward-tag .bi-coin { color: #eab308; }
 .reward-tag .bi-clock { color: #00d4ff; } 
-.reward-tag .bi-brain { color: #00d4ff; } 
-.reward-tag .bi-person-arms-up { color: #00d4ff; } 
-.reward-tag .bi-lightning-charge-fill { color: #00d4ff; } 
-.reward-tag .bi-wind { color: #00d4ff; } 
+.reward-tag .bi-brain { color: #00d4ff; } /* Untuk stat 'intelligence' */
+.reward-tag .bi-person-arms-up { color: #00d4ff; } /* Untuk stat 'strength' */
+.reward-tag .bi-lightning-charge-fill { color: #00d4ff; } /* Untuk stat 'stamina' */
+.reward-tag .bi-wind { color: #00d4ff; } /* Untuk stat 'agility' */
 
 
 .quest-actions {
@@ -376,16 +395,6 @@ body::before {
 }
 .quest-actions .btn {
     width: 100%;
-}
-
-/* Style ini tidak lagi digunakan, diganti .quest-card-inner.history */
-.quest-card.history {
-    /* ... */
-}
-
-/* Style ini tidak lagi digunakan, diganti .quest-card-inner.paused */
-.quest-card.paused {
-    /* ... */
 }
 
 
@@ -401,6 +410,7 @@ body::before {
     color: #94a3b8; 
     font-weight: 600;
     font-size: 0.9rem;
+    /* Font 'Poppins' diwarisi dari <body> */
 }
 .form-control {
     width: 100%;
@@ -411,6 +421,7 @@ body::before {
     border-radius: 8px;
     color: #e2e8f0; /* WARNA TEKS INPUT (PUTIH) */
     transition: all 0.3s ease;
+    /* Font 'Poppins' diwarisi dari <body> */
 }
 .form-control:focus {
     background: rgba(15, 23, 42, 0.7);
@@ -426,6 +437,7 @@ select.form-control {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    /* [SESUAI GUIDELINE] Menggunakan SVG untuk panah dropdown, disesuaikan dengan Bootstrap Icon */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708 .708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
@@ -461,6 +473,7 @@ select.form-control option {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    /* [SESUAI GUIDELINE] Font 'Poppins' untuk tombol */
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
     display: inline-flex;
@@ -468,6 +481,7 @@ select.form-control option {
     justify-content: center;
     gap: 0.5rem; 
 }
+/* [SESUAI GUIDELINE] Styling untuk Ikon Bootstrap di dalam tombol */
 .btn i {
     font-size: 1.1rem;
     margin: 0; 
@@ -540,17 +554,15 @@ select.form-control option {
    GAYA PAGINASI BOOTSTRAP 5 KUSTOM
    ================================= */
 
-/* Kontainer pagination default (untuk yg di LUAR card, seperti di tab Riwayat).
-*/
 .quest-pagination-container {
     position: relative;
     display: block;
     width: 100%;
-    margin-top: 2rem; /* Jarak atas dari card terakhir */
-    margin-bottom: 2rem; /* Jarak bawah */
+    margin-top: 2rem; 
+    margin-bottom: 2rem; 
     padding-top: 0;
     float: none;
-    clear: both; /* Memastikan posisinya di bawah */
+    clear: both; 
     top: auto;
     bottom: auto;
     left: auto;
@@ -558,31 +570,23 @@ select.form-control option {
     transform: none;
 }
 
-/* Style SPESIFIK untuk pagination yg ada DI DALAM .manage-quest-wrapper.
-   Ini akan menimpa style default di atas.
-*/
 .manage-quest-wrapper .quest-pagination-container {
-    margin-top: 1.5rem;  /* Jarak dari quest item terakhir di atasnya */
-    margin-bottom: 0;  /* Tidak perlu margin bawah, sudah di dalam padding card */
-    padding: 0; /* Tidak perlu padding, sudah di dalam padding card */
+    margin-top: 1.5rem;  
+    margin-bottom: 0;  
+    padding: 0; 
 }
 
-/* Style untuk teks "Showing X to Y of Z results" */
-/* Target text-muted di dalam container pagination */
 .quest-pagination-container .text-muted {
-    color: #cbd5e1 !important; /* Paksa warna putih (slate-300) */
+    color: #cbd5e1 !important; 
 }
 
-/* Target elemen <p> yang mungkin ada di dalam nav */
 .quest-pagination-container nav > p {
-     color: #cbd5e1 !important; /* Paksa warna putih (slate-300) */
+     color: #cbd5e1 !important; 
 }
 
-
-/* Styling NAV dan UL di dalam kontainer */
 .quest-pagination-container nav {
     width: 100%;
-    display: block !important; /* !important dijaga untuk menimpa bootstrap */
+    display: block !important; 
     position: static !important;
 }
 
@@ -615,9 +619,9 @@ select.form-control option {
     height: 40px;
     padding: 0.5rem 0.75rem;
     text-decoration: none;
-    background: transparent; /* DIBUAT TRANSPARAN */
-    backdrop-filter: none; /* DIHILANGKAN */
-    border: 1px solid transparent; /* DIBUAT TRANSPARAN */
+    background: transparent; 
+    backdrop-filter: none; 
+    border: 1px solid transparent; 
     color: #94a3b8;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -625,16 +629,16 @@ select.form-control option {
 }
 
 .page-link:hover {
-    background: rgba(0, 212, 255, 0.1); /* HOVER BARU (Highlight) */
-    border-color: transparent; /* TETAP TRANSPARAN */
+    background: rgba(0, 212, 255, 0.1); 
+    border-color: transparent; 
     color: #e2e8f0;
     transform: translateY(-2px);
-    box-shadow: none; /* SHADOW DIHILANGKAN */
+    box-shadow: none; 
 }
 
 .page-item.active .page-link {
     z-index: 3;
-    background: #00d4ff; /* STATE ACTIVE TETAP SOLID (PENTING UNTUK UX) */
+    background: #00d4ff; 
     border-color: #00d4ff;
     color: #0a0e27;
     font-weight: 700;
@@ -642,15 +646,14 @@ select.form-control option {
 }
 
 .page-item.disabled .page-link {
-    background: transparent; /* DIBUAT TRANSPARAN */
-    border-color: transparent; /* DIBUAT TRANSPARAN */
+    background: transparent; 
+    border-color: transparent; 
     color: #475569;
     pointer-events: none;
     cursor: not-allowed;
     opacity: 0.5;
 }
 
-/* Style untuk tombol Previous & Next */
 .page-link[rel="prev"],
 .page-link[rel="next"] {
     font-weight: 600;
@@ -658,10 +661,9 @@ select.form-control option {
 
 .page-link[rel="prev"]:hover,
 .page-link[rel="next"]:hover {
-    background: rgba(0, 212, 255, 0.1); /* Samakan hover state */
+    background: rgba(0, 212, 255, 0.1); 
 }
 
-/* Responsive pagination */
 @media (max-width: 576px) {
     .pagination {
         gap: 0.25rem;
@@ -703,30 +705,24 @@ select.form-control option {
 
 
 /* =================================
-   PERBAIKAN MODAL SUBMISSION - FORCE INTERACTION
-   (VERSI SUDAH DIPERBAIKI)
+   PERBAIKAN MODAL SUBMISSION
    ================================= */
 
-/* Lapisan gelap. z-index HARUS lebih rendah dari modal.
-   pointer-events: none; agar klik bisa tembus. */
 .modal-backdrop {
     background-color: rgba(0, 0, 0, 0.5) !important;
     z-index: 1050 !important; 
-    pointer-events: none !important; /* <-- DIPERBAIKI */
+    pointer-events: none !important; 
 }
 
-/* Kontainer modal. z-index HARUS lebih tinggi dari backdrop.
-   pointer-events: none; agar klik "di luar" dialog bisa menutup modal. */
 .modal {
     z-index: 1055 !important; 
-    pointer-events: none !important; /* <-- DIPERBAIKI */
+    pointer-events: none !important; 
 }
 
 .modal.show {
-    pointer-events: none !important; /* <-- DIPERBAIKI */
+    pointer-events: none !important; 
 }
 
-/* Dialog (kotak putih/glass). Ini yang harus bisa diklik. */
 .modal-dialog {
     pointer-events: auto !important;
 }
@@ -735,7 +731,8 @@ select.form-control option {
     pointer-events: auto !important;
 }
 
-.modal-body {
+#submissionModal .modal-body {
+    padding: 2rem;
     pointer-events: auto !important;
 }
 
@@ -743,7 +740,6 @@ select.form-control option {
     pointer-events: auto !important;
 }
 
-/* Custom styling untuk modal content */
 #submissionModal .modal-content {
     background: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(15px);
@@ -762,6 +758,8 @@ select.form-control option {
     color: #00d4ff;
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0;
 }
 
 #submissionModal .modal-header .btn-close {
@@ -774,12 +772,10 @@ select.form-control option {
     pointer-events: auto !important;
 }
 
-/* Form styling di modal */
 #submissionForm {
     pointer-events: auto !important;
 }
 
-/* Paksa semua elemen di dalam form agar bisa di-interaksi */
 #submissionForm * {
     pointer-events: auto !important;
 }
@@ -820,7 +816,6 @@ select.form-control option {
     color: #64748b;
 }
 
-/* File input styling - PENTING UNTUK DIKLIK */
 #submissionForm input[type="file"] {
     display: block !important;
     width: 100% !important;
@@ -853,7 +848,6 @@ select.form-control option {
     transform: translateY(-2px) !important;
 }
 
-/* Textarea styling */
 #submissionForm textarea.form-control {
     background: rgba(15, 23, 42, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -878,7 +872,6 @@ select.form-control option {
     color: #64748b;
 }
 
-/* Modal buttons */
 #submissionModal .modal-footer .btn {
     padding: 0.75rem 1.5rem;
     font-weight: 600;

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Achievement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str; // Import Str untuk membuat slug
 
 class AdminAchievementController extends Controller
 {
@@ -37,11 +38,16 @@ class AdminAchievementController extends Controller
             $iconPath = $request->file('icon')->store('achievements/icons', 'public');
         }
 
-        Achievement::create([
+        // Buat array data untuk menyertakan key_name
+        $data = [
             'title' => $validated['title'],
             'description' => $validated['description'],
             'icon_path' => $iconPath,
-        ]);
+            'key_name' => Str::slug($validated['title'], '_'), // Membuat 'key_name'
+            'condition' => [], // <-- [PERBAIKAN KEDUA] Tambahkan baris ini
+        ];
+
+        Achievement::create($data); // Simpan data
 
         return redirect()->route('admin.achievements.index')->with('success', 'Achievement berhasil dibuat.');
     }
@@ -72,11 +78,16 @@ class AdminAchievementController extends Controller
             $iconPath = $request->file('icon')->store('achievements/icons', 'public');
         }
 
-        $achievement->update([
+        // Buat array data untuk update
+        $data = [
             'title' => $validated['title'],
             'description' => $validated['description'],
             'icon_path' => $iconPath,
-        ]);
+            'key_name' => Str::slug($validated['title'], '_'), // Update key_name
+            // 'condition' tidak perlu di-update jika form edit tidak mengubahnya
+        ];
+
+        $achievement->update($data); // Update data
 
         return redirect()->route('admin.achievements.index')->with('success', 'Achievement berhasil diperbarui.');
     }

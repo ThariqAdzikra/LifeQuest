@@ -1,38 +1,36 @@
 @extends('layouts.app')
 
-{{-- Tambahkan title --}}
 @section('title', 'Kelola Quest Admin - LifeQuest')
 
-{{-- Push style jika diperlukan (misal, style.css dari quest player) --}}
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/quest/style.css') }}"> {{-- Sesuaikan path jika beda --}}
+{{-- Memanggil file CSS kustom --}}
+<link rel="stylesheet" href="{{ asset('css/admin/quest.css') }}">
 @endpush
 
 @section('content')
-<div class="quest-board-container"> {{-- Gunakan container utama --}}
+<div class="quest-board-container">
 
     {{-- Header Halaman --}}
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <div class="page-header-admin">
         <div>
-            <h1 class="page-title"> {{-- Style judul utama --}}
-                <i class="bi bi-shield-check page-title-icon"></i> {{-- Tambahkan ikon jika mau --}}
+            <h1 class="page-title">
+                <i class="bi bi-shield-check"></i>
                 Kelola Quest Admin
             </h1>
-            <p class="page-subtitle">Buat, edit, atau hapus quest resmi untuk player.</p> {{-- Style subjudul --}}
+            <p class="page-subtitle">Buat, edit, atau hapus quest resmi untuk player.</p>
         </div>
         
         {{-- Tombol 'Buat Baru' --}}
-        <a href="{{ route('admin.quests.create') }}" class="btn btn-primary"> {{-- Class Bootstrap/kustom --}}
+        <a href="{{ route('admin.quests.create') }}" class="btn btn-primary">
             <i class="bi bi-plus-circle-fill"></i> Buat Baru
         </a>
     </div>
 
-    @include('partials.admin_alerts') {{-- Tampilkan notifikasi --}}
+    @include('partials.admin_alerts') {{-- Tampilkan notifikasi (jika ada) --}}
 
     {{-- Wrapper utama untuk daftar quest --}}
     <div class="glass-card manage-quest-wrapper">
         @forelse ($adminQuests as $quest)
-        {{-- Gunakan quest-card-inner untuk setiap item --}}
         <div class="quest-card-inner"> 
             <div class="quest-info">
                 <h3>{{ $quest->title }}</h3>
@@ -42,9 +40,8 @@
                     <span><i class="bi bi-bar-chart-line"></i> Kesulitan: {{ ucfirst($quest->difficulty) }}</span>
                 </div>
                 
-                {{-- Tampilkan deskripsi jika ada --}}
                 @if($quest->description)
-                    <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">{{ $quest->description }}</p>
+                    <p>{{ $quest->description }}</p>
                 @endif
                 
                 <div class="quest-rewards">
@@ -55,13 +52,13 @@
                         <i class="{{ getStatIcon($quest->stat_reward_type) }}"></i> +{{ $quest->stat_reward_value }} {{ ucfirst($quest->stat_reward_type) }}
                     </span>
                     @endif
-                    {{-- Tampilkan Achievement jika ada --}}
-                    @if($quest->achievement) {{-- Cek relasi sudah diload --}}
-                    <span class="reward-tag" style="background: rgba(167, 139, 250, 0.15); border-color: rgba(167, 139, 250, 0.4);">
+                    
+                    @if($quest->achievement)
+                    <span class="reward-tag reward-tag-achievement">
                          @if($quest->achievement->icon_path)
-                         <img src="{{ Storage::url($quest->achievement->icon_path) }}" alt="icon" style="width: 16px; height: 16px; border-radius: 4px; margin-right: 4px; object-fit: contain;">
+                         <img src="{{ Storage::url($quest->achievement->icon_path) }}" alt="icon" class="achievement-icon">
                          @else
-                         <i class="bi bi-award-fill" style="color: #a78bfa;"></i> 
+                         <i class="bi bi-award-fill"></i> 
                          @endif
                         Title: {{ $quest->achievement->title }}
                     </span>
@@ -71,18 +68,15 @@
             
             {{-- Tombol Aksi Admin --}}
             <div class="quest-actions">
-                {{-- TOMBOL EDIT (arahkah ke route edit) --}}
-                {{-- 
-                <a href="{{ route('admin.quests.edit', $quest->id) }}" class="btn btn-warning"> 
-                    <i class="bi bi-pencil-fill"></i> Edit
-                </a> 
-                --}}
                 
-                {{-- TOMBOL HAPUS --}}
-                <form action="{{ route('admin.quests.destroy', $quest->id) }}" method="POST" onsubmit="return confirm('Anda yakin ingin menghapus quest ini? Ini juga akan menghapus log terkait.');">
+                {{-- [PERUBAHAN] TOMBOL EDIT TELAH DIHAPUS --}}
+                
+                {{-- TOMBOL HAPUS (Gunakan SweetAlert) --}}
+                <form action="{{ route('admin.quests.destroy', $quest->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger" style="width: 100%;"> {{-- Pastikan lebar penuh --}}
+                    {{-- Class 'btn-delete-quest' akan ditangkap oleh JS --}}
+                    <button type="submit" class="btn btn-danger btn-delete-quest">
                         <i class="bi bi-trash-fill"></i> Hapus
                     </button>
                 </form>
@@ -90,12 +84,12 @@
         </div>
         @empty
         {{-- Tampilan jika tidak ada quest --}}
-        <p class="empty-state-text" style="margin: 0; flex: 1;"> 
+        <p class="empty-state-text"> 
             Anda belum membuat quest admin.
         </p>
         @endforelse
 
-        {{-- Tampilkan Link Paginasi di dalam wrapper jika ada quest --}}
+        {{-- Tampilkan Link Paginasi --}}
         @if ($adminQuests->hasPages())
             <div class="quest-pagination-container" data-section="admin-quests">
                 {{ $adminQuests->links() }}
@@ -105,7 +99,16 @@
 </div>
 @endsection
 
-{{-- Helper function untuk ikon stat (jika belum ada, taruh di app/Helpers/helpers.php) --}}
+@push('scripts')
+{{-- 1. Panggil SweetAlert CDN --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- 2. Panggil file JS kustom Anda --}}
+<script src="{{ asset('js/admin/quest.js') }}"></script>
+@endpush
+
+
+{{-- Helper function (Tetap di sini atau pindah ke AppServiceProvider/Helpers) --}}
 @php
 if (!function_exists('getStatIcon')) {
     function getStatIcon($statType) {

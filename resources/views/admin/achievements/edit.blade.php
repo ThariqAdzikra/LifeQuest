@@ -1,14 +1,32 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="quest-board-container" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+@section('title', 'Edit Achievement - Admin')
 
-    <div class="section-header">
-        <i class="bi bi-pencil-fill"></i>
-        <h2 class="section-title">Edit Achievement: {{ $achievement->title }}</h2>
+@push('styles')
+{{-- Memanggil file CSS kustom --}}
+<link rel="stylesheet" href="{{ asset('css/admin/achievement.css') }}">
+@endpush
+
+@section('content')
+{{-- Container lebih sempit untuk form --}}
+<div class="quest-board-container container-narrow">
+
+    {{-- Header Halaman --}}
+    <div class="page-header-admin">
+        <div>
+            <h1 class="page-title">
+                <i class="bi bi-pencil-fill"></i>
+                Edit Achievement
+            </h1>
+            <p class="page-subtitle">Edit detail untuk: {{ $achievement->title }}</p>
+        </div>
+        <a href="{{ route('admin.achievements.index') }}" class="btn btn-secondary-glass">
+            <i class="bi bi-arrow-left"></i> Batal
+        </a>
     </div>
     
-    <div class="glass-card" style="padding: 2rem;">
+    {{-- Card Form --}}
+    <div class="glass-card">
         @include('partials.admin_validation_errors') {{-- Include partials error --}}
         
         <form action="{{ route('admin.achievements.update', $achievement) }}" method="POST" enctype="multipart/form-data">
@@ -28,19 +46,19 @@
             <div class="form-group">
                 <label for="icon">Ikon Achievement (Opsional)</label>
                  @if($achievement->icon_path)
-                 <div style="margin-bottom: 0.5rem;">
-                     <img src="{{ Storage::url($achievement->icon_path) }}" alt="Current Icon" style="max-height: 60px; border-radius: 8px; background: rgba(255,255,255,0.1); padding: 5px;">
-                     <small class="d-block text-muted">Ikon saat ini. Upload baru untuk mengganti.</small>
+                 {{-- Gunakan class untuk styling preview --}}
+                 <div class="current-icon-preview">
+                     <img src="{{ Storage::url($achievement->icon_path) }}" alt="Current Icon">
+                     <small class="d-block">Ikon saat ini. Upload baru untuk mengganti.</small>
                  </div>
                  @endif
                 <input type="file" id="icon" name="icon" class="form-control" accept="image/*">
-                <small class="form-text text-muted">Format: JPG, PNG, GIF, SVG. Maks 1MB.</small>
+                <small class="form-text">Format: JPG, PNG, GIF, SVG. Maks 1MB.</small>
             </div>
             
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">
                 <i class="bi bi-save-fill"></i> Simpan Perubahan
             </button>
-            <a href="{{ route('admin.achievements.index') }}" class="btn btn-secondary">Batal</a>
         </form>
     </div>
 </div>

@@ -1,14 +1,32 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="quest-board-container" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+@section('title', 'Buat Achievement - Admin')
 
-    <div class="section-header">
-        <i class="bi bi-award-fill"></i>
-        <h2 class="section-title">Buat Achievement Baru</h2>
+@push('styles')
+{{-- Memanggil file CSS kustom --}}
+<link rel="stylesheet" href="{{ asset('css/admin/achievement.css') }}">
+@endpush
+
+@section('content')
+{{-- Container lebih sempit untuk form --}}
+<div class="quest-board-container container-narrow">
+
+    {{-- Header Halaman --}}
+    <div class="page-header-admin">
+        <div>
+            <h1 class="page-title">
+                <i class="bi bi-award-fill"></i>
+                Buat Achievement
+            </h1>
+            <p class="page-subtitle">Buat title achievement baru.</p>
+        </div>
+        <a href="{{ route('admin.achievements.index') }}" class="btn btn-secondary-glass">
+            <i class="bi bi-arrow-left"></i> Batal
+        </a>
     </div>
-    
-    <div class="glass-card" style="padding: 2rem;">
+
+    {{-- Card Form --}}
+    <div class="glass-card">
         @include('partials.admin_validation_errors') {{-- Include partials error --}}
         
         <form action="{{ route('admin.achievements.store') }}" method="POST" enctype="multipart/form-data">
@@ -27,13 +45,12 @@
             <div class="form-group">
                 <label for="icon">Ikon Achievement (Opsional)</label>
                 <input type="file" id="icon" name="icon" class="form-control" accept="image/*">
-                <small class="form-text text-muted">Format: JPG, PNG, GIF, SVG. Maks 1MB.</small>
+                <small class="form-text">Format: JPG, PNG, GIF, SVG. Maks 1MB.</small>
             </div>
             
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">
                 <i class="bi bi-save-fill"></i> Simpan Achievement
             </button>
-            <a href="{{ route('admin.achievements.index') }}" class="btn btn-secondary">Batal</a>
         </form>
     </div>
 </div>

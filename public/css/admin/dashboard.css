@@ -1,148 +1,286 @@
-/* public/css/admin/dashboard.css */
+/* =================================
+   GAYA GLOBAL (DARI PATOKAN STYLE GUIDE)
+   ================================= */
+body {
+    background-color: #0a0e27;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Default) */
+    color: #cbd5e1;
+    overflow-x: hidden;
+}
 
-/* --- Container (Assuming .quest-board-container is defined globally) --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../images/heroLanding.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(10px);
+    opacity: 0.3;
+    z-index: -2;
+}
 
-/* --- Titles (Assuming .page-title, .page-subtitle are defined globally) --- */
+/* =================================
+   LAYOUT CONTAINER
+   ================================= */
+.quest-board-container {
+    max-width: 1140px; 
+    margin: 0 auto;
+    padding: 2rem;
+}
 
-/* --- Section Header (Assuming .section-header, .section-title are defined globally) --- */
-
-/* --- [TAMBAHAN BARU] Sub-Section Title (copied from Leaderboard style) --- */
-.section-title-sub {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1.75rem; /* Slightly smaller than page title */
-    margin-bottom: 1.5rem; /* Adjusted margin */
+/* =================================
+   JUDUL HALAMAN & SECTION
+   ================================= */
+/* (Style .page-title dipertahankan jika dipakai di halaman admin lain) */
+.page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
     background: linear-gradient(135deg, #00d4ff, #00aeff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    padding-bottom: 0.5rem; /* Add slight padding bottom */
-    border-bottom: 1px solid rgba(0, 212, 255, 0.2); /* Subtle underline */
-}
-.section-title-sub i {
-    color: #00d4ff;
-    -webkit-text-fill-color: #00d4ff;
-    font-size: 1.5rem; /* Match icon size */
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-weight: 700; 
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; 
 }
 
-/* --- Glass Card (Assuming .glass-card is defined globally) --- */
+.page-subtitle {
+    color: #94a3b8; 
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.75rem;
+}
+
+.section-header i {
+    font-size: 1.2rem;
+    color: #00d4ff; 
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-size: 1.5rem;
+    color: #e2e8f0; 
+    margin: 0;
+}
+
+/* =================================
+   GAYA KARTU
+   ================================= */
 .glass-card {
     background: rgba(15, 23, 42, 0.7);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
+    border-radius: 1rem; 
     transition: all 0.3s ease;
-    overflow: hidden; 
-    padding: 2rem; /* Default padding */
+    overflow: hidden;
+    padding: 2rem; /* Padding default */
 }
-/* No hover effect needed for dashboard cards generally */
-/* .glass-card:hover { ... } */
 
+.glass-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 212, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
 
-/* --- Specific Card Styles --- */
+/* =================================
+   GAYA SPESIFIK ADMIN DASHBOARD
+   ================================= */
+
+/* Grid untuk kartu stats */
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+/* Styling Kartu Statistik (override padding default) */
 .admin-stat-card {
-    padding: 1.5rem; /* Slightly reduced padding */
-}
-.admin-stat-card h3 {
-    font-family: 'Orbitron', sans-serif;
-    margin-bottom: 0.5rem;
-    color: #e2e8f0;
-    letter-spacing: 1px;
-    font-size: 1rem; /* Slightly smaller title */
-    font-weight: 600;
-    text-transform: uppercase; /* Uppercase title */
-    color: #94a3b8; /* Muted title color */
+    padding: 1.5rem; 
 }
 
-.admin-stat-card .stat-value {
-    font-size: 2.25rem; /* Slightly smaller value */
+/* Label (TOTAL PENGGUNA AKTIF) */
+.admin-stat-card h3 {
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 1px;
+    font-size: 1rem; 
+    font-weight: 600;
+    text-transform: uppercase; 
+    color: #94a3b8; 
+}
+
+/* Angka ( 2 ) */
+.stat-value {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Angka) */
+    font-size: 3rem; 
     font-weight: 700;
     color: #00d4ff; 
     margin: 0;
     line-height: 1;
+    margin-top: 0.5rem; 
 }
 
-.admin-stat-card .stat-label {
+/* Label kecil di bawah angka */
+.stat-label {
     color: #94a3b8; 
-    font-size: 0.85rem; /* Smaller label */
-    margin-top: 0.25rem;
+    font-size: 0.9rem; 
+    margin-top: 0.5rem;
     display: block;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
 }
 
-/* --- Admin Leaderboard Table Styles (Keep as before) --- */
-.admin-leaderboard-card {
-    padding: 0;
-}
+/* =================================
+   [WIDGET BARU] DARI PLAYER DASHBOARD
+   ================================= */
 
-.admin-leaderboard-header,
-.admin-leaderboard-row {
-    display: grid;
-    grid-template-columns: 100px 2fr 1fr 1fr; 
-    gap: 1rem;
+/* --- Welcome Card --- */
+.welcome-card {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem; 
+    flex-wrap: wrap; 
+    gap: 2rem;
+    padding: 2rem;
 }
-
-.admin-leaderboard-header {
-    font-family: 'Orbitron', sans-serif;
-    color: #94a3b8; 
-    font-weight: 600;
-    font-size: 0.85rem; /* Smaller header */
-    text-transform: uppercase;
-    border-bottom: 2px solid rgba(0, 212, 255, 0.3); 
+.welcome-content {
+    flex: 1;
+    min-width: 300px;
 }
-
-.admin-leaderboard-row {
-    font-size: 0.95rem; /* Slightly smaller row text */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
-    transition: background-color 0.3s ease;
-}
-.admin-leaderboard-row:last-child {
-    border-bottom: none;
-}
-.admin-leaderboard-row:hover {
-    background-color: rgba(255, 255, 255, 0.05); 
-}
-
-/* Column specific styles */
-.admin-leaderboard-row .rank-col {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem; 
+.welcome-title {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-size: 1.75rem; 
     font-weight: 700;
-    color: #cbd5e1; /* Default rank color, overridden by rank classes */
+    background: linear-gradient(135deg, #00d4ff, #00aeff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+.welcome-quote {
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+}
+.character-image {
+    height: 150px; 
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+}
+@media (max-width: 576px) {
+    .character-image {
+        display: none; 
+    }
+}
+
+
+/* --- Widget Header (Clock, Weather) --- */
+.widget-header {
     display: flex;
     align-items: center;
-    gap: 0.75rem; /* Increased gap slightly */
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.admin-leaderboard-row .rank-col i {
-    font-size: 1.2rem; /* Ensure icons are visible */
+.widget-header i {
+    font-size: 1.2rem;
+    color: #00d4ff; 
 }
-
-.admin-leaderboard-row .user-col {
+.widget-title {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-size: 1.25rem;
     color: #e2e8f0; 
+    margin: 0;
+}
+
+/* --- Clock Widget --- */
+.clock-display {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Angka) */
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+.date-display {
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-size: 1rem;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+}
+
+/* --- Weather Widget --- */
+#weather-content {
+    min-height: 80px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.loading-spinner, .error-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+.error-message i {
+    color: #f87171;
+}
+.weather-main {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+.weather-icon i {
+    font-size: 2.5rem;
+    color: #00d4ff; 
+}
+.weather-temp {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Angka) */
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #e2e8f0;
+}
+.weather-description {
+    font-size: 1rem;
+    color: #e2e8f0;
     font-weight: 500;
+    text-transform: capitalize;
+    margin-bottom: 0.75rem;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
 }
-
-.admin-leaderboard-row .level-col,
-.admin-leaderboard-row .exp-col {
-    color: #cbd5e1; 
+.weather-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
 }
-
-.admin-leaderboard-row .exp-col {
-    text-align: right; 
-    font-weight: 500;
+.weather-detail + .weather-detail {
+    margin-top: 0.25rem;
 }
-
-/* Top 3 Highlighting */
-.admin-leaderboard-row.rank-1 { background: rgba(250, 204, 21, 0.05); }
-.admin-leaderboard-row.rank-1 .rank-col { color: #facc15; }
-.admin-leaderboard-row.rank-2 { background: rgba(192, 192, 192, 0.05); }
-.admin-leaderboard-row.rank-2 .rank-col { color: #c0c0c0; }
-.admin-leaderboard-row.rank-3 { background: rgba(205, 127, 50, 0.05); }
-.admin-leaderboard-row.rank-3 .rank-col { color: #cd7f32; }
-
-/* --- Button Styles (Assuming defined globally or add here) --- */
-/* .btn-info { ... } */
+.weather-detail i {
+    font-size: 0.9rem;
+}
