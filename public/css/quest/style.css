@@ -221,6 +221,27 @@ body::before {
     text-decoration: line-through;
 }
 
+/* [TAMBAHAN] Quest menunggu review */
+.quest-card-inner.status-pending_review {
+    opacity: 0.8;
+    background: rgba(245, 158, 11, 0.05); /* Nuansa kuning */
+    border-color: rgba(245, 158, 11, 0.3);
+}
+.quest-card-inner.status-pending_review h3 {
+    color: #f59e0b; /* Kuning */
+}
+
+/* [TAMBAHAN] Quest ditolak */
+.quest-card-inner.status-rejected {
+    opacity: 0.8;
+    background: rgba(220, 38, 38, 0.05); /* Nuansa merah */
+    border-color: rgba(220, 38, 38, 0.3);
+}
+.quest-card-inner.status-rejected h3 {
+    color: #f87171; /* Merah */
+}
+
+
 /* [TAMBAHAN] Style untuk card riwayat di dalam wrapper */
 .quest-card-inner.history {
     opacity: 0.7;
@@ -236,6 +257,34 @@ body::before {
 .quest-card-inner.history h3 {
     color: #00d4ff; 
     text-decoration: line-through;
+}
+
+
+/* [TAMBAHAN] Style untuk kotak catatan submission */
+.submission-notes {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+.submission-notes strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #e2e8f0;
+}
+.submission-notes p {
+    margin-bottom: 0;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+.submission-notes.admin-rejected strong {
+    color: #f87171; /* Merah */
+}
+.submission-notes.admin-rejected {
+    border-color: rgba(220, 38, 38, 0.3);
 }
 
 
@@ -377,7 +426,7 @@ select.form-control {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708 .708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1em;
@@ -650,4 +699,217 @@ select.form-control option {
     color: #f87171 !important;
     border: 1px solid rgba(220, 38, 38, 0.4) !important;
     border-radius: 8px !important;
+}
+
+
+/* =================================
+   PERBAIKAN MODAL SUBMISSION - FORCE INTERACTION
+   (VERSI SUDAH DIPERBAIKI)
+   ================================= */
+
+/* Lapisan gelap. z-index HARUS lebih rendah dari modal.
+   pointer-events: none; agar klik bisa tembus. */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    z-index: 1050 !important; 
+    pointer-events: none !important; /* <-- DIPERBAIKI */
+}
+
+/* Kontainer modal. z-index HARUS lebih tinggi dari backdrop.
+   pointer-events: none; agar klik "di luar" dialog bisa menutup modal. */
+.modal {
+    z-index: 1055 !important; 
+    pointer-events: none !important; /* <-- DIPERBAIKI */
+}
+
+.modal.show {
+    pointer-events: none !important; /* <-- DIPERBAIKI */
+}
+
+/* Dialog (kotak putih/glass). Ini yang harus bisa diklik. */
+.modal-dialog {
+    pointer-events: auto !important;
+}
+
+.modal-content {
+    pointer-events: auto !important;
+}
+
+.modal-body {
+    pointer-events: auto !important;
+}
+
+.modal-footer {
+    pointer-events: auto !important;
+}
+
+/* Custom styling untuk modal content */
+#submissionModal .modal-content {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 212, 255, 0.5);
+    border-radius: 1rem;
+    pointer-events: auto !important;
+}
+
+#submissionModal .modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    pointer-events: auto !important;
+}
+
+#submissionModal .modal-header .modal-title {
+    color: #00d4ff;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+}
+
+#submissionModal .modal-header .btn-close {
+    pointer-events: auto !important;
+}
+
+#submissionModal .modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    pointer-events: auto !important;
+}
+
+/* Form styling di modal */
+#submissionForm {
+    pointer-events: auto !important;
+}
+
+/* Paksa semua elemen di dalam form agar bisa di-interaksi */
+#submissionForm * {
+    pointer-events: auto !important;
+}
+
+#submissionForm .form-group {
+    margin-bottom: 1.5rem;
+    pointer-events: auto !important;
+}
+
+#submissionForm .form-group label {
+    color: #94a3b8;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+    pointer-events: auto !important;
+}
+
+#submissionForm .form-control {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    border-radius: 8px;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    pointer-events: auto !important;
+}
+
+#submissionForm .form-control:focus {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: #00d4ff;
+    color: #e2e8f0;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    outline: none;
+}
+
+#submissionForm .form-control::placeholder {
+    color: #64748b;
+}
+
+/* File input styling - PENTING UNTUK DIKLIK */
+#submissionForm input[type="file"] {
+    display: block !important;
+    width: 100% !important;
+    padding: 0.75rem 1rem !important;
+    background: rgba(15, 23, 42, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    color: #94a3b8 !important;
+    cursor: pointer !important;
+    font-family: 'Poppins', sans-serif !important;
+    pointer-events: auto !important;
+}
+
+#submissionForm input[type="file"]::file-selector-button {
+    display: inline-block !important;
+    background: #00d4ff !important;
+    color: #0a0e27 !important;
+    padding: 0.5rem 1rem !important;
+    border: none !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    margin-right: 0.5rem !important;
+    transition: all 0.3s ease !important;
+    pointer-events: auto !important;
+}
+
+#submissionForm input[type="file"]::file-selector-button:hover {
+    background: #00aeff !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Textarea styling */
+#submissionForm textarea.form-control {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    border-radius: 8px;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: 'Poppins', sans-serif;
+    resize: vertical;
+    pointer-events: auto !important;
+}
+
+#submissionForm textarea.form-control:focus {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: #00d4ff;
+    color: #e2e8f0;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    outline: none;
+}
+
+#submissionForm textarea.form-control::placeholder {
+    color: #64748b;
+}
+
+/* Modal buttons */
+#submissionModal .modal-footer .btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer !important;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    pointer-events: auto !important;
+}
+
+#submissionModal .btn-primary {
+    background: #00d4ff !important;
+    border-color: #00d4ff !important;
+    color: #0a0e27 !important;
+    pointer-events: auto !important;
+}
+
+#submissionModal .btn-primary:hover {
+    background: #00aeff !important;
+    border-color: #00aeff !important;
+    transform: translateY(-2px);
+}
+
+#submissionModal .btn-danger {
+    background: transparent !important;
+    border: 1px solid #f87171 !important;
+    color: #f87171 !important;
+    pointer-events: auto !important;
+}
+
+#submissionModal .btn-danger:hover {
+    background: rgba(220, 38, 38, 0.1) !important;
 }

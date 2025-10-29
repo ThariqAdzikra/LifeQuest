@@ -10,11 +10,16 @@ class Achievement extends Model
     use HasFactory;
 
     /**
-     * Atribut yang dijaga dari mass assignment.
-     *
+     * Atribut yang BOLEH diisi secara massal (mass assignable).
+     * [PERBAIKAN] Mengganti $guarded dengan $fillable
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'title',
+        'description',
+        'icon_path', // <-- Pastikan ini ada
+        'condition', // <-- Pastikan field lama Anda tetap ada jika masih dipakai
+    ];
 
     /**
      * Atribut yang harus di-cast.
@@ -36,5 +41,14 @@ class Achievement extends Model
     {
         return $this->belongsToMany(User::class, 'user_achievements')
                     ->withPivot('unlocked_at');
+    }
+
+    /**
+     * [TAMBAHAN BARU] Relasi one-to-many ke Quest
+     * (Achievement ini bisa menjadi hadiah untuk banyak Quest).
+     */
+    public function quests()
+    {
+        return $this->hasMany(Quest::class);
     }
 }

@@ -2,7 +2,7 @@
     <div class="nav-container">
         <div class="nav-left">
             @auth
-                {{-- [PERBAIKAN] Logo mengarah ke dashboard yang benar --}}
+                {{-- Logo mengarah ke dashboard yang benar --}}
                 @if (Auth::user()->isAdmin())
                     <a href="{{ route('admin.dashboard') }}" class="logo">LifeQuest</a>
                 @else
@@ -15,9 +15,8 @@
 
         <div class="nav-menu">
             @auth
-                {{-- --- MODIFIKASI DIMULAI DISINI (DESKTOP) --- --}}
+                {{-- --- Menu Navigasi Admin (Desktop) --- --}}
                 @if (Auth::user()->isAdmin())
-                    {{-- [PERBAIKAN] Tampilkan menu navigasi ADMIN --}}
                     <a href="{{ route('admin.dashboard') }}" 
                        class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="bi bi-shield-lock-fill"></i> Admin Panel
@@ -26,6 +25,12 @@
                        class="{{ request()->routeIs('admin.quests.*') ? 'active' : '' }}">
                        <i class="bi bi-list-task"></i> Kelola Quest
                     </a>
+                    {{-- [TAMBAHAN BARU] Link Kelola Achievements --}}
+                    <a href="{{ route('admin.achievements.index') }}" 
+                       class="{{ request()->routeIs('admin.achievements.*') ? 'active' : '' }}">
+                       <i class="bi bi-award-fill"></i> Kelola Achievements 
+                    </a>
+                    {{-- Akhir Tambahan --}}
                     <a href="{{ route('admin.submissions.index') }}" 
                        class="{{ request()->routeIs('admin.submissions.*') ? 'active' : '' }}">
                        <i class="bi bi-clipboard-check-fill"></i> Review Submission
@@ -35,13 +40,12 @@
                        <i class="bi bi-bar-chart-line-fill"></i> Leaderboard
                     </a>
                 @else
-                    {{-- TAMPILKAN INI SEMUA JIKA USER BIASA --}}
+                    {{-- Menu Navigasi User Biasa (Desktop) --}}
                     <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
                     <a href="{{ route('quests.index') }}" class="{{ request()->routeIs('quests.*') ? 'active' : '' }}">Quest Saya</a>
                     <a href="{{ route('achievements.index') }}" class="{{ request()->routeIs('achievements.*') ? 'active' : '' }}">Achievements</a>
                     <a href="{{ route('leaderboard') }}" class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">Leaderboard</a>
                 @endif
-                {{-- --- MODIFIKASI SELESAI (DESKTOP) --- --}}
             @endauth
         </div>
 
@@ -86,6 +90,7 @@
         </div>
     </div>
 
+    {{-- Menu Mobile --}}
     <div id="mobileMenu" class="mobile-menu-container">
         @auth
             <div class="profile-info">
@@ -104,9 +109,8 @@
                 </div>
             </div>
 
-            {{-- --- MODIFIKASI DIMULAI DISINI (MOBILE) --- --}}
+            {{-- --- Menu Navigasi Admin (Mobile) --- --}}
             @if (Auth::user()->isAdmin())
-                {{-- [PERBAIKAN] Tampilkan menu navigasi ADMIN --}}
                 <a href="{{ route('admin.dashboard') }}" 
                    class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="bi bi-shield-lock-fill"></i> Admin Panel
@@ -115,6 +119,12 @@
                    class="{{ request()->routeIs('admin.quests.*') ? 'active' : '' }}">
                    <i class="bi bi-list-task"></i> Kelola Quest
                 </a>
+                {{-- [TAMBAHAN BARU] Link Kelola Achievements --}}
+                <a href="{{ route('admin.achievements.index') }}" 
+                   class="{{ request()->routeIs('admin.achievements.*') ? 'active' : '' }}">
+                   <i class="bi bi-award-fill"></i> Kelola Achievements 
+                </a>
+                {{-- Akhir Tambahan --}}
                 <a href="{{ route('admin.submissions.index') }}" 
                    class="{{ request()->routeIs('admin.submissions.*') ? 'active' : '' }}">
                    <i class="bi bi-clipboard-check-fill"></i> Review Submission
@@ -124,15 +134,14 @@
                    <i class="bi bi-bar-chart-line-fill"></i> Leaderboard
                 </a>
             @else
-                {{-- TAMPILKAN INI SEMUA JIKA USER BIASA --}}
+                 {{-- Menu Navigasi User Biasa (Mobile) --}}
                 <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
                 <a href="{{ route('quests.index') }}" class="{{ request()->routeIs('quests.*') ? 'active' : '' }}">Quest Saya</a>
                 <a href="{{ route('achievements.index') }}" class="{{ request()->routeIs('achievements.*') ? 'active' : '' }}">Achievements</a>
                 <a href="{{ route('leaderboard') }}" class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">Leaderboard</a>
             @endif
-            {{-- --- MODIFIKASI SELESAI (MOBILE) --- --}}
 
-            {{-- Ini link umum, biarkan tampil untuk admin dan user --}}
+            {{-- Link Umum (Mobile) --}}
             <a href="{{ route('profile.edit') }}">Profile</a>
             <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
                 @csrf
@@ -141,6 +150,7 @@
                 </button>
             </form>
         @else
+            {{-- Tampilan Mobile untuk Guest --}}
             <a href="{{ route('login') }}" class="login-link" style="border: none; background: rgba(0, 212, 255, 0.1); color: #00d4ff; margin: 0.5rem 2rem;">Login</a>
             <a href="{{ route('register') }}" class="register-link" style="border: none; margin: 0.5rem 2rem; text-align: center;">Register</a>
         @endauth

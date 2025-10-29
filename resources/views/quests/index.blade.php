@@ -24,20 +24,21 @@
         <button class="tab-link" onclick="openTab(event, 'completedQuests')"><i class="bi bi-archive-fill"></i> Riwayat</button>
     </div>
 
-    {{-- Konten Tab 1: Quest Saya (Yang sedang diambil) --}}
+    {{-- ========================================================== --}}
+    {{-- Konten Tab 1: Quest Saya (PERUBAHAN BESAR DI SINI)
+    {{-- ========================================================== --}}
     <div id="myQuests" class="tab-content active">
         
-        {{-- Menggunakan section-header style dari dashboard --}}
         <div class="section-header">
             <i class="bi bi-person-check-fill"></i>
             <h2 class="section-title">Quest Aktif</h2>
         </div>
         
-        {{-- Menambahkan wrapper card di sini --}}
         <div class="glass-card manage-quest-wrapper" data-wrapper="my-quests">
             @forelse ($myQuests as $log)
-            {{-- Mengganti class menjadi .quest-card-inner --}}
-            <div class="quest-card-inner">
+            
+            {{-- [PERUBAHAN] Menambahkan class status untuk styling --}}
+            <div class="quest-card-inner status-{{ $log->status }}">
                 <div class="quest-info">
                     <h3>{{ $log->quest->title }}</h3>
                     
@@ -57,13 +58,65 @@
                         </span>
                         @endif
                     </div>
+                    
+                    {{-- [PERUBAHAN] Menampilkan catatan submission/admin --}}
+                    @if($log->status == 'pending_review' && $log->submission_notes)
+                        <div class="submission-notes user">
+                            <strong>Catatan Anda:</strong>
+                            <p>{{ $log->submission_notes }}</p>
+                        </div>
+                    @endif
+                    
+                    @if($log->status == 'rejected' && $log->admin_notes)
+                        <div class="submission-notes admin-rejected">
+                            <strong>Catatan Admin (Ditolak):</strong>
+                            <p>{{ $log->admin_notes }}</p>
+                        </div>
+                    @endif
+
                 </div>
                 <div class="quest-actions">
-                    <form action="{{ route('quests.complete', $log->id) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Selesaikan</button>
-                    </form>
+                    
+                    {{-- ============================================= --}}
+                    {{-- LOGIKA 1: Jika Quest NON-ADMIN (Selesaikan Langsung) --}}
+                    {{-- ============================================= --}}
+                    @if (!$log->quest->is_admin_quest)
+                        <form action="{{ route('quests.complete', $log->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Selesaikan</button>
+                        </form>
+                    
+                    {{-- ============================================= --}}
+                    {{-- LOGIKA 2: Jika Quest ADMIN (Perlu Bukti) --}}
+                    {{-- ============================================= --}}
+                    @else
+                        @if ($log->status == 'active')
+                            <button type="button" 
+                                    class="btn btn-primary btn-submit-quest" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#submissionModal"
+                                    data-submit-url="{{ route('quests.submit', $log->id) }}">
+                                <i class="bi bi-cloud-upload-fill"></i> Kirim Bukti
+                            </button>
+                        
+                        @elseif ($log->status == 'pending_review')
+                            <button type="button" class="btn btn-warning" disabled>
+                                <i class="bi bi-hourglass-split"></i> Menunggu Review
+                            </button>
+                        
+                        @elseif ($log->status == 'rejected')
+                             <button type="button" 
+                                    class="btn btn-danger btn-submit-quest" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#submissionModal"
+                                    data-submit-url="{{ route('quests.submit', $log->id) }}">
+                                <i class="bi bi-cloud-upload-fill"></i> Kirim Ulang
+                            </button>
+                        @endif
+                    @endif
+
+                    {{-- Tombol Batalkan (Selalu ada) --}}
                     <form action="{{ route('quests.cancel', $log->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -75,30 +128,25 @@
             <p class="empty-state-text">Anda belum mengambil quest apapun. Kunjungi tab "Quest Tersedia" untuk memulai!</p>
             @endforelse
 
-            {{-- Menambahkan pagination di dalam wrapper --}}
             @if($myQuests->hasPages())
             <div class="quest-pagination-container" data-section="my-quests">
-                {{-- [PERUBAHAN] Menambahkan parameter pageName yang unik --}}
                 {{ $myQuests->fragment('myQuests')->links(null, ['pageName' => 'myQuests_page']) }}
             </div>
             @endif
         </div>
-
     </div>
 
-    {{-- Konten Tab 2: Quest Tersedia (Admin & User lain) --}}
+    {{-- ========================================================== --}}
+    {{-- Konten Tab 2: Quest Tersedia (TIDAK BERUBAH) --}}
+    {{-- ========================================================== --}}
     <div id="availableQuests" class="tab-content">
-        
-        {{-- Menggunakan section-header style dari dashboard --}}
         <div class="section-header">
             <i class="bi bi-patch-check-fill"></i>
             <h2 class="section-title">Quest Resmi (Admin)</h2>
         </div>
         
-        {{-- Menambahkan wrapper card di sini --}}
         <div class="glass-card manage-quest-wrapper" data-wrapper="admin-quests">
             @forelse ($adminQuests as $quest)
-            {{-- Mengganti class menjadi .quest-card-inner --}}
             <div class="quest-card-inner">
                 <div class="quest-info">
                     <h3>{{ $quest->title }} ({{ ucfirst($quest->difficulty) }})</h3>
@@ -124,26 +172,21 @@
             <p class="empty-state-text">Tidak ada quest resmi yang tersedia saat ini.</p>
             @endforelse
 
-            {{-- Menambahkan pagination di dalam wrapper --}}
             @if($adminQuests->hasPages())
             <div class="quest-pagination-container" data-section="admin-quests">
-                {{-- [PERUBAHAN] Menambahkan parameter pageName yang unik --}}
                 {{ $adminQuests->fragment('availableQuests')->links(null, ['pageName' => 'adminQuests_page']) }}
             </div>
             @endif
         </div>
 
         
-        {{-- Menggunakan section-header style dari dashboard --}}
         <div class="section-header" style="margin-top: 3rem;">
             <i class="bi bi-person-lines-fill"></i>
             <h2 class="section-title">Quest Pribadi Anda (Tersedia)</h2>
         </div>
         
-        {{-- Menambahkan wrapper card di sini --}}
         <div class="glass-card manage-quest-wrapper" data-wrapper="personal-quests">
             @forelse ($personalQuests as $quest) 
-            {{-- Mengganti class menjadi .quest-card-inner --}}
             <div class="quest-card-inner">
                 <div class="quest-info">
                     <h3>{{ $quest->title }}</h3>
@@ -169,26 +212,23 @@
             <p class="empty-state-text">Tidak ada quest pribadi Anda yang aktif dan tersedia untuk diambil saat ini.</p>
             @endforelse
 
-            {{-- Menambahkan pagination di dalam wrapper --}}
             @if($personalQuests->hasPages())
             <div class="quest-pagination-container" data-section="personal-quests">
-                {{-- [PERUBAHAN] Menambahkan parameter pageName yang unik --}}
                 {{ $personalQuests->fragment('availableQuests')->links(null, ['pageName' => 'personalQuests_page']) }}
             </div>
             @endif
         </div>
     </div>
 
-    {{-- Konten Tab 3: Buat Quest Sendiri --}}
+    {{-- ========================================================== --}}
+    {{-- Konten Tab 3: Buat Quest Sendiri (TIDAK BERUBAH) --}}
+    {{-- ========================================================== --}}
     <div id="createQuest" class="tab-content">
-        
-        {{-- Menggunakan section-header style dari dashboard --}}
         <div class="section-header">
             <i class="bi bi-pencil-square"></i>
             <h2 class="section-title">Buat Quest Kustom</h2>
         </div>
         
-        {{-- Membungkus form dalam .glass-card --}}
         <div class="glass-card" style="padding: 2rem;">
             <form action="{{ route('quests.store') }}" method="POST">
                 @csrf
@@ -201,7 +241,6 @@
                     <textarea id="description" name="description" rows="4" class="form-control" placeholder="Deskripsikan aktivitas yang harus dilakukan..."></textarea>
                 </div>
                 
-                {{-- Menggunakan class untuk grid --}}
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="difficulty">Kesulitan</label>
@@ -230,7 +269,6 @@
                         </select>
                     </div>
                 </div>
-                {{-- Menggunakan class untuk hint text --}}
                  <p class="form-hint">Quest 'Sekali Jalan' akan langsung masuk riwayat setelah selesai.<br>
                     Hanya quest 'Harian' dan 'Mingguan' yang akan muncul di daftar "Kelola" di bawah.</p>
                 
@@ -238,17 +276,14 @@
             </form>
         </div>
 
-        {{-- Kelola Quest (HANYA HARIAN/MINGGUAN) --}}
         <div class="section-header" style="margin-top: 3rem;">
             <i class="bi bi-gear-fill"></i>
             <h2 class="section-title">Kelola Quest Berulang</h2>
         </div>
 
-        {{-- PEMBUNGKUS CARD UNTUK KELOLA QUEST --}}
         <div class="glass-card manage-quest-wrapper" data-wrapper="manage-quests">
             
             @forelse ($myPersonalQuests as $quest)
-            {{-- Menambahkan class 'paused' jika tidak aktif untuk styling --}}
             <div class="quest-card-inner {{ !$quest->is_active ? 'paused' : '' }}">
                 <div class="quest-info">
                     <h3>{{ $quest->title }}</h3>
@@ -270,7 +305,6 @@
                 </div>
                 <div class="quest-actions">
                     
-                    {{-- Tombol Jeda / Aktifkan --}}
                     <form action="{{ route('quests.toggleStatus', $quest->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
@@ -281,7 +315,6 @@
                         @endif
                     </form>
                     
-                    {{-- Hapus 'onsubmit' dan tambahkan class 'btn-delete-quest' --}}
                     <form action="{{ route('quests.destroy', $quest->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -295,10 +328,8 @@
             <p class="empty-state-text">Anda belum membuat quest harian atau mingguan.</p>
             @endforelse
             
-            {{-- PAGINASI: (DI DALAM WRAPPER) --}}
             @if($myPersonalQuests->hasPages())
             <div class="quest-pagination-container" data-section="manage-quests">
-                {{-- [PERUBAHAN] Menambahkan parameter pageName yang unik --}}
                 {{ $myPersonalQuests->fragment('createQuest')->links(null, ['pageName' => 'manage_page']) }}
             </div>
             @endif
@@ -307,19 +338,18 @@
         
     </div>
     
-    {{-- Konten Tab 4: Riwayat Quest Selesai --}}
+    {{-- ========================================================== --}}
+    {{-- Konten Tab 4: Riwayat Quest Selesai (TIDAK BERUBAH) --}}
+    {{-- ========================================================== --}}
     <div id="completedQuests" class="tab-content">
          
-         {{-- Menggunakan section-header style dari dashboard --}}
          <div class="section-header">
             <i class="bi bi-archive-fill"></i>
             <h2 class="section-title">Quest Selesai</h2>
          </div>
          
-        {{-- Menambahkan wrapper card di sini --}}
         <div class="glass-card manage-quest-wrapper" data-wrapper="completed-quests">
             @forelse ($completedQuests as $log)
-            {{-- Mengganti class menjadi .quest-card-inner dan .history --}}
             <div class="quest-card-inner history">
                 <div class="quest-info">
                     <h3>{{ $log->quest->title }}</h3>
@@ -339,10 +369,8 @@
             <p class="empty-state-text">Anda belum menyelesaikan quest apapun.</p>
             @endforelse
             
-            {{-- Memindahkan pagination ke dalam wrapper --}}
             @if($completedQuests->hasPages())
             <div class="quest-pagination-container" data-section="completed">
-                {{-- [PERUBAHAN] Menambahkan parameter pageName yang unik --}}
                 {{ $completedQuests->fragment('completedQuests')->links(null, ['pageName' => 'completed_page']) }}
             </div>
             @endif
@@ -350,12 +378,53 @@
     </div>
 
 </div>
+
+
+{{-- ========================================================== --}}
+{{-- [TAMBAHAN BARU] MODAL UNTUK SUBMISSION QUEST ADMIN
+{{-- ========================================================== --}}
+<div class="modal fade" id="submissionModal" tabindex="-1" aria-labelledby="submissionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        {{-- [PERUBAHAN] Ganti style modal agar sesuai tema --}}
+        <div class="modal-content glass-card" style="border-radius: 1rem; border: 1px solid rgba(0, 212, 255, 0.5);">
+            <div class="modal-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                <h5 class="modal-title page-title" id="submissionModalLabel" style="font-size: 1.5rem; margin-bottom: 0;">Kirim Bukti Quest</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #fff;"></button>
+            </div>
+            
+            {{-- Form ini action-nya akan di-set oleh JavaScript --}}
+            <form id="submissionForm" action="" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body" style="padding: 2rem;">
+                    
+                    <div class="form-group">
+                        <label for="submission_file">Upload Bukti (Maks: 5MB)</label>
+                        <input type="file" id="submission_file" name="submission_file" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="submission_notes">Catatan (Opsional)</label>
+                        <textarea id="submission_notes" name="submission_notes" rows="3" class="form-control" placeholder="Tulis catatan untuk admin di sini..."></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-send-fill"></i> Kirim Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
 {{-- 1. Panggil SweetAlert CDN --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-{{-- 2. Panggil file main.js kustom Anda --}}
+{{-- 2. [PENTING] Pastikan baris ini ADA. --}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{{-- 3. Panggil file main.js kustom Anda --}}
 <script src="{{ asset('js/quest/main.js') }}"></script>
 @endpush
