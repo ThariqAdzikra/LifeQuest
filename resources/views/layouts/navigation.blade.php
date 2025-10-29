@@ -2,7 +2,12 @@
     <div class="nav-container">
         <div class="nav-left">
             @auth
-                <a href="{{ route('dashboard') }}" class="logo">LifeQuest</a>
+                {{-- [PERBAIKAN] Logo mengarah ke dashboard yang benar --}}
+                @if (Auth::user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="logo">LifeQuest</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="logo">LifeQuest</a>
+                @endif
             @else
                 <a href="{{ route('landing') }}" class="logo">LifeQuest</a>
             @endauth
@@ -12,11 +17,22 @@
             @auth
                 {{-- --- MODIFIKASI DIMULAI DISINI (DESKTOP) --- --}}
                 @if (Auth::user()->isAdmin())
-                    {{-- HANYA TAMPILKAN INI JIKA ADMIN --}}
+                    {{-- [PERBAIKAN] Tampilkan menu navigasi ADMIN --}}
                     <a href="{{ route('admin.dashboard') }}" 
-                       class="{{ request()->routeIs('admin.*') ? 'active' : '' }}" 
-                       style="color: #00d4ff; font-weight: 600;">
+                       class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="bi bi-shield-lock-fill"></i> Admin Panel
+                    </a>
+                    <a href="{{ route('admin.quests.index') }}" 
+                       class="{{ request()->routeIs('admin.quests.*') ? 'active' : '' }}">
+                       <i class="bi bi-list-task"></i> Kelola Quest
+                    </a>
+                    <a href="{{ route('admin.submissions.index') }}" 
+                       class="{{ request()->routeIs('admin.submissions.*') ? 'active' : '' }}">
+                       <i class="bi bi-clipboard-check-fill"></i> Review Submission
+                    </a>
+                    <a href="{{ route('leaderboard') }}" 
+                       class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">
+                       <i class="bi bi-bar-chart-line-fill"></i> Leaderboard
                     </a>
                 @else
                     {{-- TAMPILKAN INI SEMUA JIKA USER BIASA --}}
@@ -90,11 +106,22 @@
 
             {{-- --- MODIFIKASI DIMULAI DISINI (MOBILE) --- --}}
             @if (Auth::user()->isAdmin())
-                {{-- HANYA TAMPILKAN INI JIKA ADMIN --}}
+                {{-- [PERBAIKAN] Tampilkan menu navigasi ADMIN --}}
                 <a href="{{ route('admin.dashboard') }}" 
-                   class="{{ request()->routeIs('admin.*') ? 'active' : '' }}" 
-                   style="color: #00d4ff; font-weight: 600; background: rgba(0, 212, 255, 0.1);">
+                   class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="bi bi-shield-lock-fill"></i> Admin Panel
+                </a>
+                <a href="{{ route('admin.quests.index') }}" 
+                   class="{{ request()->routeIs('admin.quests.*') ? 'active' : '' }}">
+                   <i class="bi bi-list-task"></i> Kelola Quest
+                </a>
+                <a href="{{ route('admin.submissions.index') }}" 
+                   class="{{ request()->routeIs('admin.submissions.*') ? 'active' : '' }}">
+                   <i class="bi bi-clipboard-check-fill"></i> Review Submission
+                </a>
+                <a href="{{ route('leaderboard') }}" 
+                   class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">
+                   <i class="bi bi-bar-chart-line-fill"></i> Leaderboard
                 </a>
             @else
                 {{-- TAMPILKAN INI SEMUA JIKA USER BIASA --}}

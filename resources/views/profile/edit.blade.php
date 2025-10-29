@@ -142,51 +142,57 @@
             </form>
         </div>
 
-        {{-- Bagian Hapus Akun --}}
-        <div class="profile-card" x-data="{ confirmingUserDeletion: false }">
-            <header>
-                <h2>Hapus Akun</h2>
-                <p>Setelah akun Anda dihapus, semua sumber daya dan datanya akan dihapus secara permanen.</p>
-            </header>
-            
-            <button type="button" class="btn btn-danger" @click="confirmingUserDeletion = true">
-                Hapus Akun Saya
-            </button>
+        {{-- ================================================= --}}
+        {{-- [PERBAIKAN] Bagian Hapus Akun (Hanya untuk User Biasa) --}}
+        {{-- ================================================= --}}
+        @if (!Auth::user()->isAdmin())
+            <div class="profile-card" x-data="{ confirmingUserDeletion: false }">
+                <header>
+                    <h2>Hapus Akun</h2>
+                    <p>Setelah akun Anda dihapus, semua sumber daya dan datanya akan dihapus secara permanen.</p>
+                </header>
+                
+                <button type="button" class="btn btn-danger" @click="confirmingUserDeletion = true">
+                    Hapus Akun Saya
+                </button>
 
-            <div x-show="confirmingUserDeletion" 
-                 class="modal-overlay" 
-                 style="display: none;">
-                <div class="modal-content" @click.away="confirmingUserDeletion = false">
-                    <form method="post" action="{{ route('profile.destroy') }}">
-                        @csrf
-                        @method('delete')
+                <div x-show="confirmingUserDeletion" 
+                     class="modal-overlay" 
+                     style="display: none;">
+                    <div class="modal-content" @click.away="confirmingUserDeletion = false">
+                        <form method="post" action="{{ route('profile.destroy') }}">
+                            @csrf
+                            @method('delete')
 
-                        <h3 class="modal-title">Apakah Anda yakin?</h3>
-                        <p class="modal-description">
-                            Setelah akun Anda dihapus, semua data akan hilang permanen. 
-                            Harap masukkan password Anda untuk mengonfirmasi bahwa Anda ingin menghapus akun Anda secara permanen.
-                        </p>
+                            <h3 class="modal-title">Apakah Anda yakin?</h3>
+                            <p class="modal-description">
+                                Setelah akun Anda dihapus, semua data akan hilang permanen. 
+                                Harap masukkan password Anda untuk mengonfirmasi bahwa Anda ingin menghapus akun Anda secara permanen.
+                            </p>
 
-                        <div class="form-group">
-                            <label for="password_delete">Password</label>
-                            <input id="password_delete" name="password" type="password" class="input-field" placeholder="Password" required>
-                            @error('password', 'userDeletion')
-                                <p class="text-sm" style="color: #ff4d4d;">{{ $message }}</p>
-                            @enderror
-                        </div>
+                            <div class="form-group">
+                                <label for="password_delete">Password</label>
+                                <input id="password_delete" name="password" type="password" class="input-field" placeholder="Password" required>
+                                {{-- [MODIFIKASI] Gunakan error bag 'userDeletion' --}}
+                                @error('password', 'userDeletion')
+                                    <p class="text-sm" style="color: #ff4d4d;">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        <div class="modal-actions">
-                            <button type="button" class="btn btn-secondary" @click="confirmingUserDeletion = false">
-                                Batal
-                            </button>
-                            <button type="submit" class="btn btn-danger">
-                                Hapus Akun
-                            </button>
-                        </div>
-                    </form>
+                            <div class="modal-actions">
+                                <button type="button" class="btn btn-secondary" @click="confirmingUserDeletion = false">
+                                    Batal
+                                </button>
+                                <button type="submit" class="btn btn-danger">
+                                    Hapus Akun
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
+        {{-- --- AKHIR PERBAIKAN --- --}}
 
         {{-- Modal untuk Cropping Gambar --}}
         <div id="crop-modal" class="modal-overlay" style="display: none;">
