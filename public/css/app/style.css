@@ -5,12 +5,50 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 100%);
+    font-family: 'Poppins', sans-serif; /* [FONT] Menggunakan Poppins sebagai font utama (bersih & modern) */
     color: #e0e0e0;
     overflow-x: hidden;
     min-height: 100vh;
+    position: relative; /* Diperlukan untuk pseudo-element */
+    
+    /* [BG] Menghapus background gradient lama */
+    /* background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 100%); */
 }
+
+/* [BG] Tambahan Baru:
+  Ini membuat background image Anda di 'public/images/heroLanding.jpg'.
+  Efek 'fixed' + 'blur' + overlay 'rgba' memastikan teks di atasnya
+  tetap mudah dibaca.
+*/
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2; /* Letakkan di paling belakang */
+    
+    /* Panggil gambar Anda */
+    background-image: url('/images/heroLanding.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* [BG] Tambahan Baru: Overlay gelap di atas background */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Letakkan di atas background, di belakang konten */
+    background-color: rgba(10, 14, 39, 0.85); /* Warna #0a0e27 dengan 85% opacity */
+    backdrop-filter: blur(8px); /* Efek blur */
+}
+
 
 /* --- STYLE UNTUK NAVBAR --- */
 nav {
@@ -19,7 +57,8 @@ nav {
     width: 100%;
     z-index: 1000;
     backdrop-filter: blur(10px);
-    background: rgba(15, 20, 50, 0.7);
+    /* [BG] Ubah background nav agar sedikit lebih transparan */
+    background: rgba(15, 20, 50, 0.5); 
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 1rem 2rem;
 }
@@ -38,7 +77,7 @@ nav {
 }
 
 .logo {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron', sans-serif; /* [FONT] Orbitron hanya untuk logo (profesional) */
     font-size: 1.8rem;
     font-weight: 900;
     background: linear-gradient(135deg, #00d4ff, #a78bfa);
@@ -317,20 +356,29 @@ nav {
 
 main {
     margin-top: 80px; 
-    min-height: calc(100vh - 80px - 250px); 
+    min-height: calc(100vh - 80px - 250px);
+    
+    /* [BG] Pastikan konten utama berada di atas overlay */
+    position: relative; 
+    z-index: 1;
 }
 
 /* --- STYLE FOOTER --- */
 footer {
-    background: linear-gradient(135deg, #0a0e27, #0f1432);
+    /* [BG] Buat footer semi-transparan juga */
+    background: linear-gradient(135deg, rgba(10, 14, 39, 0.8), rgba(15, 20, 50, 0.8));
     border-top: 1px solid rgba(0, 212, 255, 0.2);
     padding: 4rem 2rem;
     text-align: center;
+    
+    /* [BG] Pastikan footer berada di atas overlay */
+    position: relative;
+    z-index: 1;
 }
 
 .footer-content { max-width: 1200px; margin: 0 auto; }
 .footer-logo { 
-    font-family: 'Orbitron', sans-serif; 
+    font-family: 'Orbitron', sans-serif; /* [FONT] Orbitron hanya untuk logo footer */
     font-size: 1.8rem; 
     margin-bottom: 1rem; 
     background: linear-gradient(135deg, #00d4ff, #a78bfa); 

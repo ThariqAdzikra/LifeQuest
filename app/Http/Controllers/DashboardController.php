@@ -15,6 +15,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        // ==========================================================
+        // [PENYESUAIAN] Redirect admin ke panel mereka SEBELUM
+        // menghitung statistik pengguna.
+        // ==========================================================
+        if (Auth::user()->isAdmin()) {
+            return redirect()->route('admin.dashboard');
+        }
+        // ==========================================================
+        // --- AKHIR PENYESUAIAN ---
+        // ==========================================================
+
         $userId = Auth::id();
 
         // --- 1. Data untuk Stat Cards (Kiri Atas) ---

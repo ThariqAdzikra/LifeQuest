@@ -61,6 +61,7 @@ class ProfileController extends Controller
 
     /**
      * Update the user's profile photo.
+     * (Anda bisa hapus ini jika hanya pakai 'avatar')
      */
     public function updatePhoto(Request $request)
     {
@@ -86,6 +87,7 @@ class ProfileController extends Controller
 
     /**
      * Delete the user's profile photo.
+     * (Anda bisa hapus ini jika hanya pakai 'avatar')
      */
     public function deletePhoto()
     {
@@ -122,6 +124,17 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request)
     {
+        // ============================================
+        // [PERBAIKAN] Cek apakah user adalah admin
+        // ============================================
+        if (Auth::user()->isAdmin()) {
+            // Jika admin, kembalikan dengan error
+            return redirect()->route('profile.edit')->withErrors(['password' => 'Admin tidak dapat menghapus akunnya sendiri.']);
+        }
+        // ============================================
+        // --- AKHIR PERBAIKAN ---
+        // ============================================
+
         $request->validate([
             'password' => ['required', 'current_password'],
         ]);
