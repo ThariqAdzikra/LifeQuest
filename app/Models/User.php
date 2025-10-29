@@ -7,7 +7,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Achievement; // <-- INI SUDAH BENAR
+use App\Models\Achievement; // Pastikan ini ada
+use App\Models\Quest; // Pastikan ini ada
+use App\Models\QuestLog; // Pastikan ini ada
 
 // 2. Menambahkan "implements MustVerifyEmail"
 class User extends Authenticatable implements MustVerifyEmail
@@ -24,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'is_admin', // <-- TAMBAHKAN INI
         
         // --- TAMBAHAN STATS ---
         'exp',
@@ -55,6 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean', // <-- TAMBAHKAN INI
         ];
     }
 
@@ -116,5 +120,18 @@ class User extends Authenticatable implements MustVerifyEmail
         // level-1 = sqrt(exp / 100)
         // level = floor(sqrt(exp / 100)) + 1
         return floor(pow($exp / 100, 0.5)) + 1;
+    }
+
+    // ==========================================================
+    // --- PENYESUAIAN (TAMBAHAN UNTUK ADMIN) ---
+    // ==========================================================
+    
+    /**
+     * Helper function untuk mengecek apakah user adalah admin.
+     * [PERBAIKAN] Ini adalah baris yang diperbaiki
+     */
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
     }
 }

@@ -10,10 +10,22 @@
 
         <div class="nav-menu">
             @auth
-                <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
-                <a href="{{ route('quests.index') }}" class="{{ request()->routeIs('quests.*') ? 'active' : '' }}">Quest Saya</a>
-                <a href="{{ route('achievements.index') }}" class="{{ request()->routeIs('achievements.*') ? 'active' : '' }}">Achievements</a>
-                <a href="{{ route('leaderboard') }}" class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">Leaderboard</a>
+                {{-- --- MODIFIKASI DIMULAI DISINI (DESKTOP) --- --}}
+                @if (Auth::user()->isAdmin())
+                    {{-- HANYA TAMPILKAN INI JIKA ADMIN --}}
+                    <a href="{{ route('admin.dashboard') }}" 
+                       class="{{ request()->routeIs('admin.*') ? 'active' : '' }}" 
+                       style="color: #00d4ff; font-weight: 600;">
+                        <i class="bi bi-shield-lock-fill"></i> Admin Panel
+                    </a>
+                @else
+                    {{-- TAMPILKAN INI SEMUA JIKA USER BIASA --}}
+                    <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
+                    <a href="{{ route('quests.index') }}" class="{{ request()->routeIs('quests.*') ? 'active' : '' }}">Quest Saya</a>
+                    <a href="{{ route('achievements.index') }}" class="{{ request()->routeIs('achievements.*') ? 'active' : '' }}">Achievements</a>
+                    <a href="{{ route('leaderboard') }}" class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">Leaderboard</a>
+                @endif
+                {{-- --- MODIFIKASI SELESAI (DESKTOP) --- --}}
             @endauth
         </div>
 
@@ -76,10 +88,24 @@
                 </div>
             </div>
 
-            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
-            <a href="{{ route('quests.index') }}" class="{{ request()->routeIs('quests.*') ? 'active' : '' }}">Quest Saya</a>
-            <a href="{{ route('achievements.index') }}" class="{{ request()->routeIs('achievements.*') ? 'active' : '' }}">Achievements</a>
-            <a href="{{ route('leaderboard') }}" class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">Leaderboard</a>
+            {{-- --- MODIFIKASI DIMULAI DISINI (MOBILE) --- --}}
+            @if (Auth::user()->isAdmin())
+                {{-- HANYA TAMPILKAN INI JIKA ADMIN --}}
+                <a href="{{ route('admin.dashboard') }}" 
+                   class="{{ request()->routeIs('admin.*') ? 'active' : '' }}" 
+                   style="color: #00d4ff; font-weight: 600; background: rgba(0, 212, 255, 0.1);">
+                    <i class="bi bi-shield-lock-fill"></i> Admin Panel
+                </a>
+            @else
+                {{-- TAMPILKAN INI SEMUA JIKA USER BIASA --}}
+                <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
+                <a href="{{ route('quests.index') }}" class="{{ request()->routeIs('quests.*') ? 'active' : '' }}">Quest Saya</a>
+                <a href="{{ route('achievements.index') }}" class="{{ request()->routeIs('achievements.*') ? 'active' : '' }}">Achievements</a>
+                <a href="{{ route('leaderboard') }}" class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">Leaderboard</a>
+            @endif
+            {{-- --- MODIFIKASI SELESAI (MOBILE) --- --}}
+
+            {{-- Ini link umum, biarkan tampil untuk admin dan user --}}
             <a href="{{ route('profile.edit') }}">Profile</a>
             <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
                 @csrf

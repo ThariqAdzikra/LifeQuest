@@ -16,7 +16,6 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    /* --- PERBAIKAN PATH ADA DI SINI --- */
     background-image: url('../../images/heroLanding.jpg'); 
     background-size: cover;
     background-position: center;
@@ -30,7 +29,6 @@ body::before {
    LAYOUT CONTAINER (DISESUAIKAN)
    ================================= */
 .quest-board-container {
-    /* Menyamakan max-width dengan .container-xl di dashboard */
     max-width: 1140px; 
     margin: 0 auto;
     padding: 2rem;
@@ -40,7 +38,6 @@ body::before {
 .page-title {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    /* Menggunakan gradient yang konsisten dengan palet dashboard */
     background: linear-gradient(135deg, #00d4ff, #00aeff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -49,7 +46,7 @@ body::before {
 }
 
 .page-subtitle {
-    color: #94a3b8; /* Warna teks sekunder dari dashboard */
+    color: #94a3b8; 
     margin-bottom: 2rem;
     font-size: 1.1rem;
 }
@@ -74,7 +71,7 @@ body::before {
 .section-title {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
-    color: #e2e8f0; /* Teks utama dashboard */
+    color: #e2e8f0; 
     margin: 0;
 }
 
@@ -83,7 +80,6 @@ body::before {
    ================================= */
 .quest-tabs {
     display: flex;
-    /* Menggunakan border glass yang lebih soft */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 2rem;
 }
@@ -98,12 +94,12 @@ body::before {
     background: transparent;
     transition: all 0.3s ease;
     border-bottom: 3px solid transparent;
-    margin-bottom: -1px; /* Disesuaikan dengan border-bottom baru */
+    margin-bottom: -1px; 
 }
 
 .tab-link:hover {
     color: #e2e8f0; /* Teks utama */
-    background: rgba(15, 23, 42, 0.7); /* Latar hover glass */
+    background: rgba(15, 23, 42, 0.7); 
 }
 
 .tab-link.active {
@@ -125,11 +121,20 @@ body::before {
     color: #94a3b8;
     text-align: center;
     padding: 2rem;
-    /* Dibungkus dalam glass-card agar konsisten */
     background: rgba(15, 23, 42, 0.7);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 1rem;
+}
+
+/* Empty state di dalam manage wrapper */
+.manage-quest-wrapper .empty-state-text {
+    margin: 0;
+    flex: 0 1 auto;
+    /* Ganti style agar konsisten dengan card-inner */
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
 }
 
 
@@ -137,11 +142,10 @@ body::before {
    GAYA KARTU (DISAMAKAN DENGAN .GLASS-CARD)
    ================================= */
 .glass-card {
-    /* Ini adalah gaya .glass-card dari dashboard */
     background: rgba(15, 23, 42, 0.7);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem; /* 16px */
+    border-radius: 1rem; 
     transition: all 0.3s ease;
     overflow: hidden;
 }
@@ -152,37 +156,131 @@ body::before {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* .quest-card sekarang HANYA mengatur layout internal */
+/* Style ini tidak lagi digunakan sebagai kontainer utama list */
 .quest-card {
-    padding: 1.5rem; /* Menyamakan dengan p-4 dashboard */
+    padding: 1.5rem; 
     margin-bottom: 1.5rem;
     display: flex;
-    flex-wrap: wrap; /* Agar responsif */
-    justify-content: space-between;
+    flex-wrap: wrap; 
     align-items: center;
     gap: 1.5rem;
 }
 
+/* =================================
+   GAYA KHUSUS UNTUK MANAGE QUEST WRAPPER
+   ================================= */
+.manage-quest-wrapper {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.manage-quest-wrapper:hover {
+    transform: none; /* Disable hover effect untuk wrapper */
+    box-shadow: none; /* Disable hover effect untuk wrapper */
+    border-color: rgba(255, 255, 255, 0.1); /* Kembalikan border */
+}
+
+.quest-card-inner {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.quest-card-inner:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 212, 255, 0.3);
+    background: rgba(15, 23, 42, 0.7);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.quest-card-inner:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Quest yang dijeda (paused) di dalam wrapper */
+.quest-card-inner.paused {
+    opacity: 0.5;
+    background: rgba(15, 23, 42, 0.3);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.quest-card-inner.paused:hover {
+    transform: none;
+    opacity: 0.6;
+}
+
+.quest-card-inner.paused h3 {
+    color: #94a3b8;
+    text-decoration: line-through;
+}
+
+/* [TAMBAHAN] Style untuk card riwayat di dalam wrapper */
+.quest-card-inner.history {
+    opacity: 0.7;
+    border-color: rgba(0, 212, 255, 0.2);
+    background: rgba(15, 23, 42, 0.3);
+}
+.quest-card-inner.history:hover {
+    opacity: 0.8;
+    transform: translateY(-3px);
+    border-color: rgba(0, 212, 255, 0.3);
+    background: rgba(15, 23, 42, 0.7);
+}
+.quest-card-inner.history h3 {
+    color: #00d4ff; 
+    text-decoration: line-through;
+}
+
+
+/* =================================
+   GAYA INFO DAN META
+   ================================= */
 .quest-info {
     flex-grow: 1;
-    min-width: 300px; /* Agar tidak terlalu sempit */
+    min-width: 300px; 
 }
 
 .quest-info h3 {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
-    color: #e2e8f0; /* Teks utama (DIUBAH) */
+    color: #e2e8f0; 
     letter-spacing: 1px;
 }
 .quest-info p {
-    color: #94a3b8; /* Teks sekunder (DIUBAH) */
+    color: #94a3b8; 
     line-height: 1.6;
     font-size: 0.95rem;
     margin-bottom: 1rem;
 }
+
+/* Style untuk meta Frekuensi & Kesulitan */
+.quest-info .quest-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+}
+.quest-info .quest-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.quest-info .quest-meta i {
+    color: #00d4ff;
+}
+
 .quest-info small {
-    color: #00d4ff; /* Aksen cyan (DIUBAH) */
+    color: #00d4ff; 
     margin-top: 0.5rem;
     display: block;
     font-weight: 500;
@@ -191,18 +289,18 @@ body::before {
 .quest-rewards {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem; /* Mengurangi gap */
+    gap: 1rem; 
     margin-top: 1rem;
 }
 
 .reward-tag {
-    font-size: 0.85rem; /* Sedikit lebih kecil */
+    font-size: 0.85rem; 
     font-weight: 600;
-    color: #cbd5e1; /* Teks abu-abu muda */
+    color: #cbd5e1; 
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(15, 23, 42, 0.7); /* Latar glass mini */
+    background: rgba(15, 23, 42, 0.7); 
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -210,37 +308,37 @@ body::before {
 .reward-tag i {
     font-size: 1.1rem;
 }
-/* Warna Ikon disatukan sesuai palet dashboard */
 .reward-tag .bi-star-fill { color: #facc15; }
 .reward-tag .bi-coin { color: #eab308; }
-.reward-tag .bi-clock { color: #00d4ff; } /* Aksen Cyan */
-.reward-tag .bi-brain { color: #00d4ff; } /* Aksen Cyan */
-.reward-tag .bi-person-arms-up { color: #00d4ff; } /* Aksen Cyan */
-.reward-tag .bi-lightning-charge-fill { color: #00d4ff; } /* Aksen Cyan */
-.reward-tag .bi-wind { color: #00d4ff; } /* Aksen Cyan */
+.reward-tag .bi-clock { color: #00d4ff; } 
+.reward-tag .bi-brain { color: #00d4ff; } 
+.reward-tag .bi-person-arms-up { color: #00d4ff; } 
+.reward-tag .bi-lightning-charge-fill { color: #00d4ff; } 
+.reward-tag .bi-wind { color: #00d4ff; } 
 
 
 .quest-actions {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    min-width: 160px; /* Disesuaikan */
+    min-width: 160px; 
     flex-shrink: 0;
+    margin-left: auto; /* <-- Menggeser tombol ke kanan */
 }
-/* Tombol di dalam quest-actions otomatis 100% width */
 .quest-actions .btn {
     width: 100%;
 }
 
-/* Kartu riwayat */
+/* Style ini tidak lagi digunakan, diganti .quest-card-inner.history */
 .quest-card.history {
-    opacity: 0.7;
-    border-color: rgba(0, 212, 255, 0.2);
+    /* ... */
 }
-.quest-card.history h3 {
-    color: #00d4ff; /* Aksen cyan */
-    text-decoration: line-through;
+
+/* Style ini tidak lagi digunakan, diganti .quest-card-inner.paused */
+.quest-card.paused {
+    /* ... */
 }
+
 
 /* =================================
    GAYA FORM (DISAMAKAN DENGAN DASHBOARD)
@@ -251,7 +349,7 @@ body::before {
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #94a3b8; /* Teks sekunder */
+    color: #94a3b8; 
     font-weight: 600;
     font-size: 0.9rem;
 }
@@ -259,39 +357,37 @@ body::before {
     width: 100%;
     padding: 0.75rem 1rem;
     font-size: 1rem;
-    /* Gaya glass yang konsisten */
     background: rgba(15, 23, 42, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    color: #e2e8f0; /* Teks utama */
+    color: #e2e8f0; /* WARNA TEKS INPUT (PUTIH) */
     transition: all 0.3s ease;
 }
 .form-control:focus {
     background: rgba(15, 23, 42, 0.7);
-    border-color: #00d4ff; /* Aksen cyan */
+    border-color: #00d4ff; 
     box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
     outline: none;
+    color: #e2e8f0; /* WARNA TEKS INPUT SAAT FOCUS (PUTIH) */
 }
 .form-control::placeholder {
-    color: #64748b; /* Warna placeholder dashboard */
+    color: #64748b; 
 }
 select.form-control {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    /* Menambahkan ikon panah kustom */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1em;
-    padding-right: 2.5rem; /* Ruang untuk ikon panah */
+    padding-right: 2.5rem; 
 }
 select.form-control option {
-    background: #0a0e27; /* Latar dropdown */
+    background: #0a0e27; 
     color: #e2e8f0;
 }
 
-/* Layout grid untuk form */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -301,6 +397,7 @@ select.form-control option {
     color: #94a3b8;
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
+    line-height: 1.6;
 }
 
 
@@ -308,7 +405,7 @@ select.form-control option {
    GAYA TOMBOL (DISAMAKAN DENGAN DASHBOARD)
    ================================= */
 .btn {
-    padding: 0.75rem 1.5rem; /* Padding disesuaikan */
+    padding: 0.75rem 1.5rem; 
     font-size: 0.95rem;
     font-weight: 600;
     border: none;
@@ -320,27 +417,25 @@ select.form-control option {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem; /* Mengganti margin-right */
+    gap: 0.5rem; 
 }
 .btn i {
     font-size: 1.1rem;
-    margin: 0; /* Dihapus */
+    margin: 0; 
 }
 
 .btn-primary {
-    /* Menggunakan aksen cyan, bukan gradient ungu */
     background: #00d4ff;
-    color: #0a0e27; /* Teks gelap agar kontras */
+    color: #0a0e27; 
     box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
 }
 .btn-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
-    background: #00aeff; /* Warna hover */
+    background: #00aeff; 
 }
 
 .btn-danger {
-    /* Menggunakan palet merah yang lebih 'dingin' */
     background: rgba(220, 38, 38, 0.15);
     color: #f87171;
     border: 1px solid rgba(220, 38, 38, 0.4);
@@ -351,6 +446,31 @@ select.form-control option {
     color: #ffffff;
     box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
 }
+
+.btn-success {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+.btn-success:hover {
+    background: rgba(16, 185, 129, 0.3);
+    border-color: #10b981;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.btn-warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+.btn-warning:hover {
+    background: rgba(245, 158, 11, 0.3);
+    border-color: #f59e0b;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
 
 /* =================================
    ANIMASI
@@ -364,4 +484,170 @@ select.form-control option {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+/* =================================
+   GAYA PAGINASI BOOTSTRAP 5 KUSTOM
+   ================================= */
+
+/* Kontainer pagination default (untuk yg di LUAR card, seperti di tab Riwayat).
+*/
+.quest-pagination-container {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-top: 2rem; /* Jarak atas dari card terakhir */
+    margin-bottom: 2rem; /* Jarak bawah */
+    padding-top: 0;
+    float: none;
+    clear: both; /* Memastikan posisinya di bawah */
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+}
+
+/* Style SPESIFIK untuk pagination yg ada DI DALAM .manage-quest-wrapper.
+   Ini akan menimpa style default di atas.
+*/
+.manage-quest-wrapper .quest-pagination-container {
+    margin-top: 1.5rem;  /* Jarak dari quest item terakhir di atasnya */
+    margin-bottom: 0;  /* Tidak perlu margin bawah, sudah di dalam padding card */
+    padding: 0; /* Tidak perlu padding, sudah di dalam padding card */
+}
+
+/* Style untuk teks "Showing X to Y of Z results" */
+/* Target text-muted di dalam container pagination */
+.quest-pagination-container .text-muted {
+    color: #cbd5e1 !important; /* Paksa warna putih (slate-300) */
+}
+
+/* Target elemen <p> yang mungkin ada di dalam nav */
+.quest-pagination-container nav > p {
+     color: #cbd5e1 !important; /* Paksa warna putih (slate-300) */
+}
+
+
+/* Styling NAV dan UL di dalam kontainer */
+.quest-pagination-container nav {
+    width: 100%;
+    display: block !important; /* !important dijaga untuk menimpa bootstrap */
+    position: static !important;
+}
+
+.quest-pagination-container .pagination {
+    display: flex !important; 
+    justify-content: center !important; 
+    align-items: center !important;
+    padding-left: 0 !important; 
+    list-style: none !important;
+    gap: 0.5rem;
+    margin: 0 auto !important;
+    margin-bottom: 0 !important;
+    position: static !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+}
+
+.page-item {
+    display: inline-block;
+}
+
+.page-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    background: transparent; /* DIBUAT TRANSPARAN */
+    backdrop-filter: none; /* DIHILANGKAN */
+    border: 1px solid transparent; /* DIBUAT TRANSPARAN */
+    color: #94a3b8;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.page-link:hover {
+    background: rgba(0, 212, 255, 0.1); /* HOVER BARU (Highlight) */
+    border-color: transparent; /* TETAP TRANSPARAN */
+    color: #e2e8f0;
+    transform: translateY(-2px);
+    box-shadow: none; /* SHADOW DIHILANGKAN */
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    background: #00d4ff; /* STATE ACTIVE TETAP SOLID (PENTING UNTUK UX) */
+    border-color: #00d4ff;
+    color: #0a0e27;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+.page-item.disabled .page-link {
+    background: transparent; /* DIBUAT TRANSPARAN */
+    border-color: transparent; /* DIBUAT TRANSPARAN */
+    color: #475569;
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Style untuk tombol Previous & Next */
+.page-link[rel="prev"],
+.page-link[rel="next"] {
+    font-weight: 600;
+}
+
+.page-link[rel="prev"]:hover,
+.page-link[rel="next"]:hover {
+    background: rgba(0, 212, 255, 0.1); /* Samakan hover state */
+}
+
+/* Responsive pagination */
+@media (max-width: 576px) {
+    .pagination {
+        gap: 0.25rem;
+    }
+    
+    .page-link {
+        min-width: 35px;
+        height: 35px;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.875rem;
+    }
+}
+
+
+/* =================================
+   GAYA SWEETALERT KUSTOM
+   ================================= */
+.swal2-popup {
+    background: #0f172a !important; 
+    color: #cbd5e1 !important; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem !important; 
+}
+.swal2-title {
+    color: #e2e8f0 !important;
+}
+.swal2-confirm {
+    background: #00d4ff !important;
+    color: #0a0e27 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3) !important;
+}
+.swal2-cancel {
+    background: rgba(220, 38, 38, 0.15) !important;
+    color: #f87171 !important;
+    border: 1px solid rgba(220, 38, 38, 0.4) !important;
+    border-radius: 8px !important;
 }
