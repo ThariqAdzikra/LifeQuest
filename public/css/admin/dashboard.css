@@ -1,0 +1,148 @@
+/* public/css/admin/dashboard.css */
+
+/* --- Container (Assuming .quest-board-container is defined globally) --- */
+
+/* --- Titles (Assuming .page-title, .page-subtitle are defined globally) --- */
+
+/* --- Section Header (Assuming .section-header, .section-title are defined globally) --- */
+
+/* --- [TAMBAHAN BARU] Sub-Section Title (copied from Leaderboard style) --- */
+.section-title-sub {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.75rem; /* Slightly smaller than page title */
+    margin-bottom: 1.5rem; /* Adjusted margin */
+    background: linear-gradient(135deg, #00d4ff, #00aeff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    padding-bottom: 0.5rem; /* Add slight padding bottom */
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2); /* Subtle underline */
+}
+.section-title-sub i {
+    color: #00d4ff;
+    -webkit-text-fill-color: #00d4ff;
+    font-size: 1.5rem; /* Match icon size */
+}
+
+/* --- Glass Card (Assuming .glass-card is defined globally) --- */
+.glass-card {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    overflow: hidden; 
+    padding: 2rem; /* Default padding */
+}
+/* No hover effect needed for dashboard cards generally */
+/* .glass-card:hover { ... } */
+
+
+/* --- Specific Card Styles --- */
+.admin-stat-card {
+    padding: 1.5rem; /* Slightly reduced padding */
+}
+.admin-stat-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 0.5rem;
+    color: #e2e8f0;
+    letter-spacing: 1px;
+    font-size: 1rem; /* Slightly smaller title */
+    font-weight: 600;
+    text-transform: uppercase; /* Uppercase title */
+    color: #94a3b8; /* Muted title color */
+}
+
+.admin-stat-card .stat-value {
+    font-size: 2.25rem; /* Slightly smaller value */
+    font-weight: 700;
+    color: #00d4ff; 
+    margin: 0;
+    line-height: 1;
+}
+
+.admin-stat-card .stat-label {
+    color: #94a3b8; 
+    font-size: 0.85rem; /* Smaller label */
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* --- Admin Leaderboard Table Styles (Keep as before) --- */
+.admin-leaderboard-card {
+    padding: 0;
+}
+
+.admin-leaderboard-header,
+.admin-leaderboard-row {
+    display: grid;
+    grid-template-columns: 100px 2fr 1fr 1fr; 
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 2rem; 
+}
+
+.admin-leaderboard-header {
+    font-family: 'Orbitron', sans-serif;
+    color: #94a3b8; 
+    font-weight: 600;
+    font-size: 0.85rem; /* Smaller header */
+    text-transform: uppercase;
+    border-bottom: 2px solid rgba(0, 212, 255, 0.3); 
+}
+
+.admin-leaderboard-row {
+    font-size: 0.95rem; /* Slightly smaller row text */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    transition: background-color 0.3s ease;
+}
+.admin-leaderboard-row:last-child {
+    border-bottom: none;
+}
+.admin-leaderboard-row:hover {
+    background-color: rgba(255, 255, 255, 0.05); 
+}
+
+/* Column specific styles */
+.admin-leaderboard-row .rank-col {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem; 
+    font-weight: 700;
+    color: #cbd5e1; /* Default rank color, overridden by rank classes */
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* Increased gap slightly */
+}
+.admin-leaderboard-row .rank-col i {
+    font-size: 1.2rem; /* Ensure icons are visible */
+}
+
+.admin-leaderboard-row .user-col {
+    color: #e2e8f0; 
+    font-weight: 500;
+}
+
+.admin-leaderboard-row .level-col,
+.admin-leaderboard-row .exp-col {
+    color: #cbd5e1; 
+}
+
+.admin-leaderboard-row .exp-col {
+    text-align: right; 
+    font-weight: 500;
+}
+
+/* Top 3 Highlighting */
+.admin-leaderboard-row.rank-1 { background: rgba(250, 204, 21, 0.05); }
+.admin-leaderboard-row.rank-1 .rank-col { color: #facc15; }
+.admin-leaderboard-row.rank-2 { background: rgba(192, 192, 192, 0.05); }
+.admin-leaderboard-row.rank-2 .rank-col { color: #c0c0c0; }
+.admin-leaderboard-row.rank-3 { background: rgba(205, 127, 50, 0.05); }
+.admin-leaderboard-row.rank-3 .rank-col { color: #cd7f32; }
+
+/* --- Button Styles (Assuming defined globally or add here) --- */
+/* .btn-info { ... } */

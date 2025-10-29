@@ -76,10 +76,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- Bagian 3: Logika Pagination Kustom (Hanya tampilkan max 3 halaman) ---
+    
+    // --- Bagian 3: Logika untuk Modal Submission (HANYA PERBAIKAN Z-INDEX) ---
+    const submissionModal = document.getElementById('submissionModal');
+    if (submissionModal) {
+        submissionModal.addEventListener('show.bs.modal', function (event) {
+            // Tombol yang memicu modal
+            const button = event.relatedTarget;
+            
+            // Ekstrak URL submit dari data-* attribute
+            const submitUrl = button.getAttribute('data-submit-url');
+            
+            // Ambil form di dalam modal
+            const modalForm = submissionModal.querySelector('#submissionForm');
+            
+            // Set 'action' dari form tersebut
+            modalForm.setAttribute('action', submitUrl);
+        });
+    }
+
+
+    // --- Bagian 4: Logika Pagination Kustom (Hanya tampilkan max 3 halaman) ---
     limitPaginationDisplay();
     
-    // --- Bagian 4: DEBUG & FIX Pagination Position ---
+    // --- Bagian 5: DEBUG & FIX Pagination Position ---
     debugPaginationPosition();
     // fixPaginationPosition(); // <-- DINONAKTIFKAN
 });
