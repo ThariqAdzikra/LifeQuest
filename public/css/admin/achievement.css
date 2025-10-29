@@ -1,0 +1,456 @@
+/* =================================
+   GAYA GLOBAL (DARI PATOKAN STYLE GUIDE)
+   ================================= */
+body {
+    background-color: #0a0e27;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Default) */
+    color: #cbd5e1;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../../images/heroLanding.jpg'); /* Path disesuaikan */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(10px);
+    opacity: 0.3;
+    z-index: -2;
+}
+
+/* =================================
+   LAYOUT CONTAINER
+   ================================= */
+.quest-board-container {
+    max-width: 1140px; 
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Utility class untuk form create/edit */
+.container-narrow {
+    max-width: 800px;
+}
+
+/* =================================
+   JUDUL HALAMAN & SECTION
+   ================================= */
+.page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #00d4ff, #00aeff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-weight: 700; 
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; 
+}
+
+.page-subtitle {
+    color: #94a3b8; 
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.75rem;
+}
+
+.section-header i {
+    font-size: 1.2rem;
+    color: #00d4ff; 
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-size: 1.5rem;
+    color: #e2e8f0; 
+    margin: 0;
+}
+
+/* Header di halaman index (Tombol 'Buat Baru' di kanan) */
+.page-header-admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    flex-wrap: wrap; 
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+
+/* =================================
+   GAYA KARTU
+   ================================= */
+.glass-card {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem; 
+    transition: all 0.3s ease;
+    overflow: hidden;
+    padding: 2rem; /* Padding default */
+}
+
+/* =================================
+   GAYA TOMBOL
+   ================================= */
+.btn {
+    padding: 0.75rem 1.5rem; 
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; 
+    white-space: nowrap; 
+}
+.btn i {
+    font-size: 1.1rem;
+    margin: 0; 
+}
+
+/* Tombol kecil untuk Aksi (Edit/Hapus) */
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+}
+.btn-sm i {
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: #00d4ff;
+    color: #0a0e27; 
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    background: #00aeff; 
+}
+
+.btn-danger {
+    background: rgba(220, 38, 38, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(220, 38, 38, 0.4);
+}
+.btn-danger:hover {
+    background: rgba(220, 38, 38, 0.3);
+    border-color: #ef4444;
+    color: #ffffff;
+}
+
+.btn-warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+.btn-warning:hover {
+    background: rgba(245, 158, 11, 0.3);
+    border-color: #f59e0b;
+    color: #ffffff;
+}
+
+.btn-secondary-glass {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+}
+.btn-secondary-glass:hover {
+    background: rgba(15, 23, 42, 1);
+    border-color: rgba(0, 212, 255, 0.5);
+}
+
+/* =================================
+   GAYA FORM (UNTUK CREATE/EDIT)
+   ================================= */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #94a3b8; 
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+.form-control,
+.form-select { 
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #e2e8f0;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+.form-control:focus,
+.form-select:focus {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: #00d4ff; 
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    outline: none;
+    color: #e2e8f0;
+}
+.form-control::placeholder {
+    color: #64748b; 
+}
+.form-text {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+/* --- [PERUBAHAN] Kustomisasi Input File --- */
+.form-control[type="file"] {
+    padding: 0; /* Hapus padding default agar tombol pas */
+    color: #94a3b8; /* Warna teks "No file chosen" */
+}
+/* Hilangkan border default input file */
+.form-control[type="file"]:hover,
+.form-control[type="file"]:focus {
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+
+/* Style tombol "Choose File" */
+.form-control[type="file"]::file-selector-button {
+    background: #00d4ff; /* Aksen Cyan */
+    color: #0a0e27; /* Teks Gelap */
+    
+    padding: 0.75rem 1.5rem; /* Samakan dengan .btn */
+    margin: 0;
+    margin-right: 1rem; /* Jarak ke teks "No file chosen" */
+    
+    border: none;
+    border-radius: 8px 0 0 8px; /* Radius di kiri, ratakan di kanan */
+    
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+/* Hover state untuk tombol "Choose File" */
+.form-control[type="file"]::file-selector-button:hover {
+    background: #00aeff;
+}
+/* ------------------------------------------- */
+
+
+/* Error validasi */
+.validation-errors {
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.4);
+    color: #f87171;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+.validation-errors strong {
+    color: #fca5a5;
+}
+.validation-errors ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+    margin-bottom: 0;
+}
+
+/* Preview Ikon (Halaman Edit) */
+.current-icon-preview {
+    margin-bottom: 0.5rem;
+}
+.current-icon-preview img {
+    max-height: 60px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 5px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.current-icon-preview small {
+    color: #94a3b8;
+}
+
+/* =================================
+   GAYA DAFTAR ACHIEVEMENT (INDEX)
+   ================================= */
+.leaderboard-list {
+    padding: 0; /* Hapus padding default card */
+}
+.leaderboard-header,
+.leaderboard-row {
+    display: grid;
+    /* Kolom: Ikon, Judul, Deskripsi, Aksi */
+    grid-template-columns: 80px 1fr 2fr 150px;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1rem 2rem; 
+}
+.leaderboard-header {
+    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    color: #94a3b8; 
+    font-weight: 600;
+    font-size: 0.85rem; 
+    text-transform: uppercase;
+    border-bottom: 2px solid rgba(0, 212, 255, 0.3); 
+}
+.leaderboard-row {
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    transition: background-color 0.3s ease;
+}
+.leaderboard-row:last-child {
+    border-bottom: none;
+}
+.leaderboard-row:hover {
+    background-color: rgba(255, 255, 255, 0.05); 
+}
+
+/* Kolom Ikon */
+.icon-col img {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    object-fit: contain;
+    background: rgba(255,255,255,0.05);
+}
+.icon-placeholder {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: #94a3b8;
+    font-size: 1.2rem;
+}
+
+/* Kolom Judul */
+.title-col {
+    color: #e2e8f0; 
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+
+/* Kolom Deskripsi */
+.desc-col {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+}
+
+/* Kolom Aksi */
+.actions-col {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Tampilan Kosong */
+.empty-state {
+    padding: 2rem;
+    text-align: center;
+    color: #94a3b8;
+}
+
+/* =================================
+   PAGINASI
+   ================================= */
+.pagination-links {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+.pagination-links .pagination {
+    display: flex !important; 
+    gap: 0.5rem;
+    margin: 0 auto !important;
+    padding-left: 0 !important;
+    list-style: none !important;
+}
+.page-item {
+    display: inline-block;
+}
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #94a3b8;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+.page-link:hover {
+    background: rgba(0, 212, 255, 0.1);
+    color: #e2e8f0;
+    transform: translateY(-2px);
+}
+.page-item.active .page-link {
+    background: #00d4ff;
+    border-color: #00d4ff;
+    color: #0a0e27;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+.page-item.disabled .page-link {
+    background: transparent;
+    border-color: transparent;
+    color: #475569;
+    opacity: 0.5;
+}
+
+/* =================================
+   GAYA SWEETALERT
+   ================================= */
+.swal2-popup {
+    background: #0f172a !important; 
+    color: #cbd5e1 !important; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem !important; 
+}
+.swal2-title {
+    color: #e2e8f0 !important;
+}
+.swal2-confirm {
+    background: #00d4ff !important;
+    color: #0a0e27 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3) !important;
+}
+.swal2-cancel {
+    background: rgba(220, 38, 38, 0.15) !important;
+    color: #f87171 !important;
+    border: 1px solid rgba(220, 38, 38, 0.4) !important;
+    border-radius: 8px !important;
+}

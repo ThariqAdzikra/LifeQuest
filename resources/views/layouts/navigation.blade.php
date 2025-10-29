@@ -15,29 +15,27 @@
 
         <div class="nav-menu">
             @auth
-                {{-- --- Menu Navigasi Admin (Desktop) --- --}}
+                {{-- --- Menu Navigasi Admin (Desktop) [IKON DIHAPUS] --- --}}
                 @if (Auth::user()->isAdmin())
                     <a href="{{ route('admin.dashboard') }}" 
                        class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <i class="bi bi-shield-lock-fill"></i> Admin Panel
+                       Admin Panel
                     </a>
                     <a href="{{ route('admin.quests.index') }}" 
                        class="{{ request()->routeIs('admin.quests.*') ? 'active' : '' }}">
-                       <i class="bi bi-list-task"></i> Kelola Quest
+                       Kelola Quest
                     </a>
-                    {{-- [TAMBAHAN BARU] Link Kelola Achievements --}}
                     <a href="{{ route('admin.achievements.index') }}" 
                        class="{{ request()->routeIs('admin.achievements.*') ? 'active' : '' }}">
-                       <i class="bi bi-award-fill"></i> Kelola Achievements 
+                       Kelola Achievements 
                     </a>
-                    {{-- Akhir Tambahan --}}
                     <a href="{{ route('admin.submissions.index') }}" 
                        class="{{ request()->routeIs('admin.submissions.*') ? 'active' : '' }}">
-                       <i class="bi bi-clipboard-check-fill"></i> Review Submission
+                       Review Submission
                     </a>
                     <a href="{{ route('leaderboard') }}" 
                        class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">
-                       <i class="bi bi-bar-chart-line-fill"></i> Leaderboard
+                       Leaderboard
                     </a>
                 @else
                     {{-- Menu Navigasi User Biasa (Desktop) --}}
@@ -109,29 +107,27 @@
                 </div>
             </div>
 
-            {{-- --- Menu Navigasi Admin (Mobile) --- --}}
+            {{-- --- Menu Navigasi Admin (Mobile) [IKON DIHAPUS] --- --}}
             @if (Auth::user()->isAdmin())
                 <a href="{{ route('admin.dashboard') }}" 
                    class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <i class="bi bi-shield-lock-fill"></i> Admin Panel
+                   Admin Panel
                 </a>
                 <a href="{{ route('admin.quests.index') }}" 
                    class="{{ request()->routeIs('admin.quests.*') ? 'active' : '' }}">
-                   <i class="bi bi-list-task"></i> Kelola Quest
+                   Kelola Quest
                 </a>
-                {{-- [TAMBAHAN BARU] Link Kelola Achievements --}}
                 <a href="{{ route('admin.achievements.index') }}" 
                    class="{{ request()->routeIs('admin.achievements.*') ? 'active' : '' }}">
-                   <i class="bi bi-award-fill"></i> Kelola Achievements 
+                   Kelola Achievements 
                 </a>
-                {{-- Akhir Tambahan --}}
                 <a href="{{ route('admin.submissions.index') }}" 
                    class="{{ request()->routeIs('admin.submissions.*') ? 'active' : '' }}">
-                   <i class="bi bi-clipboard-check-fill"></i> Review Submission
+                   Review Submission
                 </a>
                 <a href="{{ route('leaderboard') }}" 
                    class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">
-                   <i class="bi bi-bar-chart-line-fill"></i> Leaderboard
+                   Leaderboard
                 </a>
             @else
                  {{-- Menu Navigasi User Biasa (Mobile) --}}

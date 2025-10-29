@@ -3,6 +3,11 @@
 @section('title', 'Quest Board - LifeQuest')
 
 @push('styles')
+{{-- [PENAMBAHAN] Import Google Fonts sesuai Style Guide --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 {{-- Memanggil file CSS kustom --}}
 <link rel="stylesheet" href="{{ asset('css/quest/style.css') }}">
@@ -10,9 +15,9 @@
 
 @section('content')
 <div class="quest-board-container">
-    {{-- Judul Halaman menggunakan class --}}
+    {{-- [PERUBAHAN] Judul Halaman dengan Ikon --}}
     <h1 class="page-title">
-        Quest Board
+        <i class="bi bi-journal-check"></i> Quest Board
     </h1>
     <p class="page-subtitle">Selesaikan tugas, raih prestasi, dan tingkatkan level karakter Anda di dunia nyata.</p>
 
@@ -25,7 +30,7 @@
     </div>
 
     {{-- ========================================================== --}}
-    {{-- Konten Tab 1: Quest Saya (PERUBAHAN BESAR DI SINI)
+    {{-- Konten Tab 1: Quest Saya
     {{-- ========================================================== --}}
     <div id="myQuests" class="tab-content active">
         
@@ -37,7 +42,6 @@
         <div class="glass-card manage-quest-wrapper" data-wrapper="my-quests">
             @forelse ($myQuests as $log)
             
-            {{-- [PERUBAHAN] Menambahkan class status untuk styling --}}
             <div class="quest-card-inner status-{{ $log->status }}">
                 <div class="quest-info">
                     <h3>{{ $log->quest->title }}</h3>
@@ -59,7 +63,6 @@
                         @endif
                     </div>
                     
-                    {{-- [PERUBAHAN] Menampilkan catatan submission/admin --}}
                     @if($log->status == 'pending_review' && $log->submission_notes)
                         <div class="submission-notes user">
                             <strong>Catatan Anda:</strong>
@@ -77,9 +80,6 @@
                 </div>
                 <div class="quest-actions">
                     
-                    {{-- ============================================= --}}
-                    {{-- LOGIKA 1: Jika Quest NON-ADMIN (Selesaikan Langsung) --}}
-                    {{-- ============================================= --}}
                     @if (!$log->quest->is_admin_quest)
                         <form action="{{ route('quests.complete', $log->id) }}" method="POST">
                             @csrf
@@ -87,9 +87,6 @@
                             <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Selesaikan</button>
                         </form>
                     
-                    {{-- ============================================= --}}
-                    {{-- LOGIKA 2: Jika Quest ADMIN (Perlu Bukti) --}}
-                    {{-- ============================================= --}}
                     @else
                         @if ($log->status == 'active')
                             <button type="button" 
@@ -116,7 +113,6 @@
                         @endif
                     @endif
 
-                    {{-- Tombol Batalkan (Selalu ada) --}}
                     <form action="{{ route('quests.cancel', $log->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -137,7 +133,7 @@
     </div>
 
     {{-- ========================================================== --}}
-    {{-- Konten Tab 2: Quest Tersedia (TIDAK BERUBAH) --}}
+    {{-- Konten Tab 2: Quest Tersedia
     {{-- ========================================================== --}}
     <div id="availableQuests" class="tab-content">
         <div class="section-header">
@@ -221,7 +217,7 @@
     </div>
 
     {{-- ========================================================== --}}
-    {{-- Konten Tab 3: Buat Quest Sendiri (TIDAK BERUBAH) --}}
+    {{-- Konten Tab 3: Buat Quest Sendiri
     {{-- ========================================================== --}}
     <div id="createQuest" class="tab-content">
         <div class="section-header">
@@ -298,7 +294,7 @@
                         <span class="reward-tag"><i class="bi bi-coin"></i> {{ $quest->gold_reward }} Gold</span>
                         @if($quest->stat_reward_type)
                         <span class="reward-tag">
-                            <i class="{{ getStatIcon($quest->stat_reward_type) }}"></i> +{{ $quest->stat_reward_value }} {{ ucfirst($quest->stat_reward_type) }}
+                            <i class="{{ getStatIcon($quest->stat_reward_type) }}"></i> +{{ $log->quest->stat_reward_value }} {{ ucfirst($log->quest->stat_reward_type) }}
                         </span>
                         @endif
                     </div>
@@ -339,7 +335,7 @@
     </div>
     
     {{-- ========================================================== --}}
-    {{-- Konten Tab 4: Riwayat Quest Selesai (TIDAK BERUBAH) --}}
+    {{-- Konten Tab 4: Riwayat Quest Selesai
     {{-- ========================================================== --}}
     <div id="completedQuests" class="tab-content">
          
@@ -381,21 +377,21 @@
 
 
 {{-- ========================================================== --}}
-{{-- [TAMBAHAN BARU] MODAL UNTUK SUBMISSION QUEST ADMIN
+{{-- MODAL UNTUK SUBMISSION QUEST ADMIN
 {{-- ========================================================== --}}
 <div class="modal fade" id="submissionModal" tabindex="-1" aria-labelledby="submissionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        {{-- [PERUBAHAN] Ganti style modal agar sesuai tema --}}
-        <div class="modal-content glass-card" style="border-radius: 1rem; border: 1px solid rgba(0, 212, 255, 0.5);">
-            <div class="modal-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                <h5 class="modal-title page-title" id="submissionModalLabel" style="font-size: 1.5rem; margin-bottom: 0;">Kirim Bukti Quest</h5>
+        
+        <div class="modal-content glass-card">
+            
+            <div class="modal-header">
+                <h5 class="modal-title page-title" id="submissionModalLabel">Kirim Bukti Quest</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #fff;"></button>
             </div>
             
-            {{-- Form ini action-nya akan di-set oleh JavaScript --}}
             <form id="submissionForm" action="" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="modal-body" style="padding: 2rem;">
+                <div class="modal-body">
                     
                     <div class="form-group">
                         <label for="submission_file">Upload Bukti (Maks: 5MB)</label>
@@ -408,7 +404,7 @@
                     </div>
 
                 </div>
-                <div class="modal-footer" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary"><i class="bi bi-send-fill"></i> Kirim Review</button>
                 </div>

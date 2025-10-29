@@ -17,8 +17,9 @@ class Achievement extends Model
     protected $fillable = [
         'title',
         'description',
-        'icon_path', // <-- Pastikan ini ada
-        'condition', // <-- Pastikan field lama Anda tetap ada jika masih dipakai
+        'icon_path',
+        'condition',
+        'key_name', // <-- [PERBAIKAN] Tambahkan ini
     ];
 
     /**

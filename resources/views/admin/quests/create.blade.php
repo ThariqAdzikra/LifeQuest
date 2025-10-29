@@ -1,27 +1,45 @@
-{{-- Menggunakan layout utama Anda (yang berisi navigasi) --}}
 @extends('layouts.app')
 
-@section('content')
-{{-- 
-  Saya ambil style dari file CSS Anda (style.css) 
-  agar tampilannya konsisten dengan halaman quest Anda.
---}}
-<div class="quest-board-container" style="max-width: 1140px; margin: 0 auto; padding: 2rem;">
+@section('title', 'Buat Quest Admin - LifeQuest')
 
-    <div class="section-header" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.75rem;">
-        <i class="bi bi-pencil-square" style="font-size: 1.2rem; color: #00d4ff;"></i>
-        <h2 class="section-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #e2e8f0; margin: 0;">
-            Buat Quest Admin Baru
+@push('styles')
+{{-- Memanggil file CSS kustom --}}
+<link rel="stylesheet" href="{{ asset('css/admin/quest.css') }}">
+@endpush
+
+@section('content')
+<div class="quest-board-container">
+
+    {{-- Header Halaman --}}
+    <div class="page-header-admin">
+        <div>
+            <h1 class="page-title">
+                <i class="bi bi-shield-check"></i>
+                Kelola Quest Admin
+            </h1>
+            <p class="page-subtitle">Buat quest resmi baru untuk semua player.</p>
+        </div>
+        <a href="{{ route('admin.quests.index') }}" class="btn btn-secondary-glass">
+            <i class="bi bi-arrow-left"></i> Kembali ke Daftar
+        </a>
+    </div>
+
+    {{-- Judul Section Form --}}
+    <div class="section-header">
+        <i class="bi bi-pencil-square"></i>
+        <h2 class="section-title">
+            Formulir Quest Baru
         </h2>
     </div>
     
-    <div class="glass-card" style="padding: 2rem; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem;">
+    {{-- Card Form --}}
+    <div class="glass-card">
         
-        {{-- Tampilkan Error Validasi jika ada --}}
+        {{-- Tampilkan Error Validasi --}}
         @if ($errors->any())
-            <div style="background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); color: #f87171; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <div class="validation-errors">
                 <strong>Oops! Ada yang salah:</strong>
-                <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -33,92 +51,85 @@
             @csrf
             
             {{-- Judul --}}
-            <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label for="title" style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem;">Judul Quest</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="Contoh: Kalahkan Raja Goblin" required 
-                       style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0;">
+            <div class="form-group">
+                <label for="title">Judul Quest</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Contoh: Kalahkan Raja Goblin" value="{{ old('title') }}" required>
             </div>
             
             {{-- Deskripsi --}}
-            <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label for="description" style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem;">Deskripsi</label>
-                <textarea id="description" name="description" rows="4" class="form-control" placeholder="Deskripsikan quest..." 
-                          style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0; font-family: 'Poppins', sans-serif;"></textarea>
+            <div class="form-group">
+                <label for="description">Deskripsi</label>
+                <textarea id="description" name="description" rows="4" class="form-control" placeholder="Deskripsikan quest...">{{ old('description') }}</textarea>
             </div>
             
-            <div class="form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div class="form-grid">
                 {{-- Kesulitan --}}
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label for="difficulty" style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem;">Kesulitan</label>
-                    <select id="difficulty" name="difficulty" class="form-control" 
-                            style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; padding-right: 2.5rem;">
-                        <option value="easy">Mudah</option>
-                        <option value="medium">Sedang</option>
-                        <option value="hard">Sulit</option>
+                <div class="form-group">
+                    <label for="difficulty">Kesulitan</label>
+                    {{-- Menggunakan class .form-control agar panah kustom tampil --}}
+                    <select id="difficulty" name="difficulty" class="form-control">
+                        <option value="easy" @if(old('difficulty') == 'easy') selected @endif>Mudah</option>
+                        <option value="medium" @if(old('difficulty') == 'medium') selected @endif>Sedang</option>
+                        <option value="hard" @if(old('difficulty') == 'hard') selected @endif>Sulit</option>
                     </select>
                 </div>
                 {{-- Frekuensi --}}
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label for="frequency" style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem;">Frekuensi</label>
-                    <select id="frequency" name="frequency" class="form-control" 
-                            style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; padding-right: 2.5rem;">
-                        <option value="once">Sekali Jalan</option>
-                        <option value="daily">Harian</option>
-                        <option value="weekly">Mingguan</option>
+                <div class="form-group">
+                    <label for="frequency">Frekuensi</label>
+                    <select id="frequency" name="frequency" class="form-control">
+                        <option value="once" @if(old('frequency') == 'once') selected @endif>Sekali Jalan</option>
+                        <option value="daily" @if(old('frequency') == 'daily') selected @endif>Harian</option>
+                        <option value="weekly" @if(old('frequency') == 'weekly') selected @endif>Mingguan</option>
                     </select>
                 </div>
             </div>
             
-            <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0 1.5rem 0;">
+            <hr class="form-divider">
             
             {{-- Reward (Manual Input) --}}
-            <div class="form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label for="exp_reward" style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem;">Reward EXP</label>
-                    <input type="number" id="exp_reward" name="exp_reward" class="form-control" value="0" required 
-                           style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0;">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="exp_reward">Reward EXP</label>
+                    <input type="number" id="exp_reward" name="exp_reward" class="form-control" value="{{ old('exp_reward', 0) }}" min="0" required>
                 </div>
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label for="gold_reward" style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem;">Reward Gold</label>
-                    <input type="number" id="gold_reward" name="gold_reward" class="form-control" value="0" required 
-                           style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0;">
+                <div class="form-group">
+                    <label for="gold_reward">Reward Gold</label>
+                    <input type="number" id="gold_reward" name="gold_reward" class="form-control" value="{{ old('gold_reward', 0) }}" min="0" required>
                 </div>
             </div>
-            <div class="form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label for="stat_reward_type" style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem;">Reward Stat</label>
-                    <select id="stat_reward_type" name="stat_reward_type" class="form-control" 
-                            style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; padding-right: 2.5rem;">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="stat_reward_type">Reward Stat</label>
+                    <select id="stat_reward_type" name="stat_reward_type" class="form-control">
                         <option value="">Tidak Ada</option>
-                        <option value="intelligence">Intelligence</option>
-                        <option value="strength">Strength</option>
-                        <option value="stamina">Stamina</option>
-                        <option value="agility">Agility</option>
+                        <option value="intelligence" @if(old('stat_reward_type') == 'intelligence') selected @endif>Intelligence</option>
+                        <option value="strength" @if(old('stat_reward_type') == 'strength') selected @endif>Strength</option>
+                        <option value="stamina" @if(old('stat_reward_type') == 'stamina') selected @endif>Stamina</option>
+                        <option value="agility" @if(old('stat_reward_type') == 'agility') selected @endif>Agility</option>
                     </select>
                 </div>
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label for="stat_reward_value" style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem;">Jumlah Stat</label>
-                    <input type="number" id="stat_reward_value" name="stat_reward_value" class="form-control" value="0" 
-                           style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0;">
+                <div class="form-group">
+                    <label for="stat_reward_value">Jumlah Stat</label>
+                    <input type="number" id="stat_reward_value" name="stat_reward_value" class="form-control" value="{{ old('stat_reward_value', 0) }}" min="0">
                 </div>
             </div>
 
-            <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0 1.5rem 0;">
+            <hr class="form-divider">
 
-            {{-- [TAMBAHAN BARU] Dropdown Achievement --}}
-            <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label for="achievement_id" style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem;">Hadiah Achievement (Title)</label>
-                <select id="achievement_id" name="achievement_id" class="form-control" 
-                        style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e2e8f0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; padding-right: 2.5rem;">
+            {{-- Dropdown Achievement --}}
+            <div class="form-group">
+                <label for="achievement_id">Hadiah Achievement (Title)</label>
+                <select id="achievement_id" name="achievement_id" class="form-control">
                     <option value="">Tidak ada</option>
                     @foreach ($achievements as $achievement)
-                        {{-- Asumsi 'title' adalah nama achievement-nya --}}
-                        <option value="{{ $achievement->id }}">{{ $achievement->title }}</option>
+                        <option value="{{ $achievement->id }}" @if(old('achievement_id') == $achievement->id) selected @endif>
+                            {{ $achievement->title }}
+                        </option>
                     @endforeach
                 </select>
             </div>
             
-            <button type="submit" class="btn btn-primary" style="margin-top: 1rem; padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: #00d4ff; color: #0a0e27; box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);">
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">
                 <i class="bi bi-save-fill"></i> Simpan Quest Admin
             </button>
         </form>
@@ -126,3 +137,8 @@
 
 </div>
 @endsection
+
+@push('scripts')
+{{-- (File JS ini bisa diisi jika ada interaksi form kustom nanti) --}}
+<script src="{{ asset('js/admin/quest.js') }}"></script>
+@endpush
