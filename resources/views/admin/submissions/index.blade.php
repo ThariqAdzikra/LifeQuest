@@ -10,7 +10,7 @@
 @section('content')
 <div class="quest-board-container">
 
-    {{-- [PERUBAHAN] Menggunakan style .page-title agar konsisten --}}
+    {{-- Header Halaman --}}
     <div class="page-header-admin">
         <div>
             <h1 class="page-title">
@@ -19,10 +19,9 @@
             </h1>
             <p class="page-subtitle">Setujui atau tolak quest yang dikirim oleh player.</p>
         </div>
-        {{-- Tidak ada tombol 'Buat Baru' di halaman ini --}}
     </div>
 
-    {{-- Notifikasi (Class diterapkan) --}}
+    {{-- Notifikasi --}}
     @if(session('success'))
         <div class="alert-success-glass">
             {{ session('success') }}
@@ -38,7 +37,7 @@
     <div class="glass-card manage-quest-wrapper">
         
         @forelse ($submissions as $log)
-        {{-- Kartu Submission (Class diterapkan) --}}
+        {{-- Kartu Submission --}}
         <div class="quest-card-inner">
             
             <div class="quest-info">
@@ -51,13 +50,13 @@
                     <span><i class="bi bi-calendar-event"></i> Dikirim: {{ $log->updated_at->format('d F Y, H:i') }}</span>
                 </div>
                 
-                {{-- Catatan User (Class diterapkan) --}}
+                {{-- Catatan User --}}
                 <div class="submission-notes-user">
                     <strong>Catatan User:</strong>
                     {{ $log->submission_notes ?? '(Tidak ada catatan)' }}
                 </div>
                 
-                {{-- Link Lihat Bukti (Class diterapkan) --}}
+                {{-- Link Lihat Bukti --}}
                 @if($log->submission_file_path)
                 <a href="{{ Storage::url($log->submission_file_path) }}" target="_blank" class="btn btn-primary mt-3">
                     <i class="bi bi-eye-fill"></i> Lihat Bukti
@@ -65,7 +64,7 @@
                 @endif
             </div>
             
-            {{-- Tombol Aksi Admin (Class diterapkan) --}}
+            {{-- Tombol Aksi Admin --}}
             <div class="quest-actions">
                 
                 {{-- TOMBOL APPROVE --}}
@@ -86,19 +85,35 @@
             </div>
         </div>
         @empty
-        {{-- Tampilan Kosong (Class diterapkan) --}}
+        {{-- Tampilan Kosong --}}
         <p class="empty-state-text">
             Tidak ada submission yang menunggu review.
         </p>
         @endforelse
 
-        {{-- [PERUBAHAN] Link Paginasi dipindahkan ke DALAM card --}}
-        @if ($submissions->hasPages())
+        {{-- [PERUBAHAN] Link Paginasi Dihapus dari DALAM card --}}
+        {{-- @if ($submissions->hasPages())
         <div class="pagination-links">
             {{ $submissions->links() }}
         </div>
-        @endif
-    </div>
+        @endif --}}
+        
+    </div> {{-- Ini adalah penutup .glass-card --}}
+
+
+    {{-- [PERUBAHAN BARU] Blok paginasi gaya Quest diletakkan DI LUAR card --}}
+    @if ($submissions->hasPages())
+        <div class="quest-pagination-container">
+            {{-- Info "Showing..." --}}
+            <div class="pagination-info">
+                Showing {{ $submissions->firstItem() }} to {{ $submissions->lastItem() }} of {{ $submissions->total() }} results
+            </div>
+            
+            {{-- Link Paginasi --}}
+            {{ $submissions->links() }}
+        </div>
+    @endif
+
 </div>
 @endsection
 

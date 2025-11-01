@@ -60,7 +60,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     // /admin/quests (CRUD untuk Quest Admin)
-    Route::resource('quests', AdminQuestController::class)->except(['show']);
+    Route::get('/quests', [AdminQuestController::class, 'index'])->name('quests.index');
+    Route::get('/quests/create', [AdminQuestController::class, 'create'])->name('quests.create');
+    Route::post('/quests', [AdminQuestController::class, 'store'])->name('quests.store');
+    Route::get('/quests/{quest}/edit', [AdminQuestController::class, 'edit'])->name('quests.edit'); // AJAX endpoint untuk modal
+    Route::put('/quests/{quest}', [AdminQuestController::class, 'update'])->name('quests.update'); // Update quest
+    Route::delete('/quests/{quest}', [AdminQuestController::class, 'destroy'])->name('quests.destroy');
     
     // /admin/submissions (Review Quest Submissions)
     Route::get('/submissions', [SubmissionController::class, 'index'])->name('submissions.index');

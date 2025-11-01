@@ -31,18 +31,14 @@
             <div class="footer-logo">LifeQuest</div>
             <p class="footer-tagline">"Ubah kebiasaan kecil menjadi pencapaian besar. Mulai petualanganmu hari ini."</p>
             
-            <div class="footer-links">
-                <a href="{{ route('dashboard') }}">Dashboard</a>
-                <a href="{{ route('quests.index') }}">Quest Saya</a>
-                <a href="{{ route('profile.edit') }}">Profile</a>
-                <a href="#">Blog</a>
-                <a href="#">Dukungan</a>
-            </div>
+            {{-- PERBAIKAN: 'div.footer-links' sudah dihapus di langkah sebelumnya --}}
 
             <div class="footer-social">
-                <a href="#" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+                {{-- PERBAIKAN: Ikon X diubah jadi Facebook --}}
+                <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
                 <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" title="Discord"><i class="bi bi-discord"></i></a>
+                {{-- PERBAIKAN: Ikon Discord diubah jadi LinkedIn --}}
+                <a href="#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
                 <a href="#" title="GitHub"><i class="bi bi-github"></i></a>
             </div>
             

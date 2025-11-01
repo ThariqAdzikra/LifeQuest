@@ -227,7 +227,7 @@ body::before {
     margin-top: 0.25rem;
 }
 
-/* --- [PERUBAHAN] Kustomisasi Input File --- */
+/* --- Kustomisasi Input File --- */
 .form-control[type="file"] {
     padding: 0; /* Hapus padding default agar tombol pas */
     color: #94a3b8; /* Warna teks "No file chosen" */
@@ -379,55 +379,102 @@ body::before {
 }
 
 /* =================================
-   PAGINASI
+   PAGINASI - [PERUBAHAN] GAYA DARI QUEST
    ================================= */
-.pagination-links {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
+.quest-pagination-container {
+    display: flex !important;
+    justify-content: center !important; 
+    align-items: center !important;
+    flex-wrap: wrap !important; 
+    gap: 1rem !important; 
+    width: 100% !important;
+    
+    visibility: visible !important;
+    opacity: 1 !important;
+    backdrop-filter: blur(12px) !important;
+
+    margin-top: 1.5rem !important; 
+    margin-bottom: 3rem !important; 
+    padding: 1.5rem 2rem !important; 
 }
-.pagination-links .pagination {
+
+/* Style untuk teks "Showing..." */
+.pagination-info {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.9rem;
+    color: #ffffff;
+    flex-shrink: 0; 
+}
+
+/* Style untuk <nav> bawaan laravel */
+.quest-pagination-container > nav {
+    /* Kosong, tidak perlu style khusus */
+}
+
+.quest-pagination-container .pagination {
     display: flex !important; 
-    gap: 0.5rem;
-    margin: 0 auto !important;
-    padding-left: 0 !important;
+    justify-content: center !important; 
+    align-items: center !important;
+    flex-wrap: wrap !important; 
+    padding: 0 !important;
+    margin: 0 !important; 
     list-style: none !important;
+    gap: 0.5rem !important;
+    max-width: 100% !important; 
 }
-.page-item {
-    display: inline-block;
+
+.pagination .page-item {
+    display: inline-block !important;
+    list-style: none !important;
+    margin: 0 !important;
 }
-.page-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 40px;
-    height: 40px;
-    padding: 0.5rem 0.75rem;
-    text-decoration: none;
-    background: transparent;
-    border: 1px solid transparent;
-    color: #94a3b8;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    font-weight: 500;
+
+.pagination .page-link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 45px !important;
+    min-height: 45px !important;
+    padding: 0.75rem 1rem !important;
+    text-decoration: none !important;
+    background: rgba(15, 23, 42, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    font-weight: 500 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 1rem !important;
 }
-.page-link:hover {
-    background: rgba(0, 212, 255, 0.1);
-    color: #e2e8f0;
-    transform: translateY(-2px);
+
+.pagination .page-link:hover {
+    background: rgba(0, 212, 255, 0.2) !important;
+    color: #00d4ff !important;
+    border-color: #00d4ff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2) !important;
 }
-.page-item.active .page-link {
-    background: #00d4ff;
-    border-color: #00d4ff;
-    color: #0a0e27;
-    font-weight: 700;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+
+.pagination .page-item.active .page-link {
+    background: #00d4ff !important;
+    border-color: #00d4ff !important;
+    color: #0a0e27 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5) !important;
 }
-.page-item.disabled .page-link {
-    background: transparent;
-    border-color: transparent;
-    color: #475569;
-    opacity: 0.5;
+
+.pagination .page-item.disabled .page-link {
+    background: transparent !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+    color: #475569 !important;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}
+
+.pagination .page-item.disabled .page-link:hover {
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 /* =================================

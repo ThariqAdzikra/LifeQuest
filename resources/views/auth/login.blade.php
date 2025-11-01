@@ -20,12 +20,14 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        {{-- PERBAIKAN: Menambahkan autocomplete="off" di form --}}
+        <form method="POST" action="{{ route('login') }}" autocomplete="off">
             @csrf
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="warrior@habitquest.com">
+                {{-- PERBAIKAN: Menggunakan autocomplete="off" --}}
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="off" placeholder="warrior@habitquest.com">
                 @error('email')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
@@ -33,9 +35,13 @@
 
             <div class="form-group">
                 <label for="password">Password</label>
-                {{-- BARU: Wrapper untuk ikon mata --}}
                 <div class="input-wrapper">
-                    <input id="password" type="password" name="password" required autocomplete="current-password" placeholder="Masukkan password Anda">
+                    {{-- 
+                      PERBAIKAN UTAMA: 
+                      Menggunakan "new-password" adalah trik untuk 'menipu' browser 
+                      agar tidak menawarkan/mengisi password yang tersimpan.
+                    --}}
+                    <input id="password" type="password" name="password" required autocomplete="new-password" placeholder="Masukkan password Anda">
                     <i class="fas fa-eye toggle-password" data-target="password"></i>
                 </div>
                 @error('password')
@@ -76,7 +82,7 @@
 @endsection
 
 @push('scripts')
-{{-- BARU: JavaScript untuk toggle password --}}
+{{-- JavaScript untuk toggle password (Tidak ada perubahan, sudah benar) --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const toggleIcons = document.querySelectorAll('.toggle-password');

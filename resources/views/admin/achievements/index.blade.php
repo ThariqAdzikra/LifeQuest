@@ -75,10 +75,18 @@
         @endforelse
     </div>
 
-    {{-- Paginasi --}}
-    <div class="pagination-links">
-        {{ $achievements->links() }}
-    </div>
+    {{-- [PERUBAHAN] Blok paginasi diganti agar sesuai style Quest --}}
+    @if ($achievements->hasPages())
+        <div class="quest-pagination-container">
+            {{-- Info "Showing..." --}}
+            <div class="pagination-info">
+                Showing {{ $achievements->firstItem() }} to {{ $achievements->lastItem() }} of {{ $achievements->total() }} results
+            </div>
+            
+            {{-- Link Paginasi --}}
+            {{ $achievements->links() }}
+        </div>
+    @endif
 </div>
 @endsection
 

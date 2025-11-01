@@ -17,7 +17,8 @@ class SubmissionController extends Controller
         $submissions = QuestLog::where('status', 'pending_review')
                                 ->with(['user', 'quest']) // Load relasi user & quest
                                 ->latest()
-                                ->paginate(20);
+                                // [PERUBAHAN] Diubah dari 20 menjadi 10 item per halaman
+                                ->paginate(10); 
                                 
         return view('admin.submissions.index', compact('submissions'));
     }
