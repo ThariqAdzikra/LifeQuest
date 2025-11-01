@@ -13,7 +13,8 @@ class AdminAchievementController extends Controller
     /** Display a listing of achievements. */
     public function index()
     {
-        $achievements = Achievement::latest()->paginate(15);
+        // [PERUBAHAN] Diubah menjadi 10 item per halaman
+        $achievements = Achievement::latest()->paginate(10);
         return view('admin.achievements.index', compact('achievements'));
     }
 
@@ -44,7 +45,7 @@ class AdminAchievementController extends Controller
             'description' => $validated['description'],
             'icon_path' => $iconPath,
             'key_name' => Str::slug($validated['title'], '_'), // Membuat 'key_name'
-            'condition' => [], // <-- [PERBAIKAN KEDUA] Tambahkan baris ini
+            'condition' => [], 
         ];
 
         Achievement::create($data); // Simpan data

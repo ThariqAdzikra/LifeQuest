@@ -1,5 +1,5 @@
 /* =================================
-   GAYA GLOBAL (DARI DASHBOARD)
+   GAYA GLOBAL (Tidak berubah)
    ================================= */
 body {
     background-color: #0a0e27;
@@ -7,8 +7,6 @@ body {
     color: #cbd5e1;
     overflow-x: hidden;
 }
-
-/* Memastikan latar belakang blur DARI DASHBOARD ter-load */
 body::before {
     content: "";
     position: fixed;
@@ -16,7 +14,7 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('../../images/heroLanding.jpg'); /* Path ini PENTING */
+    background-image: url('../../images/heroLanding.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -26,14 +24,13 @@ body::before {
 }
 
 /* =================================
-   LAYOUT & JUDUL (DARI DASHBOARD)
+   LAYOUT & JUDUL (Tidak berubah)
    ================================= */
 .quest-board-container {
     max-width: 1140px; 
     margin: 0 auto;
     padding: 2rem;
 }
-
 .page-title {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
@@ -47,12 +44,10 @@ body::before {
     align-items: center;
     gap: 1rem;
 }
-
 .page-title-icon {
     color: #00d4ff;
-    -webkit-text-fill-color: #00d4ff; /* Memastikan ikon di-render */
+    -webkit-text-fill-color: #00d4ff;
 }
-
 .page-subtitle {
     color: #94a3b8;
     margin-bottom: 2.5rem;
@@ -60,7 +55,7 @@ body::before {
 }
 
 /* =================================
-   KARTU DASAR (DARI DASHBOARD)
+   KARTU DASAR (Tidak berubah)
    ================================= */
 .glass-card {
     background: rgba(15, 23, 42, 0.7);
@@ -71,7 +66,6 @@ body::before {
     overflow: hidden;
     padding: 2rem;
 }
-
 .glass-card:hover {
     transform: translateY(-5px);
     border-color: rgba(0, 212, 255, 0.5);
@@ -79,7 +73,7 @@ body::before {
 }
 
 /* =================================
-   KARTU STATS (PENYESUAIAN)
+   KARTU STATS (Tidak berubah)
    ================================= */
 .stats-container {
     display: grid;
@@ -87,11 +81,9 @@ body::before {
     gap: 1.5rem;
     margin-bottom: 3rem;
 }
-
 .stat-card-primary {
     text-align: center;
 }
-
 .stat-card-primary .stat-value {
     font-family: 'Orbitron', sans-serif;
     font-size: 2.5rem;
@@ -100,7 +92,6 @@ body::before {
     color: #e2e8f0; 
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
-
 .stat-card-primary .stat-label {
     font-size: 1.1rem;
     color: #94a3b8;
@@ -110,7 +101,7 @@ body::before {
 }
 
 /* =================================
-   EXP BAR (PENYESUAIAN WARNA)
+   EXP BAR (Tidak berubah)
    ================================= */
 .exp-bar-container {
     width: 100%;
@@ -124,7 +115,6 @@ body::before {
     z-index: 1;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-
 .exp-bar-fill {
     height: 100%;
     background: linear-gradient(90deg, #00aeff, #00d4ff, #00aeff);
@@ -149,7 +139,6 @@ body::before {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
 }
-
 .exp-text {
     color: #cbd5e1;
     font-size: 0.9rem;
@@ -160,15 +149,14 @@ body::before {
 }
 
 /* =================================
-   KARTU ATRIBUT (KONSISTEN)
+   KARTU ATRIBUT (Tidak berubah)
    ================================= */
 .stat-card-attribute {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.5rem; /* Padding lebih kecil dari .glass-card standar */
+    padding: 1.5rem;
 }
-
 .stat-icon {
     font-size: 2.5rem;
     width: 70px;
@@ -181,58 +169,49 @@ body::before {
     flex-shrink: 0;
     transition: all 0.3s ease;
 }
-
-/* --- Ini adalah bagian yang merapikan warna ikon --- */
-
-/* Untuk Kartu Gold */
 .stat-icon.gold { 
-    color: #facc15; /* Kuning */
+    color: #facc15;
     background: rgba(250, 204, 21, 0.1);
 }
-/* Untuk Kartu Quests Completed */
 .stat-icon.completed { 
-    color: #34d399; /* Hijau */
+    color: #34d399;
     background: rgba(52, 211, 153, 0.1);
 }
 .stat-icon.strength { 
-    color: #f87171; /* Merah */
+    color: #f87171;
     background: rgba(248, 113, 113, 0.1);
 }
-/* Stamina (DIBEDAKAN warnanya dari 'completed') */
 .stat-icon.stamina { 
-    color: #f59e0b; /* Oranye */
+    color: #f59e0b;
     background: rgba(245, 158, 11, 0.1);
 }
 .stat-icon.intelligence { 
-    color: #00d4ff; /* Cyan (Benchmark) */
+    color: #00d4ff;
     background: rgba(0, 212, 255, 0.1);
 }
 .stat-icon.agility { 
-    color: #a78bfa; /* Ungu */
+    color: #a78bfa;
     background: rgba(167, 139, 250, 0.1);
 }
-/* --- Akhir bagian warna ikon --- */
-
-
 .stat-info .stat-label {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #94a3b8; /* Abu-abu */
+    color: #94a3b8;
     margin-bottom: 0.25rem;
     text-transform: uppercase;
 }
 .stat-info .stat-value {
     font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
-    color: #e2e8f0; /* Putih */
+    color: #e2e8f0;
     font-weight: 700;
 }
 
 /* ============================================
-   ACHIEVEMENT (PENYESUAIAN)
+   ACHIEVEMENT (PERUBAHAN UTAMA DI SINI)
    ============================================ */
 
-/* Judul section disamakan dengan gradient cyan */
+/* Judul section (Tidak berubah) */
 .section-title-sub {
     display: flex;
     align-items: center;
@@ -252,59 +231,84 @@ body::before {
     -webkit-text-fill-color: #00d4ff;
 }
 
+/* === DIUBAH === */
+/* Kontainer 5 kolom (Tidak berubah dari sebelumnya) */
 .unlocked-achievements-container {
     display: grid;
+    grid-template-columns: repeat(5, 1fr); 
     gap: 1.5rem;
     margin-bottom: 3rem;
 }
 
-/* Kartu Achievement adalah .glass-card */
+/* === DIUBAH === */
+/* Kartu Achievement vertikal (Tidak berubah dari sebelumnya) */
 .achievement-card {
     display: flex;
-    gap: 2rem;
+    flex-direction: column; 
+    text-align: center;
     align-items: center;
+    padding: 1.5rem; 
+    gap: 0;
 }
 
-/* Ikon disederhanakan, warna dari class Rarity */
-.achievement-icon {
-    width: 80px;
-    height: 80px;
-    min-width: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    background: rgba(15, 23, 42, 0.7);
-    border: 3px solid;
+/* === DIUBAH === */
+/* Mengganti .achievement-icon dengan .achievement-image-container */
+.achievement-image-container {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    /* Background jika gambar gagal loading */
+    background: rgba(15, 23, 42, 0.7); 
+    /* Border akan diwarnai oleh class rarity */
+    border: 3px solid; 
     border-radius: 50%;
     z-index: 1;
     transition: all 0.4s ease;
+    margin-bottom: 1rem;
+    /* Penting: Sembunyikan gambar yang meluap */
+    overflow: hidden; 
+    /* Menjaga bentuk di flex-column */
+    flex-shrink: 0; 
 }
-.glass-card:hover .achievement-icon {
+
+/* Efek hover dari .glass-card dipindahkan ke container baru */
+.glass-card:hover .achievement-image-container {
     transform: rotate(15deg) scale(1.1);
 }
 
-.achievement-info {
-    flex: 1;
-    z-index: 1;
+/* === BARU === */
+/* Menyesuaikan gambar di dalam container */
+.achievement-image {
+    width: 100%;
+    height: 100%;
+    /* Memastikan gambar mengisi lingkaran tanpa distorsi */
+    object-fit: cover; 
 }
 
+
+/* === DIUBAH === */
+/* Info (Tidak berubah dari sebelumnya) */
+.achievement-info {
+    flex: 0 1 auto;
+    z-index: 1;
+    width: 100%;
+}
 .achievement-info h3 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.1rem; 
+    margin-bottom: 0.25rem; 
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 .achievement-info p {
-    color: #94a3b8; /* Abu-abu */
-    line-height: 1.6;
-    font-size: 1rem;
-    margin-bottom: 1rem;
+    color: #94a3b8;
+    line-height: 1.4;
+    font-size: 0.9rem;
+    margin-bottom: 0; 
 }
 
 /* =================================
-   TAG REWARD (DARI QUEST BOARD)
+   TAG REWARD (Tidak Dihapus)
    ================================= */
 .quest-rewards {
     display: flex;
@@ -312,7 +316,6 @@ body::before {
     flex-wrap: wrap;
     margin-bottom: 1rem;
 }
-
 .reward-tag {
     font-size: 0.85rem;
     font-weight: 600;
@@ -332,24 +335,28 @@ body::before {
 .reward-tag .bi-coin { color: #eab308; }
 
 /* =================================
-   WARNA RARITY (BARU)
+   WARNA RARITY (DIPERBARUI)
    ================================= */
-.rarity-common, .rarity-common i {
+/* Menghapus 'i' agar style berlaku untuk H3 (color) 
+   dan .achievement-image-container (border-color) */
+.rarity-common {
     color: #94a3b8 !important;
     border-color: #94a3b8 !important;
 }
-.rarity-rare, .rarity-rare i {
+.rarity-rare {
     color: #00d4ff !important;
     border-color: #00d4ff !important;
 }
-.rarity-epic, .rarity-epic i {
+.rarity-epic {
     color: #a855f7 !important;
     border-color: #a855f7 !important;
 }
-.rarity-legendary, .rarity-legendary i {
+.rarity-legendary {
     color: #facc15 !important;
     border-color: #facc15 !important;
 }
+
+/* Style untuk tag reward tetap ada jika diperlukan di lain tempat */
 .reward-tag.rarity-common,
 .reward-tag.rarity-rare,
 .reward-tag.rarity-epic,
@@ -357,8 +364,7 @@ body::before {
     background: rgba(15, 23, 42, 0.7);
 }
 
-
-/* Tanggal (Konsisten, warna hijau oke) */
+/* Tanggal (Tidak Dihapus) */
 .unlocked-date {
     display: inline-flex;
     align-items: center;
@@ -373,7 +379,7 @@ body::before {
 }
 
 /* =================================
-   EMPTY STATE (PENYESUAIAN)
+   EMPTY STATE (Tidak berubah)
    ================================= */
 .empty-state-card {
     background: rgba(15, 23, 42, 0.7);
@@ -384,6 +390,7 @@ body::before {
     text-align: center;
     color: #94a3b8;
     font-size: 1.1rem;
+    grid-column: 1 / -1;
 }
 .empty-state-card i {
     font-size: 3rem;
@@ -399,14 +406,17 @@ body::before {
 }
 
 /* =================================
-   RESPONSIVE (TETAP)
+   RESPONSIVE (Tidak berubah)
    ================================= */
+@media (max-width: 992px) {
+    .unlocked-achievements-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
-    .achievement-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.5rem;
-        gap: 1.5rem;
+    .unlocked-achievements-container {
+        grid-template-columns: repeat(3, 1fr);
     }
     .quest-rewards {
         justify-content: center;
@@ -423,11 +433,15 @@ body::before {
         font-size: 1.6rem;
     }
 }
+
 @media (max-width: 576px) {
     .stats-container {
         grid-template-columns: 1fr;
     }
     .section-title-sub {
         font-size: 1.5rem;
+    }
+    .unlocked-achievements-container {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

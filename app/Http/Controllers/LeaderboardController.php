@@ -57,8 +57,21 @@ class LeaderboardController extends Controller
                               $q->where('is_admin_quest', true);
                           });
                 }])
-                // [PERBAIKAN UTAMA] Ganti 'where' menjadi 'having' untuk filter alias
-                ->having('quest_logs_count', '>', $currentUserQuestCount)
+                
+                // [PERBAIKAN UTAMA]
+                // Menggunakan havingRaw untuk menangani logika tie-breaker (kondisi seri)
+                // Kita hitung user yang:
+                // (A) Punya quest_logs_count > dari user ini
+                // ATAU
+                // (B) Punya quest_logs_count SAMA, TAPI nama < (lebih dulu) dari user ini
+                ->havingRaw(
+                    '(quest_logs_count > ?) OR (quest_logs_count = ? AND name < ?)', 
+                    [
+                        $currentUserQuestCount, // Binding untuk '?' pertama
+                        $currentUserQuestCount, // Binding untuk '?' kedua
+                        $currentUser->name       // Binding untuk '?' ketiga
+                    ]
+                )
                 ->count();
             
             // C. Peringkatnya adalah (jumlah user di atasnya) + 1

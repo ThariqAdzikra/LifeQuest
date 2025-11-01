@@ -58,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'is_admin' => 'boolean', // <-- TAMBAHKAN INI
+            'is_admin' => 'boolean', // <-- TAMBAHAN INI
         ];
     }
 
@@ -132,6 +132,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function isAdmin(): bool
     {
-        return $this->is_admin;
+        // === PERUBAHAN DI SINI ===
+        // Memaksa output menjadi bool (true/false)
+        // null akan menjadi false, 1 akan menjadi true
+        return (bool) $this->is_admin;
     }
 }
