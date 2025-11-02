@@ -1,9 +1,9 @@
 /* =================================
-   GAYA GLOBAL (DARI PATOKAN STYLE GUIDE)
+   GAYA GLOBAL 
    ================================= */
 body {
     background-color: #0a0e27;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Default) */
+    font-family: 'Poppins', sans-serif;
     color: #cbd5e1;
     overflow-x: hidden;
 }
@@ -36,7 +36,6 @@ body::before {
 /* =================================
    JUDUL HALAMAN & SECTION
    ================================= */
-/* (Style .page-title dipertahankan jika dipakai di halaman admin lain) */
 .page-title {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
@@ -44,7 +43,7 @@ body::before {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-weight: 700; 
     display: flex;
     align-items: center;
@@ -55,7 +54,7 @@ body::before {
     color: #94a3b8; 
     margin-bottom: 2rem;
     font-size: 1.1rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 
 .section-header {
@@ -73,7 +72,7 @@ body::before {
 }
 
 .section-title {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-size: 1.5rem;
     color: #e2e8f0; 
     margin: 0;
@@ -89,7 +88,7 @@ body::before {
     border-radius: 1rem; 
     transition: all 0.3s ease;
     overflow: hidden;
-    padding: 2rem; /* Padding default */
+    padding: 2rem; 
 }
 
 .glass-card:hover {
@@ -101,8 +100,6 @@ body::before {
 /* =================================
    GAYA SPESIFIK ADMIN DASHBOARD
    ================================= */
-
-/* Grid untuk kartu stats */
 .admin-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -110,14 +107,12 @@ body::before {
     margin-bottom: 2.5rem;
 }
 
-/* Styling Kartu Statistik (override padding default) */
 .admin-stat-card {
     padding: 1.5rem; 
 }
 
-/* Label (TOTAL PENGGUNA AKTIF) */
 .admin-stat-card h3 {
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
     margin: 0 0 0.5rem 0;
     letter-spacing: 1px;
     font-size: 1rem; 
@@ -126,9 +121,8 @@ body::before {
     color: #94a3b8; 
 }
 
-/* Angka ( 2 ) */
 .stat-value {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Angka) */
+    font-family: 'Orbitron', sans-serif; 
     font-size: 3rem; 
     font-weight: 700;
     color: #00d4ff; 
@@ -137,20 +131,14 @@ body::before {
     margin-top: 0.5rem; 
 }
 
-/* Label kecil di bawah angka */
 .stat-label {
     color: #94a3b8; 
     font-size: 0.9rem; 
     margin-top: 0.5rem;
     display: block;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif;
 }
 
-/* =================================
-   [WIDGET BARU] DARI PLAYER DASHBOARD
-   ================================= */
-
-/* --- Welcome Card --- */
 .welcome-card {
     display: flex;
     justify-content: space-between;
@@ -164,7 +152,7 @@ body::before {
     min-width: 300px;
 }
 .welcome-title {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-size: 1.75rem; 
     font-weight: 700;
     background: linear-gradient(135deg, #00d4ff, #00aeff);
@@ -174,7 +162,7 @@ body::before {
     margin-bottom: 0.5rem;
 }
 .welcome-quote {
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
     color: #94a3b8;
     font-style: italic;
     font-size: 0.95rem;
@@ -192,8 +180,6 @@ body::before {
     }
 }
 
-
-/* --- Widget Header (Clock, Weather) --- */
 .widget-header {
     display: flex;
     align-items: center;
@@ -207,28 +193,26 @@ body::before {
     color: #00d4ff; 
 }
 .widget-title {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-size: 1.25rem;
     color: #e2e8f0; 
     margin: 0;
 }
 
-/* --- Clock Widget --- */
 .clock-display {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Angka) */
+    font-family: 'Orbitron', sans-serif;
     font-size: 2.5rem;
     font-weight: 700;
     color: #e2e8f0;
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
 .date-display {
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
     font-size: 1rem;
     color: #94a3b8;
     margin-top: 0.25rem;
 }
 
-/* --- Weather Widget --- */
 #weather-content {
     min-height: 80px; 
     display: flex;
@@ -241,7 +225,7 @@ body::before {
     gap: 0.5rem;
     color: #94a3b8;
     font-size: 0.9rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 .error-message i {
     color: #f87171;
@@ -257,7 +241,7 @@ body::before {
     color: #00d4ff; 
 }
 .weather-temp {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Angka) */
+    font-family: 'Orbitron', sans-serif; 
     font-size: 2.5rem;
     font-weight: 700;
     color: #e2e8f0;
@@ -268,7 +252,7 @@ body::before {
     font-weight: 500;
     text-transform: capitalize;
     margin-bottom: 0.75rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 .weather-detail {
     display: flex;
@@ -276,7 +260,7 @@ body::before {
     gap: 0.5rem;
     font-size: 0.9rem;
     color: #94a3b8;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 .weather-detail + .weather-detail {
     margin-top: 0.25rem;

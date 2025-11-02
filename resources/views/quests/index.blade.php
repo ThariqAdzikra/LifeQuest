@@ -21,13 +21,25 @@
     </h1>
     <p class="page-subtitle">Selesaikan tugas, raih prestasi, dan tingkatkan level karakter Anda di dunia nyata.</p>
 
-    {{-- Navigasi Tab --}}
+    {{-- ========================================================== --}}
+    {{-- [PERBAIKAN] Navigasi Tab: Hapus 'onclick' dan ganti dengan 'data-tab-target' --}}
+    {{-- ========================================================== --}}
     <div class="quest-tabs">
-        <button class="tab-link active" onclick="openTab(event, 'myQuests')"><i class="bi bi-person-check-fill"></i> Quest Saya</button>
-        <button class="tab-link" onclick="openTab(event, 'availableQuests')"><i class="bi bi-journal-album"></i> Quest Tersedia</button>
-        <button class="tab-link" onclick="openTab(event, 'createQuest')"><i class="bi bi-plus-circle-dotted"></i> Buat & Kelola</button>
-        <button class="tab-link" onclick="openTab(event, 'completedQuests')"><i class="bi bi-archive-fill"></i> Riwayat</button>
+        <button class="tab-link active" data-tab-target="myQuests">
+            <i class="bi bi-person-check-fill"></i> Quest Saya
+        </button>
+        <button class="tab-link" data-tab-target="availableQuests">
+            <i class="bi bi-journal-album"></i> Quest Tersedia
+        </button>
+        <button class="tab-link" data-tab-target="createQuest">
+            <i class="bi bi-plus-circle-dotted"></i> Buat & Kelola
+        </button>
+        <button class="tab-link" data-tab-target="completedQuests">
+            <i class="bi bi-archive-fill"></i> Riwayat
+        </button>
     </div>
+    {{-- --- AKHIR PERBAIKAN --- --}}
+
 
     {{-- ========================================================== --}}
     {{-- Konten Tab 1: Quest Saya

@@ -10,52 +10,34 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminQuestController extends Controller
 {
-    /**
-     * Menampilkan daftar semua quest admin.
-     */
     public function index()
     {
-        // Ambil semua quest yang is_admin_quest = true, urutkan dari terbaru
         $adminQuests = Quest::where('is_admin_quest', true)
                             ->latest()
                             ->paginate(10); 
-
-        // Kirim data ke view admin.quests.index
         return view('admin.quests.index', compact('adminQuests'));
     }
 
-    /**
-     * Menampilkan form untuk membuat quest admin baru.
-     */
     public function create()
     {
         $achievements = Achievement::orderBy('title')->get();
         return view('admin.quests.create', compact('achievements'));
     }
 
-    /**
-     * Mengambil data quest untuk edit (AJAX)
-     * [FIXED]
-     */
     public function edit(Quest $quest)
     {
         if (!$quest->is_admin_quest) {
             return response()->json(['error' => 'Ini bukan quest admin'], 403);
         }
 
-        // [FIX 1] Ambil SEMUA achievements untuk mengisi dropdown di modal
         $allAchievements = Achievement::orderBy('title', 'asc')->get(['id', 'title']);
 
-        // [FIX 2] Kembalikan JSON dalam format yang diharapkan oleh quest.js
         return response()->json([
-            'quest' => $quest, // Data quest yang spesifik
-            'achievements' => $allAchievements // Daftar semua achievements
+            'quest' => $quest,
+            'achievements' => $allAchievements 
         ]);
     }
 
-    /**
-     * Update quest admin
-     */
     public function update(Request $request, Quest $quest)
     {
         if (!$quest->is_admin_quest) {
@@ -89,9 +71,6 @@ class AdminQuestController extends Controller
         return redirect()->route('admin.quests.index')->with('success', 'Quest admin berhasil diperbarui!');
     }
 
-    /**
-     * Menyimpan quest admin baru ke database.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -125,9 +104,6 @@ class AdminQuestController extends Controller
         return redirect()->route('admin.quests.index')->with('success', 'Quest admin berhasil dibuat!');
     }
     
-    /**
-     * Menghapus quest admin.
-     */
     public function destroy(Quest $quest)
     {
         if (!$quest->is_admin_quest) {

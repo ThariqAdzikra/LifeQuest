@@ -75,15 +75,14 @@
         @endforelse
     </div>
 
-    {{-- [PERUBAHAN] Blok paginasi diganti agar sesuai style Quest --}}
+    {{-- [PERUBAHAN] Blok paginasi diganti agar sesuai style Quest (Patokan) --}}
     @if ($achievements->hasPages())
         <div class="quest-pagination-container">
-            {{-- Info "Showing..." --}}
-            <div class="pagination-info">
-                Showing {{ $achievements->firstItem() }} to {{ $achievements->lastItem() }} of {{ $achievements->total() }} results
-            </div>
-            
-            {{-- Link Paginasi --}}
+            {{-- 
+                Struktur patokan (style.css) tidak memiliki '.pagination-info'.
+                Kita hanya perlu merender links(), dan CSS kustom dari patokan 
+                akan otomatis menatanya di tengah.
+            --}}
             {{ $achievements->links() }}
         </div>
     @endif

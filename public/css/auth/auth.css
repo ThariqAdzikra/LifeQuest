@@ -1,17 +1,9 @@
 .auth-container {
     display: flex;
     justify-content: center;
-    
-    /* PERBAIKAN 1: Mengubah 'center' menjadi 'flex-start' 
-       agar card menempel ke atas (setelah padding) */
     align-items: flex-start;
-    
     min-height: 100vh;
-
-    /* PERBAIKAN 2: Mengurangi padding-top dari 120px menjadi 80px 
-       agar posisinya lebih naik */
     padding: 50px 2rem 2rem 2rem;
-    
     background: linear-gradient(rgba(10, 14, 39, 0.7), rgba(26, 26, 46, 0.8)), url('/images/heroLanding.jpg') center/cover; /* Path diubah untuk file CSS */
     background-attachment: fixed;
 }
@@ -23,11 +15,10 @@
     padding: 2.5rem;
     backdrop-filter: blur(10px);
     width: 100%;
-    max-width: 450px; /* Default max-width */
+    max-width: 450px; 
     animation: fadeInUp 0.5s ease;
 }
 
-/* Modifier untuk card yang lebih lebar seperti di verify-email */
 .auth-card.auth-card--wide {
     max-width: 500px;
 }
@@ -48,7 +39,6 @@
     background-clip: text;
 }
 
-/* Teks info untuk forgot-password, confirm-password, verify-email */
 .info-text {
     color: #b0b0c0;
     text-align: center;
@@ -84,33 +74,28 @@
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
 
-/* === Style untuk Ikon Mata Password === */
 .input-wrapper {
     position: relative;
 }
 
-/* Input di dalam wrapper akan memiliki padding kanan lebih besar */
 .input-wrapper > input {
-    /* Padding-right ditambah untuk memberi ruang bagi ikon */
     padding-right: 3rem; 
 }
 
 .toggle-password {
     position: absolute;
     top: 50%;
-    right: 1rem; /* Jarak ikon dari tepi kanan input */
+    right: 1rem; 
     transform: translateY(-50%);
-    color: #b0b0c0; /* Warna ikon standar */
+    color: #b0b0c0;
     cursor: pointer;
     font-size: 0.9rem;
     transition: color 0.3s ease;
 }
 
 .toggle-password:hover {
-    color: #00d4ff; /* Warna ikon saat di-hover */
+    color: #00d4ff; 
 }
-/* === AKHIR === */
-
 
 .checkbox-group {
     display: flex;
@@ -194,7 +179,6 @@
     text-align: center;
 }
 
-/* Style untuk verify-email */
 .actions-container {
     margin-top: 2rem;
     display: flex;

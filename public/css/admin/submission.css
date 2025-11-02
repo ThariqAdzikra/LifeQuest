@@ -1,9 +1,9 @@
 /* =================================
-   GAYA GLOBAL (DARI PATOKAN STYLE GUIDE)
+   GAYA GLOBAL 
    ================================= */
 body {
     background-color: #0a0e27;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Default) */
+    font-family: 'Poppins', sans-serif; 
     color: #cbd5e1;
     overflow-x: hidden;
 }
@@ -15,7 +15,7 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('../../../images/heroLanding.jpg'); /* Path disesuaikan */
+    background-image: url('../../../images/heroLanding.jpg'); 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -43,7 +43,7 @@ body::before {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-weight: 700; 
     display: flex;
     align-items: center;
@@ -52,9 +52,9 @@ body::before {
 
 .page-subtitle {
     color: #94a3b8; 
-    margin-bottom: 0; /* Hapus margin bawah agar pas di header */
+    margin-bottom: 0; 
     font-size: 1.1rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 
 .page-header-admin {
@@ -81,7 +81,7 @@ body::before {
 }
 
 .section-title {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-size: 1.5rem;
     color: #e2e8f0; 
     margin: 0;
@@ -97,10 +97,9 @@ body::before {
     border-radius: 1rem; 
     transition: all 0.3s ease;
     overflow: hidden;
-    padding: 2rem; /* Padding default */
+    padding: 2rem; 
 }
 
-/* Wrapper untuk list submission */
 .manage-quest-wrapper {
     padding: 1.5rem;
 }
@@ -121,7 +120,7 @@ body::before {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -171,7 +170,6 @@ body::before {
    GAYA SPESIFIK SUBMISSION
    ================================= */
 
-/* Alert Notifikasi */
 .alert-success-glass {
     background: rgba(16, 185, 129, 0.15);
     border: 1px solid rgba(16, 185, 129, 0.4);
@@ -191,7 +189,6 @@ body::before {
     font-weight: 500;
 }
 
-/* Kartu Submission (reuse .quest-card-inner) */
 .quest-card-inner {
     padding: 1.5rem;
     margin-bottom: 1.5rem;
@@ -213,7 +210,6 @@ body::before {
     margin-bottom: 0;
 }
 
-/* Teks jika kosong */
 .empty-state-text {
     color: #94a3b8;
     text-align: center;
@@ -230,7 +226,7 @@ body::before {
     min-width: 300px; 
 }
 .quest-info h3 {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
     color: #e2e8f0; 
@@ -243,7 +239,7 @@ body::before {
     font-size: 0.9rem;
     color: #94a3b8;
     margin-bottom: 1rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 .quest-info .quest-meta span {
     display: flex;
@@ -254,7 +250,6 @@ body::before {
     color: #00d4ff;
 }
 
-/* Kotak Catatan User */
 .submission-notes-user {
     color: #cbd5e1; 
     background: rgba(0,0,0,0.2); 
@@ -262,7 +257,7 @@ body::before {
     border-radius: 8px; 
     border: 1px solid rgba(255,255,255,0.1);
     font-size: 0.95rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 .submission-notes-user strong {
     color: #e2e8f0;
@@ -270,7 +265,6 @@ body::before {
     margin-bottom: 0.25rem;
 }
 
-/* Tombol Aksi (Approve/Reject) */
 .quest-actions {
     display: flex;
     flex-direction: column;
@@ -289,34 +283,23 @@ body::before {
 }
 
 /* =================================
-   PAGINASI - [PERUBAHAN] GAYA DARI QUEST
+   PAGINASI 
    ================================= */
 .quest-pagination-container {
     display: flex !important;
-    
-    /* [FIX 1] BUAT SEMUA KE TENGAH */
     justify-content: center !important; 
-    
     align-items: center !important;
-    flex-wrap: wrap !important; /* Biarkan wrap di layar kecil */
-    gap: 1rem !important; /* Jarak antara teks dan tombol */
+    flex-wrap: wrap !important; 
+    gap: 1rem !important; 
     width: 100% !important;
-    
-    /* [FIX 2] KEMBALIKAN STYLE CARD (jika diperlukan, tapi di-remark) */
     visibility: visible !important;
     opacity: 1 !important;
-    /* background: rgba(15, 23, 42, 0.7) !important; */
     backdrop-filter: blur(12px) !important;
-    /* border: 1px solid rgba(255, 255, 255, 0.1) !important; */
-    /* border-radius: 1rem !important; */
-
-    /* [FIX 3] ATUR JARAK */
-    margin-top: 1.5rem !important; /* Jarak dari card quest di atas */
-    margin-bottom: 3rem !important; /* Jarak untuk footer halaman di bawah */
+    margin-top: 1.5rem !important; 
+    margin-bottom: 3rem !important; 
     padding: 1.5rem 2rem !important; 
 }
 
-/* Style untuk teks "Showing..." */
 .pagination-info {
     font-family: 'Poppins', sans-serif !important;
     font-size: 0.9rem;
@@ -324,17 +307,13 @@ body::before {
     flex-shrink: 0; 
 }
 
-/* Style untuk <nav> bawaan laravel */
 .quest-pagination-container > nav {
-    /* [FIX 4] HAPUS SEMUA ATURAN FLEX (GROW/SHRINK) */
+
 }
 
 .quest-pagination-container .pagination {
     display: flex !important; 
-    
-    /* [FIX 5] BUAT TOMBOL KE TENGAH */
     justify-content: center !important; 
-    
     align-items: center !important;
     flex-wrap: wrap !important; 
     padding: 0 !important;
@@ -344,7 +323,6 @@ body::before {
     max-width: 100% !important; 
 }
 
-/* Sisa style pagination tidak berubah... */
 .pagination .page-item {
     display: inline-block !important;
     list-style: none !important;
