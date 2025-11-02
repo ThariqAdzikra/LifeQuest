@@ -12,7 +12,7 @@
 @section('content')
 <div class="auth-container">
     <div class="auth-card">
-        <h2 class="auth-title">DAFTAR WARRIOR BARU</h2>
+        <h2 class="auth-title"><b>REGISTER</b></h2>
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -77,28 +77,6 @@
 @endsection
 
 @push('scripts')
-{{-- BARU: JavaScript untuk toggle password --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const toggleIcons = document.querySelectorAll('.toggle-password');
-
-        toggleIcons.forEach(icon => {
-            icon.addEventListener('click', function () {
-                // Dapatkan target input berdasarkan atribut data-target
-                const targetInputId = this.getAttribute('data-target');
-                const targetInput = document.getElementById(targetInputId);
-
-                if (targetInput.type === 'password') {
-                    targetInput.type = 'text';
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash');
-                } else {
-                    targetInput.type = 'password';
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye');
-                }
-            });
-        });
-    });
-</script>
+{{-- [PERUBAHAN] Memanggil file JS eksternal --}}
+<script src="{{ asset('js/auth/register.js') }}"></script>
 @endpush

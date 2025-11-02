@@ -15,31 +15,19 @@ class AchievementService
      */
     public function checkAndGrantAchievements(User $user)
     {
-        // 1. Ambil ID achievement yang sudah dimiliki user
         $unlockedAchievementIds = $user->achievements()->pluck('achievements.id')->toArray();
-
-        // 2. Ambil semua achievement yang BELUM dimiliki user
         $lockedAchievements = Achievement::whereNotIn('id', $unlockedAchievementIds)->get();
 
         if ($lockedAchievements->isEmpty()) {
-            return; // Tidak ada lagi achievement untuk diperiksa
+            return;
         }
-
-        // 3. Muat relasi questLogs dan refresh data user (untuk stats terbaru)
         $user->refresh();
-        $user->load('questLogs'); // Memuat relasi questLogs
+        $user->load('questLogs'); 
 
         foreach ($lockedAchievements as $achievement) {
-            
-            // Cek apakah kondisi JSON terpenuhi
             if ($this->checkCondition($user, $achievement->condition)) {
-                
-                // 4. KONDISI TERPENUHI: Berikan achievement
-                // Kita hanya perlu attach. Database akan mengisi 'unlocked_at'
-                // secara otomatis berdasarkan skema Anda
                 $user->achievements()->attach($achievement->id);
 
-                // 5. Berikan reward (jika ada) dari achievement
                 $rewardApplied = false;
                 if ($achievement->exp_reward > 0) {
                     $user->exp += $achievement->exp_reward;
@@ -49,13 +37,10 @@ class AchievementService
                     $user->gold += $achievement->gold_reward;
                     $rewardApplied = true;
                 }
-                
-                // Simpan user HANYA jika ada reward baru
                 if ($rewardApplied) {
                     $user->save();
                 }
                 
-                // Opsional: Catat di log
                 Log::info("User {$user->id} unlocked achievement: {$achievement->title}");
             }
         }
@@ -71,13 +56,9 @@ class AchievementService
     private function checkCondition(User $user, $condition)
     {
         if (empty($condition) || !is_array($condition)) {
-            return false; // Tidak ada kondisi, tidak bisa unlock
+            return false; 
         }
 
-        // --- Ini adalah RULE ENGINE sederhana ---
-        // Anda bisa kembangkan ini sesuai kebutuhan
-
-        // Contoh 1: Cek berdasarkan jumlah quest selesai
         if (isset($condition['quests_completed'])) {
             $completedCount = $user->questLogs->where('status', 'completed')->count();
             if ($completedCount >= $condition['quests_completed']) {
@@ -85,26 +66,21 @@ class AchievementService
             }
         }
 
-        // Contoh 2: Cek berdasarkan stat (misal: 'strength' >= 50)
         if (isset($condition['stat']) && isset($condition['value'])) {
-            $statName = $condition['stat']; // misal: 'strength'
-            $requiredValue = $condition['value']; // misal: 50
+            $statName = $condition['stat']; 
+            $requiredValue = $condition['value']; 
             
-            // Cek apakah user punya stat itu dan nilainya mencukupi
             if (isset($user->{$statName}) && $user->{$statName} >= $requiredValue) {
                 return true;
             }
         }
 
-        // Contoh 3: Cek berdasarkan total gold (gold saat ini)
         if (isset($condition['gold_earned'])) {
             if ($user->gold >= $condition['gold_earned']) {
                 return true;
             }
         }
-        
-        // ... tambahkan rule lain di sini (misal: level, dll)
 
-        return false; // Default, kondisi tidak terpenuhi
+        return false; 
     }
 }

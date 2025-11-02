@@ -15,7 +15,7 @@
 
         <div class="nav-menu">
             @auth
-                {{-- --- Menu Navigasi Admin (Desktop) [IKON DIHAPUS] --- --}}
+                {{-- --- Menu Navigasi Admin (Desktop) --- --}}
                 @if (Auth::user()->isAdmin())
                     <a href="{{ route('admin.dashboard') }}" 
                        class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
@@ -49,8 +49,101 @@
 
         <div class="nav-auth">
             @auth
+                {{-- ========================================================== --}}
+                {{-- --- Dropdown Notifikasi --- --}}
+                {{-- ========================================================== --}}
+                <div class="notification-dropdown">
+                    <button class="notification-trigger" type="button" title="Notifikasi">
+                        <i class="bi bi-bell-fill"></i>
+                        
+                        {{-- [PERBAIKAN DI SINI] Lencana sekarang berisi data-newest-timestamp --}}
+                        @if(isset($notificationCount) && $notificationCount > 0)
+                            <span class="notification-badge" 
+                                  data-newest-timestamp="{{ $newestNotificationTimestamp ?? '' }}">
+                                {{ $notificationCount }}
+                            </span>
+                        @endif
+                        {{-- --- AKHIR PERBAIKAN --- --}}
+                        
+                    </button>
+                    
+                    <div id="notificationDropdown" class="dropdown-menu notification-menu" style="display: none;">
+                         <div class="notification-header">
+                             Notifikasi
+                         </div>
+                         
+                         <div class="notification-list">
+                             
+                            @if(Auth::user()->isAdmin())
+                                {{-- --- Tampilan Notifikasi ADMIN --- --}}
+                                @forelse ($adminNotifications ?? [] as $notif)
+                                    <a href="{{ route('admin.submissions.index') }}" class="notification-item">
+                                        <div class="notification-icon" style="background-color: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                                            <i class="bi bi-cloud-upload-fill"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <strong>{{ $notif->user->name }}</strong> mengirim submission
+                                            <span class="notification-title">{{ $notif->quest->title }}</span>
+                                            <span class="notification-time">{{ $notif->updated_at->diffForHumans() }}</span>
+                                        </div>
+                                    </a>
+                                @empty
+                                    <div class="notification-empty">
+                                        <i class="bi bi-check-all"></i>
+                                        <span>Tidak ada submission baru.</span>
+                                    </div>
+                                @endforelse
+
+                            @else
+                                {{-- --- Tampilan Notifikasi USER BIASA --- --}}
+                                
+                                {{-- 1. Quest Admin Baru --}}
+                                @foreach ($userNewQuests ?? [] as $quest)
+                                    <a href="{{ route('quests.index') }}#availableQuests" class="notification-item">
+                                        <div class="notification-icon" style="background-color: rgba(0, 212, 255, 0.1); color: #00d4ff;">
+                                            <i class="bi bi-patch-check-fill"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <strong>Quest Admin Baru!</strong>
+                                            <span class="notification-title">{{ $quest->title }}</span>
+                                            <span class="notification-time">{{ $quest->created_at->diffForHumans() }}</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+
+                                {{-- 2. Reminder Quest Aktif --}}
+                                @foreach ($userReminders ?? [] as $log)
+                                    <a href="{{ route('quests.index') }}#myQuests" class="notification-item">
+                                        <div class="notification-icon" style="background-color: rgba(22, 163, 74, 0.1); color: #16a34a;">
+                                            <i class="bi bi-calendar-event-fill"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <strong>Jangan Lupa!</strong>
+                                            <span class="notification-title">Selesaikan quest {{ $log->quest->frequency }}: {{ $log->quest->title }}</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                                
+                                {{-- 3. Tampilan Kosong --}}
+                                @if(!isset($notificationCount) || $notificationCount == 0)
+                                    <div class="notification-empty">
+                                        <i class="bi bi-inbox-fill"></i>
+                                        <span>Tidak ada notifikasi baru.</span>
+                                    </div>
+                                @endif
+                                
+                            @endif
+
+                         </div>
+                    </div>
+                </div>
+                {{-- ========================================================== --}}
+                {{-- --- AKHIR NOTIFIKASI --- --}}
+                {{-- ========================================================== --}}
+
+
                 <div class="profile-dropdown">
-                    <button onclick="toggleDropdown()" class="profile-trigger" type="button">
+                    <button class="profile-trigger" type="button">
                         <span class="profile-name">{{ Auth::user()->name }}</span>
                         @if (Auth::user()->avatar)
                             <img src="{{ asset('storage/'. Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
@@ -82,7 +175,7 @@
                 <a href="{{ route('register') }}" class="register-link">Register</a>
             @endauth
 
-            <button class="mobile-toggle" onclick="toggleMobileMenu()">
+            <button class="mobile-toggle">
                 <i class="bi bi-list"></i>
             </button>
         </div>
@@ -107,7 +200,7 @@
                 </div>
             </div>
 
-            {{-- --- Menu Navigasi Admin (Mobile) [IKON DIHAPUS] --- --}}
+            {{-- --- Menu Navigasi Admin (Mobile) --- --}}
             @if (Auth::user()->isAdmin())
                 <a href="{{ route('admin.dashboard') }}" 
                    class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">

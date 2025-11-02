@@ -1,9 +1,9 @@
 /* =================================
-   GAYA GLOBAL (DARI PATOKAN STYLE GUIDE)
+   GAYA GLOBAL 
    ================================= */
 body {
     background-color: #0a0e27;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Default) */
+    font-family: 'Poppins', sans-serif;
     color: #cbd5e1;
     overflow-x: hidden;
 }
@@ -15,7 +15,7 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('../../../images/heroLanding.jpg'); /* Path disesuaikan */
+    background-image: url('../../../images/heroLanding.jpg'); 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -43,7 +43,7 @@ body::before {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-weight: 700; 
     display: flex;
     align-items: center;
@@ -54,7 +54,7 @@ body::before {
     color: #94a3b8; 
     margin-bottom: 2rem;
     font-size: 1.1rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 
 .section-header {
@@ -72,18 +72,17 @@ body::before {
 }
 
 .section-title {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-size: 1.5rem;
     color: #e2e8f0; 
     margin: 0;
 }
 
-/* Header di halaman index (Tombol 'Buat Baru' di kanan) */
 .page-header-admin {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Align top */
-    flex-wrap: wrap; /* Responsif */
+    align-items: flex-start; 
+    flex-wrap: wrap; 
     gap: 1rem;
     margin-bottom: 2rem;
 }
@@ -99,10 +98,9 @@ body::before {
     border-radius: 1rem; 
     transition: all 0.3s ease;
     overflow: hidden;
-    padding: 2rem; /* Padding default */
+    padding: 2rem; 
 }
 
-/* Wrapper untuk list quest */
 .manage-quest-wrapper {
     padding: 1.5rem;
 }
@@ -124,13 +122,13 @@ body::before {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem; 
-    white-space: nowrap; /* Mencegah tombol pecah baris */
+    white-space: nowrap; 
 }
 .btn i {
     font-size: 1.1rem;
@@ -170,7 +168,6 @@ body::before {
     color: #ffffff;
 }
 
-/* Tombol sekunder (untuk 'Kembali') */
 .btn-secondary-glass {
     background: rgba(15, 23, 42, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -182,7 +179,7 @@ body::before {
 }
 
 /* =================================
-   GAYA FORM (UNTUK CREATE.BLADE.PHP)
+   GAYA FORM 
    ================================= */
 .form-group {
     margin-bottom: 1.5rem;
@@ -193,10 +190,10 @@ body::before {
     color: #94a3b8; 
     font-weight: 600;
     font-size: 0.9rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif;
 }
 .form-control,
-.form-select { /* Terapkan ke .form-select BS5 juga */
+.form-select { 
     width: 100%;
     padding: 0.75rem 1rem;
     font-size: 1rem;
@@ -205,7 +202,7 @@ body::before {
     border-radius: 8px;
     color: #e2e8f0;
     transition: all 0.3s ease;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 .form-control:focus,
 .form-select:focus {
@@ -218,12 +215,12 @@ body::before {
 .form-control::placeholder {
     color: #64748b; 
 }
-/* Kustomisasi panah dropdown (gunakan .form-control pada <select>) */
+
 select.form-control {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708 .708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%<path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708 .708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1em;
@@ -233,19 +230,19 @@ select.form-control option {
     background: #0a0e27; 
     color: #e2e8f0;
 }
-/* Grid layout untuk form */
+
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
 }
-/* Garis pemisah */
+
 hr.form-divider {
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin: 1rem 0 1.5rem 0;
 }
-/* Error validasi */
+
 .validation-errors {
     background: rgba(220, 38, 38, 0.15);
     border: 1px solid rgba(220, 38, 38, 0.4);
@@ -265,7 +262,7 @@ hr.form-divider {
 
 
 /* =================================
-   GAYA DAFTAR QUEST (UNTUK INDEX.BLADE.PHP)
+   GAYA DAFTAR QUEST 
    ================================= */
 
 .quest-card-inner {
@@ -288,7 +285,7 @@ hr.form-divider {
 .quest-card-inner:last-of-type {
     margin-bottom: 0;
 }
-/* Teks jika quest kosong */
+
 .empty-state-text {
     color: #94a3b8;
     text-align: center;
@@ -304,7 +301,7 @@ hr.form-divider {
     min-width: 300px; 
 }
 .quest-info h3 {
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Judul) */
+    font-family: 'Orbitron', sans-serif; 
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
     color: #e2e8f0; 
@@ -314,7 +311,7 @@ hr.form-divider {
     color: #94a3b8; 
     font-size: 0.9rem; 
     margin-top: 0.5rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 .quest-info .quest-meta {
     display: flex;
@@ -323,7 +320,7 @@ hr.form-divider {
     font-size: 0.9rem;
     color: #94a3b8;
     margin-bottom: 1rem;
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) */
+    font-family: 'Poppins', sans-serif; 
 }
 .quest-info .quest-meta span {
     display: flex;
@@ -350,7 +347,7 @@ hr.form-divider {
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    font-family: 'Orbitron', sans-serif; /* FONT 1 (Angka/Stats) */
+    font-family: 'Orbitron', sans-serif; 
 }
 .reward-tag i {
     font-size: 1.1rem;
@@ -362,11 +359,11 @@ hr.form-divider {
 .reward-tag .bi-lightning-charge-fill,
 .reward-tag .bi-wind { color: #00d4ff; } 
 
-/* Tag Achievement Khusus */
+
 .reward-tag-achievement {
-    background: rgba(167, 139, 250, 0.15); /* Ungu */
+    background: rgba(167, 139, 250, 0.15); 
     border-color: rgba(167, 139, 250, 0.4);
-    font-family: 'Poppins', sans-serif; /* FONT 2 (Teks) - karena ini 'Title' */
+    font-family: 'Poppins', sans-serif; 
     font-weight: 500;
 }
 .reward-tag-achievement .achievement-icon {
@@ -377,10 +374,9 @@ hr.form-divider {
     object-fit: contain;
 }
 .reward-tag-achievement .bi-award-fill {
-    color: #a78bfa; /* Ungu */
+    color: #a78bfa; 
 }
 
-/* Tombol Aksi (Edit/Hapus) */
 .quest-actions {
     display: flex;
     flex-direction: column;
@@ -395,121 +391,122 @@ hr.form-divider {
     margin: 0;
 }
 .quest-actions .btn {
-    width: 100%; /* Pastikan tombol di dalam form juga 100% */
+    width: 100%; 
 }
 
 /* =================================
-   PAGINASI - [PERBAIKAN "MENYATU" DI TENGAH]
+   GAYA PAGINASI BOOTSTRAP 5 KUSTOM
    ================================= */
+
 .quest-pagination-container {
-    display: flex !important;
-    
-    /* [FIX 1] BUAT SEMUA KE TENGAH */
-    justify-content: center !important; 
-    
-    align-items: center !important;
-    flex-wrap: wrap !important; /* Biarkan wrap di layar kecil */
-    gap: 1rem !important; /* Jarak antara teks dan tombol */
-    width: 100% !important;
-    /* box-sizing: border-box !important; */
-    
-    /* [FIX 2] KEMBALIKAN STYLE CARD */
-    visibility: visible !important;
-    opacity: 1 !important;
-    /* background: rgba(15, 23, 42, 0.7) !important; */
-    backdrop-filter: blur(12px) !important;
-    /* border: 1px solid rgba(255, 255, 255, 0.1) !important; */
-    /* border-radius: 1rem !important; */
-
-    /* [FIX 3] ATUR JARAK */
-    margin-top: 1.5rem !important; /* Jarak dari card quest di atas */
-    margin-bottom: 3rem !important; /* Jarak untuk footer halaman di bawah */
-    padding: 1.5rem 2rem !important; 
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-top: 2rem; 
+    margin-bottom: 2rem; 
+    padding-top: 0;
+    float: none;
+    clear: both; 
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    transform: none;
 }
 
-/* Style untuk teks "Showing..." */
-.pagination-info {
-    font-family: 'Poppins', sans-serif !important;
-    font-size: 0.9rem;
-    color: #ffffff;
-    flex-shrink: 0; 
+.manage-quest-wrapper .quest-pagination-container {
+    margin-top: 1.5rem;  
+    margin-bottom: 0;  
+    padding: 0; 
 }
 
-/* Style untuk <nav> bawaan laravel */
-.quest-pagination-container > nav {
-    /* [FIX 4] HAPUS SEMUA ATURAN FLEX (GROW/SHRINK) */
+.quest-pagination-container .text-muted {
+    color: #cbd5e1 !important; 
+}
+
+.quest-pagination-container nav > p {
+     color: #cbd5e1 !important; 
+}
+
+.quest-pagination-container nav {
+    width: 100%;
+    display: block !important; 
+    position: static !important;
 }
 
 .quest-pagination-container .pagination {
     display: flex !important; 
-    
-    /* [FIX 5] BUAT TOMBOL KE TENGAH */
     justify-content: center !important; 
-    
     align-items: center !important;
-    flex-wrap: wrap !important; 
-    padding: 0 !important;
-    margin: 0 !important; 
+    padding-left: 0 !important; 
     list-style: none !important;
-    gap: 0.5rem !important;
-    max-width: 100% !important; 
+    gap: 0.5rem;
+    margin: 0 auto !important;
+    margin-bottom: 0 !important;
+    position: static !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
 }
 
-/* Sisa style pagination tidak berubah... */
-.pagination .page-item {
-    display: inline-block !important;
-    list-style: none !important;
-    margin: 0 !important;
+.page-item {
+    display: inline-block;
 }
 
-.pagination .page-link {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-width: 45px !important;
-    min-height: 45px !important;
-    padding: 0.75rem 1rem !important;
-    text-decoration: none !important;
-    background: rgba(15, 23, 42, 0.9) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    color: #ffffff !important;
-    border-radius: 8px !important;
-    transition: all 0.3s ease !important;
-    font-weight: 500 !important;
-    font-family: 'Poppins', sans-serif !important;
-    font-size: 1rem !important;
+.page-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    background: transparent; 
+    backdrop-filter: none; 
+    border: 1px solid transparent; 
+    color: #94a3b8;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
-.pagination .page-link:hover {
-    background: rgba(0, 212, 255, 0.2) !important;
-    color: #00d4ff !important;
-    border-color: #00d4ff !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2) !important;
+.page-link:hover {
+    background: rgba(0, 212, 255, 0.1); 
+    border-color: transparent; 
+    color: #e2e8f0;
+    transform: translateY(-2px);
+    box-shadow: none; 
 }
 
-.pagination .page-item.active .page-link {
-    background: #00d4ff !important;
-    border-color: #00d4ff !important;
-    color: #0a0e27 !important;
-    font-weight: 700 !important;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5) !important;
+.page-item.active .page-link {
+    z-index: 3;
+    background: #00d4ff; 
+    border-color: #00d4ff;
+    color: #0a0e27;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
 }
 
-.pagination .page-item.disabled .page-link {
-    background: transparent !important;
-    border-color: rgba(255, 255, 255, 0.05) !important;
-    color: #475569 !important;
-    opacity: 0.4 !important;
-    cursor: not-allowed !important;
-    pointer-events: none !important;
+.page-item.disabled .page-link {
+    background: transparent; 
+    border-color: transparent; 
+    color: #475569;
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
 }
 
-.pagination .page-item.disabled .page-link:hover {
-    transform: none !important;
-    box-shadow: none !important;
+.page-link[rel="prev"],
+.page-link[rel="next"] {
+    font-weight: 600;
 }
 
+.page-link[rel="prev"]:hover,
+.page-link[rel="next"]:hover {
+    background: rgba(0, 212, 255, 0.1); 
+}
 /* =================================
    GAYA SWEETALERT
    ================================= */

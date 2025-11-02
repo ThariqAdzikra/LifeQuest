@@ -208,10 +208,15 @@
                     <img id="crop-image" src="" alt="Crop Image">
                 </div>
                 
+                {{-- =============================================== --}}
+                {{-- [PERBAIKAN ADA DI SINI] - Hapus onclick, ganti dengan ID --}}
+                {{-- =============================================== --}}
                 <div class="modal-actions">
-                    <button type="button" class="btn btn-secondary" onclick="cancelCrop()">Batal</button>
-                    <button type="button" class="btn btn-primary" onclick="applyCrop()">Upload</button>
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-crop">Batal</button>
+                    <button type="button" class="btn btn-primary" id="btn-apply-crop">Upload</button>
                 </div>
+                {{-- --- AKHIR PERBAIKAN --- --}}
+                
             </div>
         </div>
     </div>

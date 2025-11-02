@@ -12,7 +12,7 @@
 @section('content')
 <div class="auth-container">
     <div class="auth-card">
-        <h2 class="auth-title">🎮 LOGIN WARRIOR</h2>
+        <h2 class="auth-title"><b>LOGIN</b></h2>
 
         @if (session('status'))
             <div class="success-message">
@@ -82,28 +82,6 @@
 @endsection
 
 @push('scripts')
-{{-- JavaScript untuk toggle password (Tidak ada perubahan, sudah benar) --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const toggleIcons = document.querySelectorAll('.toggle-password');
-
-        toggleIcons.forEach(icon => {
-            icon.addEventListener('click', function () {
-                // Dapatkan target input berdasarkan atribut data-target
-                const targetInputId = this.getAttribute('data-target');
-                const targetInput = document.getElementById(targetInputId);
-
-                if (targetInput.type === 'password') {
-                    targetInput.type = 'text';
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash');
-                } else {
-                    targetInput.type = 'password';
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye');
-                }
-            });
-        });
-    });
-</script>
+{{-- [PERUBAHAN] Memanggil file JS eksternal --}}
+<script src="{{ asset('js/auth/login.js') }}"></script>
 @endpush

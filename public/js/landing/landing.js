@@ -1,17 +1,33 @@
-// Fade in animation on scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
+const LandingModule = (function () {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
 
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
+    /**
+     * Callback function yang dijalankan oleh Intersection Observer.
+     * @param {IntersectionObserverEntry[]} entries - Daftar entri yang diamati
+     */
+    function handleIntersection(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }
 
-document.querySelectorAll('.fade-in').forEach(el => {
-    observer.observe(el);
-});
+    function init() {
+        const observer = new IntersectionObserver(handleIntersection, observerOptions);
+        const elementsToFadeIn = document.querySelectorAll('.fade-in');
+        elementsToFadeIn.forEach(el => {
+            observer.observe(el);
+        });
+    }
+
+    return {
+        init: init
+    };
+
+})();
+
+document.addEventListener('DOMContentLoaded', LandingModule.init);

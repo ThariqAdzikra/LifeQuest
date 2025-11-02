@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Quest;     // Import model Quest
-use App\Models\QuestLog;  // Import model QuestLog
-use Carbon\Carbon;        // Import Carbon untuk mengambil data mingguan
+use App\Models\Quest;
+use App\Models\QuestLog;
+use Carbon\Carbon;
+use App\Models\Achievement;
+use Illuminate\Support\Facades\DB; // Pastikan ini ada
 
 class DashboardController extends Controller
 {
@@ -16,14 +18,14 @@ class DashboardController extends Controller
     public function index()
     {
         // ==========================================================
-        // [PENYESUAIAN] Redirect admin ke panel mereka SEBELUM
+        // [PENTING] Redirect admin ke panel mereka SEBELUM
         // menghitung statistik pengguna.
         // ==========================================================
         if (Auth::user()->isAdmin()) {
             return redirect()->route('admin.dashboard');
         }
         // ==========================================================
-        // --- AKHIR PENYESUAIAN ---
+        // --- AKHIR PENTING ---
         // ==========================================================
 
         $userId = Auth::id();
@@ -37,25 +39,37 @@ class DashboardController extends Controller
         $completedQuests = QuestLog::where('user_id', $userId)->where('status', 'completed')->count();
         
         // Menghitung Total XP dari semua quest yang telah selesai
-        // Kita join tabel quest_logs dengan tabel quests
         $totalXP = Quest::join('quest_logs', 'quests.id', '=', 'quest_logs.quest_id')
                         ->where('quest_logs.user_id', $userId)
                         ->where('quest_logs.status', 'completed')
-                        ->sum('quests.exp_reward'); // Ambil jumlah 'exp_reward'
+                        ->sum('quests.exp_reward');
+        
+        // Hitung achievement user dari pivot table 'user_achievements'
+        $achievements = DB::table('user_achievements')->where('user_id', $userId)->count();
 
-        // TODO: Ganti logika hardcode ini saat fitur achievement sudah ada
-        $achievements = 0; 
+        // Hitung total achievement yang dibuat admin
+        $totalAchievements = Achievement::count(); 
 
         
         // --- 2. Data untuk Progress Bars ---
         
-        // Menghitung XP yang didapat minggu ini (dimulai dari hari Senin)
-        $weeklyXP = Quest::join('quest_logs', 'quests.id', '=', 'quest_logs.quest_id')
+        // Menghitung quest yang diambil hari ini (semua tipe)
+        $totalQuestsToday = QuestLog::where('user_id', $userId)
+                                    ->whereDate('created_at', Carbon::today())
+                                    ->count();
+        
+        // Menghitung quest yang diambil HARI INI & sudah SELESEI
+        $completedQuestsToday = QuestLog::where('user_id', $userId)
+                                        ->whereDate('created_at', Carbon::today())
+                                        ->where('status', 'completed')
+                                        ->count();
+
+        // Menghitung XP yang didapat HARI INI
+        $dailyXP = Quest::join('quest_logs', 'quests.id', '=', 'quest_logs.quest_id')
                          ->where('quest_logs.user_id', $userId)
                          ->where('quest_logs.status', 'completed')
-                         ->where('quest_logs.updated_at', '>=', Carbon::now()->startOfWeek()) // Cek yg selesai minggu ini
+                         ->whereDate('quest_logs.updated_at', Carbon::today()) // Cek yg selesai HARI INI
                          ->sum('quests.exp_reward');
-
                          
         // --- 3. Data untuk Widget (Streak) ---
         
@@ -75,15 +89,18 @@ class DashboardController extends Controller
                                     
         // --- 5. Kirim semua data ke view ---
         
-        // Ganti array lama Anda dengan yang ini
+        // Perhatikan bahwa tidak ada lagi variabel notifikasi yang dikirim dari sini
         return view('dashboard', compact(
             'totalQuests',
             'completedQuests',
             'totalXP',
-            'achievements',
-            'weeklyXP',        // Untuk progress bar mingguan
+            'achievements',         
+            'totalAchievements',    
+            'dailyXP',              
+            'totalQuestsToday',     
+            'completedQuestsToday', 
             'currentStreak',
-            'recentActivities' // Untuk daftar aktivitas
+            'recentActivities'
         ));
     }
 }

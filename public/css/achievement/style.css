@@ -1,5 +1,5 @@
 /* =================================
-   GAYA GLOBAL (Tidak berubah)
+   GAYA GLOBAL 
    ================================= */
 body {
     background-color: #0a0e27;
@@ -24,7 +24,7 @@ body::before {
 }
 
 /* =================================
-   LAYOUT & JUDUL (Tidak berubah)
+   LAYOUT & JUDUL 
    ================================= */
 .quest-board-container {
     max-width: 1140px; 
@@ -55,7 +55,7 @@ body::before {
 }
 
 /* =================================
-   KARTU DASAR (Tidak berubah)
+   KARTU DASAR 
    ================================= */
 .glass-card {
     background: rgba(15, 23, 42, 0.7);
@@ -73,7 +73,7 @@ body::before {
 }
 
 /* =================================
-   KARTU STATS (Tidak berubah)
+   KARTU STATS 
    ================================= */
 .stats-container {
     display: grid;
@@ -101,7 +101,7 @@ body::before {
 }
 
 /* =================================
-   EXP BAR (Tidak berubah)
+   EXP BAR 
    ================================= */
 .exp-bar-container {
     width: 100%;
@@ -147,9 +147,8 @@ body::before {
     position: relative;
     z-index: 1;
 }
-
 /* =================================
-   KARTU ATRIBUT (Tidak berubah)
+   KARTU ATRIBUT 
    ================================= */
 .stat-card-attribute {
     display: flex;
@@ -208,10 +207,9 @@ body::before {
 }
 
 /* ============================================
-   ACHIEVEMENT (PERUBAHAN UTAMA DI SINI)
+   ACHIEVEMENT 
    ============================================ */
-
-/* Judul section (Tidak berubah) */
+/*Judul section*/
 .section-title-sub {
     display: flex;
     align-items: center;
@@ -230,9 +228,7 @@ body::before {
     color: #00d4ff;
     -webkit-text-fill-color: #00d4ff;
 }
-
-/* === DIUBAH === */
-/* Kontainer 5 kolom (Tidak berubah dari sebelumnya) */
+/* Kontainer 5 kolom */
 .unlocked-achievements-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr); 
@@ -240,8 +236,7 @@ body::before {
     margin-bottom: 3rem;
 }
 
-/* === DIUBAH === */
-/* Kartu Achievement vertikal (Tidak berubah dari sebelumnya) */
+/* Kartu Achievement vertikal */
 .achievement-card {
     display: flex;
     flex-direction: column; 
@@ -251,43 +246,29 @@ body::before {
     gap: 0;
 }
 
-/* === DIUBAH === */
-/* Mengganti .achievement-icon dengan .achievement-image-container */
 .achievement-image-container {
     width: 70px;
     height: 70px;
     min-width: 70px;
-    /* Background jika gambar gagal loading */
     background: rgba(15, 23, 42, 0.7); 
-    /* Border akan diwarnai oleh class rarity */
     border: 3px solid; 
     border-radius: 50%;
     z-index: 1;
     transition: all 0.4s ease;
     margin-bottom: 1rem;
-    /* Penting: Sembunyikan gambar yang meluap */
     overflow: hidden; 
-    /* Menjaga bentuk di flex-column */
     flex-shrink: 0; 
 }
 
-/* Efek hover dari .glass-card dipindahkan ke container baru */
 .glass-card:hover .achievement-image-container {
     transform: rotate(15deg) scale(1.1);
 }
 
-/* === BARU === */
-/* Menyesuaikan gambar di dalam container */
 .achievement-image {
     width: 100%;
     height: 100%;
-    /* Memastikan gambar mengisi lingkaran tanpa distorsi */
     object-fit: cover; 
 }
-
-
-/* === DIUBAH === */
-/* Info (Tidak berubah dari sebelumnya) */
 .achievement-info {
     flex: 0 1 auto;
     z-index: 1;
@@ -308,7 +289,7 @@ body::before {
 }
 
 /* =================================
-   TAG REWARD (Tidak Dihapus)
+   TAG REWARD 
    ================================= */
 .quest-rewards {
     display: flex;
@@ -335,10 +316,8 @@ body::before {
 .reward-tag .bi-coin { color: #eab308; }
 
 /* =================================
-   WARNA RARITY (DIPERBARUI)
+   WARNA RARITY 
    ================================= */
-/* Menghapus 'i' agar style berlaku untuk H3 (color) 
-   dan .achievement-image-container (border-color) */
 .rarity-common {
     color: #94a3b8 !important;
     border-color: #94a3b8 !important;
@@ -356,7 +335,6 @@ body::before {
     border-color: #facc15 !important;
 }
 
-/* Style untuk tag reward tetap ada jika diperlukan di lain tempat */
 .reward-tag.rarity-common,
 .reward-tag.rarity-rare,
 .reward-tag.rarity-epic,
@@ -364,7 +342,6 @@ body::before {
     background: rgba(15, 23, 42, 0.7);
 }
 
-/* Tanggal (Tidak Dihapus) */
 .unlocked-date {
     display: inline-flex;
     align-items: center;
@@ -379,7 +356,7 @@ body::before {
 }
 
 /* =================================
-   EMPTY STATE (Tidak berubah)
+   EMPTY STATE 
    ================================= */
 .empty-state-card {
     background: rgba(15, 23, 42, 0.7);
@@ -406,7 +383,7 @@ body::before {
 }
 
 /* =================================
-   RESPONSIVE (Tidak berubah)
+   RESPONSIVE 
    ================================= */
 @media (max-width: 992px) {
     .unlocked-achievements-container {

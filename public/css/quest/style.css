@@ -1,15 +1,13 @@
 /* =================================
-   GAYA GLOBAL (DARI DASHBOARD)
+   GAYA GLOBAL 
    ================================= */
 body {
     background-color: #0a0e27;
-    /* [SESUAI GUIDELINE] Font 'Poppins' sebagai default */
     font-family: 'Poppins', sans-serif;
     color: #cbd5e1;
     overflow-x: hidden;
 }
 
-/* Efek background blur dari dashboard */
 body::before {
     content: "";
     position: fixed;
@@ -27,7 +25,7 @@ body::before {
 }
 
 /* =================================
-   LAYOUT CONTAINER (DISESUAIKAN)
+   LAYOUT CONTAINER 
    ================================= */
 .quest-board-container {
     max-width: 1140px; 
@@ -35,7 +33,6 @@ body::before {
     padding: 2rem;
 }
 
-/* Judul Halaman Utama */
 .page-title {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
@@ -43,11 +40,8 @@ body::before {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    /* [SESUAI GUIDELINE] Font 'Orbitron' untuk judul */
     font-family: 'Orbitron', sans-serif;
-    font-weight: 700; /* [FIX] Menambahkan ketebalan font */
-    
-    /* [FIX] Agar ikon dan teks sejajar */
+    font-weight: 700; 
     display: flex;
     align-items: center;
     gap: 0.75rem; 
@@ -57,11 +51,10 @@ body::before {
     color: #94a3b8; 
     margin-bottom: 2rem;
     font-size: 1.1rem;
-    /* Font default 'Poppins' diwarisi dari <body> */
 }
 
 /* =================================
-   GAYA HEADER SECTION (DARI DASHBOARD)
+   GAYA HEADER SECTION 
    ================================= */
 .section-header {
     display: flex;
@@ -72,14 +65,12 @@ body::before {
     padding-bottom: 0.75rem;
 }
 
-/* [SESUAI GUIDELINE] Ikon Bootstrap (bi) diberi warna aksen */
 .section-header i {
     font-size: 1.2rem;
-    color: #00d4ff; /* Aksen cyan */
+    color: #00d4ff;
 }
 
 .section-title {
-    /* [SESUAI GUIDELINE] Font 'Orbitron' untuk sub-judul */
     font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
     color: #e2e8f0; 
@@ -87,7 +78,7 @@ body::before {
 }
 
 /* =================================
-   GAYA TAB (DISESUAIKAN)
+   GAYA TAB
    ================================= */
 .quest-tabs {
     display: flex;
@@ -100,22 +91,27 @@ body::before {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    color: #94a3b8; /* Teks sekunder */
+    color: #94a3b8;
     border: none;
     background: transparent;
     transition: all 0.3s ease;
     border-bottom: 3px solid transparent;
     margin-bottom: -1px; 
-    /* Font 'Poppins' diwarisi dari <body> */
+}
+
+.tab-link i {
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+    vertical-align: middle; 
 }
 
 .tab-link:hover {
-    color: #e2e8f0; /* Teks utama */
+    color: #e2e8f0; 
     background: rgba(15, 23, 42, 0.7); 
 }
 
 .tab-link.active {
-    color: #00d4ff; /* Aksen cyan */
+    color: #00d4ff; 
     border-bottom-color: #00d4ff;
 }
 
@@ -128,7 +124,6 @@ body::before {
     display: block;
 }
 
-/* Teks untuk state kosong */
 .empty-state-text {
     color: #94a3b8;
     text-align: center;
@@ -139,21 +134,14 @@ body::before {
     border-radius: 1rem;
 }
 
-/* Empty state di dalam manage wrapper */
 .manage-quest-wrapper .empty-state-text {
     margin: 0;
     flex: 0 1 auto;
-    /* Ganti style agar konsisten dengan card-inner */
     background: rgba(15, 23, 42, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.75rem;
 }
 
-
-/* =================================
-   GAYA KARTU (DISAMAKAN DENGAN .GLASS-CARD)
-   ================================= */
-/* [SESUAI GUIDELINE] Efek Glassmorphism */
 .glass-card {
     background: rgba(15, 23, 42, 0.7);
     backdrop-filter: blur(12px);
@@ -169,7 +157,6 @@ body::before {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Style ini tidak lagi digunakan sebagai kontainer utama list */
 .quest-card {
     padding: 1.5rem; 
     margin-bottom: 1.5rem;
@@ -179,18 +166,15 @@ body::before {
     gap: 1.5rem;
 }
 
-/* =================================
-   GAYA KHUSUS UNTUK MANAGE QUEST WRAPPER
-   ================================= */
 .manage-quest-wrapper {
     padding: 1.5rem;
     margin-bottom: 1rem;
 }
 
 .manage-quest-wrapper:hover {
-    transform: none; /* Disable hover effect untuk wrapper */
-    box-shadow: none; /* Disable hover effect untuk wrapper */
-    border-color: rgba(255, 255, 255, 0.1); /* Kembalikan border */
+    transform: none; 
+    box-shadow: none; 
+    border-color: rgba(255, 255, 255, 0.1); 
 }
 
 .quest-card-inner {
@@ -217,7 +201,6 @@ body::before {
     margin-bottom: 0;
 }
 
-/* Quest yang dijeda (paused) di dalam wrapper */
 .quest-card-inner.paused {
     opacity: 0.5;
     background: rgba(15, 23, 42, 0.3);
@@ -234,28 +217,24 @@ body::before {
     text-decoration: line-through;
 }
 
-/* [TAMBAHAN] Quest menunggu review */
 .quest-card-inner.status-pending_review {
     opacity: 0.8;
-    background: rgba(245, 158, 11, 0.05); /* Nuansa kuning */
+    background: rgba(245, 158, 11, 0.05); 
     border-color: rgba(245, 158, 11, 0.3);
 }
 .quest-card-inner.status-pending_review h3 {
-    color: #f59e0b; /* Kuning */
+    color: #f59e0b; 
 }
 
-/* [TAMBAHAN] Quest ditolak */
 .quest-card-inner.status-rejected {
     opacity: 0.8;
-    background: rgba(220, 38, 38, 0.05); /* Nuansa merah */
+    background: rgba(220, 38, 38, 0.05);
     border-color: rgba(220, 38, 38, 0.3);
 }
 .quest-card-inner.status-rejected h3 {
-    color: #f87171; /* Merah */
+    color: #f87171; 
 }
 
-
-/* [TAMBAHAN] Style untuk card riwayat di dalam wrapper */
 .quest-card-inner.history {
     opacity: 0.7;
     border-color: rgba(0, 212, 255, 0.2);
@@ -272,8 +251,6 @@ body::before {
     text-decoration: line-through;
 }
 
-
-/* [TAMBAHAN] Style untuk kotak catatan submission */
 .submission-notes {
     background: rgba(15, 23, 42, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -294,12 +271,11 @@ body::before {
 }
 
 .submission-notes.admin-rejected strong {
-    color: #f87171; /* Merah */
+    color: #f87171; 
 }
 .submission-notes.admin-rejected {
     border-color: rgba(220, 38, 38, 0.3);
 }
-
 
 /* =================================
    GAYA INFO DAN META
@@ -310,7 +286,6 @@ body::before {
 }
 
 .quest-info h3 {
-    /* [SESUAI GUIDELINE] Font 'Orbitron' untuk judul kartu */
     font-family: 'Orbitron', sans-serif;
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
@@ -322,10 +297,8 @@ body::before {
     line-height: 1.6;
     font-size: 0.95rem;
     margin-bottom: 1rem;
-    /* Font 'Poppins' diwarisi dari <body> */
 }
 
-/* Style untuk meta Frekuensi & Kesulitan */
 .quest-info .quest-meta {
     display: flex;
     flex-wrap: wrap;
@@ -339,7 +312,7 @@ body::before {
     align-items: center;
     gap: 0.5rem;
 }
-/* [SESUAI GUIDELINE] Ikon Bootstrap (bi) diberi warna aksen */
+
 .quest-info .quest-meta i {
     color: #00d4ff;
 }
@@ -359,7 +332,7 @@ body::before {
 }
 
 .reward-tag {
-    font-size: 0.9rem; /* Sedikit diperbesar untuk 'Orbitron' */
+    font-size: 0.9rem;
     font-weight: 600;
     color: #cbd5e1; 
     display: flex;
@@ -369,20 +342,19 @@ body::before {
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    /* [FIX] Terapkan 'Orbitron' ke stat/angka sesuai patokan 'Achievements' */
     font-family: 'Orbitron', sans-serif;
 }
-/* [SESUAI GUIDELINE] Ikon Bootstrap (bi) diberi warna semantik */
+
 .reward-tag i {
     font-size: 1.1rem;
 }
 .reward-tag .bi-star-fill { color: #facc15; }
 .reward-tag .bi-coin { color: #eab308; }
 .reward-tag .bi-clock { color: #00d4ff; } 
-.reward-tag .bi-brain { color: #00d4ff; } /* Untuk stat 'intelligence' */
-.reward-tag .bi-person-arms-up { color: #00d4ff; } /* Untuk stat 'strength' */
-.reward-tag .bi-lightning-charge-fill { color: #00d4ff; } /* Untuk stat 'stamina' */
-.reward-tag .bi-wind { color: #00d4ff; } /* Untuk stat 'agility' */
+.reward-tag .bi-brain { color: #00d4ff; } 
+.reward-tag .bi-person-arms-up { color: #00d4ff; } 
+.reward-tag .bi-lightning-charge-fill { color: #00d4ff; } 
+.reward-tag .bi-wind { color: #00d4ff; } 
 
 
 .quest-actions {
@@ -391,7 +363,7 @@ body::before {
     gap: 0.75rem;
     min-width: 160px; 
     flex-shrink: 0;
-    margin-left: auto; /* <-- Menggeser tombol ke kanan */
+    margin-left: auto; 
 }
 .quest-actions .btn {
     width: 100%;
@@ -399,7 +371,7 @@ body::before {
 
 
 /* =================================
-   GAYA FORM (DISAMAKAN DENGAN DASHBOARD)
+   GAYA FORM 
    ================================= */
 .form-group {
     margin-bottom: 1.5rem;
@@ -410,7 +382,6 @@ body::before {
     color: #94a3b8; 
     font-weight: 600;
     font-size: 0.9rem;
-    /* Font 'Poppins' diwarisi dari <body> */
 }
 .form-control {
     width: 100%;
@@ -419,16 +390,15 @@ body::before {
     background: rgba(15, 23, 42, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    color: #e2e8f0; /* WARNA TEKS INPUT (PUTIH) */
+    color: #e2e8f0; 
     transition: all 0.3s ease;
-    /* Font 'Poppins' diwarisi dari <body> */
 }
 .form-control:focus {
     background: rgba(15, 23, 42, 0.7);
     border-color: #00d4ff; 
     box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
     outline: none;
-    color: #e2e8f0; /* WARNA TEKS INPUT SAAT FOCUS (PUTIH) */
+    color: #e2e8f0; 
 }
 .form-control::placeholder {
     color: #64748b; 
@@ -437,7 +407,6 @@ select.form-control {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    /* [SESUAI GUIDELINE] Menggunakan SVG untuk panah dropdown, disesuaikan dengan Bootstrap Icon */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708 .708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
@@ -463,7 +432,7 @@ select.form-control option {
 
 
 /* =================================
-   GAYA TOMBOL (DISAMAKAN DENGAN DASHBOARD)
+   GAYA TOMBOL 
    ================================= */
 .btn {
     padding: 0.75rem 1.5rem; 
@@ -473,7 +442,6 @@ select.form-control option {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* [SESUAI GUIDELINE] Font 'Poppins' untuk tombol */
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
     display: inline-flex;
@@ -481,7 +449,7 @@ select.form-control option {
     justify-content: center;
     gap: 0.5rem; 
 }
-/* [SESUAI GUIDELINE] Styling untuk Ikon Bootstrap di dalam tombol */
+
 .btn i {
     font-size: 1.1rem;
     margin: 0; 
@@ -534,10 +502,6 @@ select.form-control option {
     box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
 }
 
-
-/* =================================
-   ANIMASI
-   ================================= */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -548,7 +512,6 @@ select.form-control option {
         transform: translateY(0);
     }
 }
-
 
 /* =================================
    GAYA PAGINASI BOOTSTRAP 5 KUSTOM
@@ -675,8 +638,71 @@ select.form-control option {
         padding: 0.4rem 0.6rem;
         font-size: 0.875rem;
     }
-}
 
+    .quest-board-container {
+        padding: 1rem;
+    }
+    
+    .page-title {
+        font-size: 1.75rem; 
+        gap: 0.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.95rem; 
+        margin-bottom: 1.5rem;
+    }
+
+    .quest-tabs {
+        flex-wrap: wrap; 
+    }
+
+    .tab-link {
+        flex-basis: 50%;
+        flex-grow: 1;
+        text-align: center;
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .tab-link i {
+        margin-right: 0.35rem; 
+        font-size: 1rem;
+    }
+
+    .quest-card-inner {
+        padding: 1rem; 
+        gap: 1rem;
+    }
+
+    .quest-info {
+        min-width: 100%; 
+        flex-basis: 100%;
+    }
+
+    .quest-info h3 {
+        font-size: 1.15rem;
+    }
+
+    .quest-info .quest-meta {
+        gap: 1rem; 
+        font-size: 0.85rem;
+    }
+
+    .quest-actions {
+        min-width: 100%; 
+        flex-basis: 100%;
+        margin-left: 0; 
+    }
+
+    #submissionModal .modal-body {
+        padding: 1.5rem;
+    }
+
+    #submissionModal .modal-header .modal-title {
+        font-size: 1.25rem;
+    }
+}
 
 /* =================================
    GAYA SWEETALERT KUSTOM

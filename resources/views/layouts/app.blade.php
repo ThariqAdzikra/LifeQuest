@@ -8,14 +8,16 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
-    {{-- ▼▼▼ INI ADALAH PERBAIKANNYA ▼▼▼ --}}
     {{-- Memuat file CSS Bootstrap 5 --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    {{-- ▲▲▲ AKHIR DARI PERBAIKAN ▲▲▲ --}}
 
-    {{-- BARU: Link ke file CSS eksternal Anda (Harus setelah Bootstrap) --}}
+    {{-- Link ke file CSS eksternal Anda (Harus setelah Bootstrap) --}}
     <link rel="stylesheet" href="{{ asset('css/app/style.css') }}">
     
+    {{-- --- [TAMBAHAN BARU] Link ke CSS Navigasi Sesuai Permintaan --- --}}
+    <link rel="stylesheet" href="{{ asset('css/nav/style.css') }}">
+    {{-- --- [AKHIR TAMBAHAN] --- --}}
+
     @stack('styles')
 </head>
 <body>
@@ -31,13 +33,9 @@
             <div class="footer-logo">LifeQuest</div>
             <p class="footer-tagline">"Ubah kebiasaan kecil menjadi pencapaian besar. Mulai petualanganmu hari ini."</p>
             
-            {{-- PERBAIKAN: 'div.footer-links' sudah dihapus di langkah sebelumnya --}}
-
             <div class="footer-social">
-                {{-- PERBAIKAN: Ikon X diubah jadi Facebook --}}
                 <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
                 <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
-                {{-- PERBAIKAN: Ikon Discord diubah jadi LinkedIn --}}
                 <a href="#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
                 <a href="#" title="GitHub"><i class="bi bi-github"></i></a>
             </div>

@@ -1,5 +1,5 @@
 /* =================================
-   GAYA GLOBAL (DARI DASHBOARD)
+   GAYA GLOBAL 
    ================================= */
 body {
     background-color: #0a0e27;
@@ -8,7 +8,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Efek background blur dari dashboard */
 body::before {
     content: "";
     position: fixed;
@@ -16,7 +15,6 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    /* Path ini PENTING (../.. untuk naik 2 folder) */
     background-image: url('../../images/heroLanding.jpg'); 
     background-size: cover;
     background-position: center;
@@ -27,7 +25,7 @@ body::before {
 }
 
 /* =================================
-   LAYOUT & JUDUL (DARI DASHBOARD)
+   LAYOUT & JUDUL 
    ================================= */
 .leaderboard-container {
     max-width: 1140px; 
@@ -60,7 +58,6 @@ body::before {
     font-size: 1.1rem;
 }
 
-/* Judul Section (dari stats) */
 .section-title-sub {
     display: flex;
     align-items: center;
@@ -81,7 +78,7 @@ body::before {
 }
 
 /* =================================
-   KARTU DASAR (DARI DASHBOARD)
+   KARTU DASAR 
    ================================= */
 .glass-card {
     background: rgba(15, 23, 42, 0.7);
@@ -100,13 +97,12 @@ body::before {
 }
 
 /* =================================
-   KARTU PERINGKAT PENGGUNA (BARU)
+   KARTU PERINGKAT PENGGUNA 
    ================================= */
 .user-rank-card {
     display: flex;
     align-items: center;
     gap: 2rem;
-    /* Diberi highlight cyan */
     border-left: 5px solid #00d4ff;
     background: linear-gradient(90deg, rgba(0, 212, 255, 0.1), rgba(15, 23, 42, 0.7));
 }
@@ -157,20 +153,18 @@ body::before {
 .user-info .user-stats i {
     font-size: 1.2rem;
 }
-/* Warna ikon disesuaikan */
 .user-info .user-stats .bi-shield-fill-check { color: #00d4ff; }
 .user-info .user-stats .bi-star-fill { color: #facc15; }
 .user-info .user-stats .bi-coin { color: #eab308; }
 
 
 /* =================================
-   DAFTAR LEADERBOARD (BARU)
+   DAFTAR LEADERBOARD 
    ================================= */
 .leaderboard-list {
-    padding: 0; /* Hapus padding agar row bisa full-width */
+    padding: 0; 
 }
 
-/* Grid layout untuk tabel */
 .leaderboard-header,
 .leaderboard-row {
     display: grid;
@@ -220,7 +214,6 @@ body::before {
     color: #cbd5e1;
 }
 
-/* Gaya Peringkat Top 3 */
 .leaderboard-row.rank-1 {
     background: rgba(250, 204, 21, 0.05);
     border-left: 5px solid #facc15;
@@ -239,15 +232,11 @@ body::before {
 }
 .leaderboard-row.rank-3 .rank-col { color: #cd7f32; }
 
-/* Gaya Peringkat Pengguna Saat Ini */
 .leaderboard-row.current-user-row {
     background: rgba(0, 212, 255, 0.1);
     border-left: 5px solid #00d4ff;
 }
 
-/* =================================
-   RESPONSIVE
-   ================================= */
 @media (max-width: 768px) {
     .user-rank-card {
         flex-direction: column;
@@ -258,12 +247,11 @@ body::before {
         text-align: left;
     }
 
-    /* Sembunyikan header dan gunakan data-label */
     .leaderboard-header {
         display: none;
     }
     .leaderboard-row {
-        grid-template-columns: 80px 1fr; /* Hanya Rank dan User */
+        grid-template-columns: 80px 1fr; 
         grid-template-rows: auto auto;
         padding: 1.5rem;
     }
@@ -281,11 +269,11 @@ body::before {
     .level-col, .exp-col, .gold-col {
         grid-column: 2 / 3;
         grid-row: 2 / 3;
-        display: inline-block; /* Tampilkan di baris yang sama */
+        display: inline-block; 
         margin-right: 1.5rem;
         font-size: 0.9rem;
     }
-    /* Tambahkan label pseudo-element */
+
     .level-col::before { content: 'LVL: '; font-weight: 600; color: #94a3b8;}
     .exp-col::before { content: 'EXP: '; font-weight: 600; color: #94a3b8;}
     .gold-col::before { content: 'GOLD: '; font-weight: 600; color: #94a3b8;}

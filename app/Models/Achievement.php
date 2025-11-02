@@ -19,7 +19,7 @@ class Achievement extends Model
         'description',
         'icon_path',
         'condition',
-        'key_name', // <-- [PERBAIKAN] Tambahkan ini
+        'key_name', 
     ];
 
     /**
@@ -33,21 +33,12 @@ class Achievement extends Model
         'condition' => 'array',
     ];
 
-    /**
-     * Relasi many-to-many ke User.
-     * Ini untuk melihat user mana saja yang memiliki achievement ini.
-     * Kita juga mengambil 'unlocked_at' dari pivot table.
-     */
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_achievements')
                     ->withPivot('unlocked_at');
     }
 
-    /**
-     * [TAMBAHAN BARU] Relasi one-to-many ke Quest
-     * (Achievement ini bisa menjadi hadiah untuk banyak Quest).
-     */
     public function quests()
     {
         return $this->hasMany(Quest::class);
