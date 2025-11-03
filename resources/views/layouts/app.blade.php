@@ -34,10 +34,10 @@
             <p class="footer-tagline">"Ubah kebiasaan kecil menjadi pencapaian besar. Mulai petualanganmu hari ini."</p>
             
             <div class="footer-social">
-                <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                <a href="#" title="GitHub"><i class="bi bi-github"></i></a>
+                <a href="https://www.facebook.com/BahlilLahadaliaOfficial/?locale=id_ID" title="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/thrqdz_/" title="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/muhammad-thariq-adzikra-6b3b7221b/" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/ThariqAdzikra" title="GitHub"><i class="bi bi-github"></i></a>
             </div>
             
             <div class="footer-bottom">
