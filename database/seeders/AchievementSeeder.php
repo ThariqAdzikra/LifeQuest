@@ -3,17 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Achievement; // Pastikan model ini ada di App\Models\Achievement
+use App\Models\Achievement; 
 
 class AchievementSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $achievements = [
-            // === Milestone Penyelesaian Quest ===
             [
                 'key_name' => 'first_quest_completed', 'title' => 'Pejuang Hari Pertama',
                 'description' => 'Selesaikan aktivitas (quest) pertamamu.',
@@ -32,9 +28,6 @@ class AchievementSeeder extends Seeder
                 'icon_path' => 'achievements/icons/quest-master.png', 'exp_reward' => 500, 'gold_reward' => 250, 'rarity' => 'epic',
                 'condition' => json_encode(['type' => 'quest_completed', 'frequency' => 'once', 'count' => 25]),
             ],
-
-            // === Milestone Pencapaian Stat ===
-            // --- Intelligence ---
             [
                 'key_name' => 'intellect_1', 'title' => 'Sang Intelektual (T1)',
                 'description' => 'Capai total 50 poin Intelligence.', 'icon_path' => 'achievements/icons/intellect-1.png',
@@ -53,7 +46,6 @@ class AchievementSeeder extends Seeder
                 'exp_reward' => 5000, 'gold_reward' => 1000, 'rarity' => 'legendary',
                 'condition' => json_encode(['type' => 'stat_reached', 'stat' => 'intelligence', 'value' => 1000]),
             ],
-            // --- Strength ---
             [
                 'key_name' => 'strength_1', 'title' => 'Si Kuat (T1)',
                 'description' => 'Capai total 50 poin Strength.', 'icon_path' => 'achievements/icons/strength-1.png',
@@ -72,7 +64,6 @@ class AchievementSeeder extends Seeder
                 'exp_reward' => 5000, 'gold_reward' => 1000, 'rarity' => 'legendary',
                 'condition' => json_encode(['type' => 'stat_reached', 'stat' => 'strength', 'value' => 1000]),
             ],
-            // --- Stamina ---
             [
                 'key_name' => 'stamina_1', 'title' => 'Atlet Tangguh (T1)',
                 'description' => 'Capai total 50 poin Stamina.', 'icon_path' => 'achievements/icons/stamina-1.png',
@@ -91,7 +82,6 @@ class AchievementSeeder extends Seeder
                 'exp_reward' => 5000, 'gold_reward' => 1000, 'rarity' => 'legendary',
                 'condition' => json_encode(['type' => 'stat_reached', 'stat' => 'stamina', 'value' => 1000]),
             ],
-            // --- Agility ---
             [
                 'key_name' => 'agility_1', 'title' => 'Sang Gesit (T1)',
                 'description' => 'Capai total 50 poin Agility.', 'icon_path' => 'achievements/icons/agility-1.png',
