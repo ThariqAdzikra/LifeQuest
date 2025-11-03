@@ -9,16 +9,11 @@ use App\Models\User;
 
 class QuestSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // === BAGIAN 1: QUEST ADMIN (50 BUAH) ===
         
         $firstStepAchievement = Achievement::where('key_name', 'first_quest_completed')->first();
-        
-        // Buat 1 Quest Admin Spesial
+
         Quest::updateOrCreate(
             ['title' => 'Mulai Perjalananmu'],
             [
@@ -31,7 +26,6 @@ class QuestSeeder extends Seeder
             ]
         );
 
-        // Buat 49 Quest Admin Acak Lainnya
         $stats = ['intelligence', 'strength', 'stamina', 'agility', null];
         $difficulties = ['easy', 'medium', 'hard'];
         $frequencies = ['once', 'daily', 'weekly'];
@@ -54,14 +48,10 @@ class QuestSeeder extends Seeder
                 'is_active' => true,
             ]);
         }
-
-        // === BAGIAN 2: QUEST INDIVIDU (50 BUAH UNTUK TEST USER) ===
         
         $testUser = User::where('email', 'test@example.com')->first();
 
         if ($testUser) {
-            
-            // Buat 3 Quest Pribadi Spesial (untuk tes Jeda/Aktif)
             Quest::updateOrCreate(
                 ['title' => 'Review Target Harian (Pribadi)', 'user_id' => $testUser->id],
                 [
@@ -86,11 +76,9 @@ class QuestSeeder extends Seeder
                     'description' => 'Meditasi 10 menit setiap pagi.',
                     'difficulty' => 'easy', 'frequency' => 'daily', 'exp_reward' => 15, 'gold_reward' => 5,
                     'stat_reward_type' => null, 'stat_reward_value' => 0,
-                    'is_admin_quest' => false, 'is_active' => false, // Ini di-Jeda
+                    'is_admin_quest' => false, 'is_active' => false, 
                 ]
             );
-
-            // Buat 47 Quest Pribadi Acak Lainnya untuk Test User
              for ($i = 1; $i <= 47; $i++) {
                 $freq = $frequencies[array_rand($frequencies)];
                 $stat = $stats[array_rand($stats)];
@@ -100,7 +88,7 @@ class QuestSeeder extends Seeder
                     'description' => 'Deskripsi untuk tugas pribadi acak nomor ' . $i . '.',
                     'difficulty' => $difficulties[array_rand($difficulties)],
                     'frequency' => $freq,
-                    'exp_reward' => rand(10, 50), // Quest pribadi lebih kecil rewardnya
+                    'exp_reward' => rand(10, 50), 
                     'gold_reward' => rand(5, 25),
                     'stat_reward_type' => $stat,
                     'stat_reward_value' => $stat ? rand(1, 3) : 0,

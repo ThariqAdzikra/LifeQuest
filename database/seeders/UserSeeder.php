@@ -16,18 +16,22 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password' => 'password', // <-- TAMBAHKAN BARIS INI
             'is_admin' => false, // Pastikan Test User bukan admin
         ]);
 
         // 2. Membuat 50 User player acak tambahan
         User::factory(50)->create([
              'is_admin' => false, // Pastikan semua player acak bukan admin
+             // Password untuk user acak ini akan di-generate oleh Factory
+             // (biasanya 'password' juga)
         ]);
         
         // 3. (Opsional) Buat 1 User Admin
         User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
+            'password' => 'password', // <-- TAMBAHKAN BARIS INI
             'is_admin' => true, // Tandai sebagai admin
         ]);
     }
