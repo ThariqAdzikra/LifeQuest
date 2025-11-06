@@ -388,42 +388,9 @@
 </div>
 
 
-{{-- ========================================================== --}}
-{{-- MODAL UNTUK SUBMISSION QUEST ADMIN
-{{-- ========================================================== --}}
-<div class="modal fade" id="submissionModal" tabindex="-1" aria-labelledby="submissionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        
-        <div class="modal-content glass-card">
-            
-            <div class="modal-header">
-                <h5 class="modal-title page-title" id="submissionModalLabel">Kirim Bukti Quest</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #fff;"></button>
-            </div>
-            
-            <form id="submissionForm" action="" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body">
-                    
-                    <div class="form-group">
-                        <label for="submission_file">Upload Bukti (Maks: 5MB)</label>
-                        <input type="file" id="submission_file" name="submission_file" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="submission_notes">Catatan (Opsional)</label>
-                        <textarea id="submission_notes" name="submission_notes" rows="3" class="form-control" placeholder="Tulis catatan untuk admin di sini..."></textarea>
-                    </div>
+{{-- [PERBAIKAN] BLOK MODAL DIHAPUS DARI SINI --}}
+{{-- HTML Modal sekarang ada di app.blade.php --}}
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-send-fill"></i> Kirim Review</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 @endsection
 
 @push('scripts')
