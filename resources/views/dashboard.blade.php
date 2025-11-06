@@ -69,6 +69,9 @@
             </div>
         </div>
 
+        {{-- ========================================================== --}}
+        {{-- --- BARIS WIDGET (WAKTU & AKTIVITAS) --- --}}
+        {{-- ========================================================== --}}
         <div class="row g-4 mb-4">
             
             <div class="col-lg-8">
@@ -99,100 +102,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
-                <div class="widget-card">
-                    <div class="widget-header">
-                        <i class="bi bi-fire"></i>
-                        <h3 class="widget-title">Streak Harian</h3>
-                    </div>
-                    <div class="streak-display">
-                        <div class="streak-icon">🔥</div>
-                        <div class="streak-info">
-                            <div class="streak-value">{{ $currentStreak ?? 0 }}</div>
-                            <div class="streak-label">hari berturut-turut</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row g-4 mb-4">
-            <div class="col-lg-8">
-                <div class="glass-card p-4">
-                    <div class="section-header">
-                        <i class="bi bi-graph-up-arrow"></i>
-                        <h2 class="section-title">Progress Anda</h2>
-                    </div>
-
-                    {{-- ========================================================== --}}
-                    {{-- --- PERUBAHAN 1: QUEST HARIAN --- --}}
-                    {{-- ========================================================== --}}
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-label">
-                                <i class="bi bi-calendar-check"></i>
-                                Quest Harian (Diambil Hari Ini)
-                            </span>
-                            {{-- Gunakan data quest harian yang baru --}}
-                            <span class="progress-percentage">{{ $totalQuestsToday > 0 ? round(($completedQuestsToday / $totalQuestsToday) * 100) : 0 }}%</span>
-                        </div>
-                        <div class="progress">
-                            {{-- Gunakan data quest harian yang baru --}}
-                            <div class="progress-bar" role="progressbar" style="width: {{ $totalQuestsToday > 0 ? ($completedQuestsToday / $totalQuestsToday) * 100 : 0 }}%"></div>
-                        </div>
-                    </div>
-                    {{-- ========================================================== --}}
-                    {{-- --- AKHIR PERUBAHAN 1 --- --}}
-                    {{-- ========================================================== --}}
-
-
-                    {{-- ========================================================== --}}
-                    {{-- --- PERUBAHAN 2: TARGET XP HARIAN --- --}}
-                    {{-- ========================================================== --}}
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-label">
-                                <i class="bi bi-lightning-charge"></i>
-                                Target XP Harian (500 XP)
-                            </span>
-                            {{-- Gunakan $dailyXP (bukan $weeklyXP) --}}
-                            <span class="progress-percentage">{{ $dailyXP > 0 ? min(round(($dailyXP / 500) * 100), 100) : 0 }}%</span>
-                        </div>
-                        <div class="progress">
-                            {{-- Gunakan $dailyXP (bukan $weeklyXP) --}}
-                            <div class="progress-bar" role="progressbar" style="width: {{ $dailyXP > 0 ? min(($dailyXP / 500) * 100, 100) : 0 }}%"></div>
-                        </div>
-                    </div>
-                    {{-- ========================================================== --}}
-                    {{-- --- AKHIR PERUBAHAN 2 --- --}}
-                    {{-- ========================================================== --}}
-
-
-                    {{-- ========================================================== --}}
-                    {{-- --- PERUBAHAN 3: PENCAPAIAN TERBUKA --- --}}
-                    {{-- ========================================================== --}}
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-label">
-                                <i class="bi bi-award"></i>
-                                {{-- Gunakan data dinamis untuk label (X / Y) --}}
-                                Pencapaian Terbuka ({{ $achievements ?? 0 }}/{{ $totalAchievements ?? 0 }})
-                            </span>
-                            {{-- Hitung persentase berdasarkan data dinamis --}}
-                            <span class="progress-percentage">{{ $totalAchievements > 0 ? round(($achievements / $totalAchievements) * 100) : 0 }}%</span>
-                        </div>
-                        <div class="progress">
-                            {{-- Atur width progress bar berdasarkan data dinamis --}}
-                            <div class="progress-bar" role="progressbar" style="width: {{ $totalAchievements > 0 ? ($achievements / $totalAchievements) * 100 : 0 }}%"></div>
-                        </div>
-                    </div>
-                    {{-- ========================================================== --}}
-                    {{-- --- AKHIR PERUBAHAN 3 --- --}}
-                    {{-- ========================================================== --}}
-                </div>
-            </div>
-
+            {{-- [PERUBAHAN] Card "Aktivitas Terbaru" dipindahkan ke sini --}}
             <div class="col-lg-4">
                 <div class="glass-card p-4">
                     <div class="section-header">
@@ -229,6 +139,56 @@
                     </div> 
                 </div>
             </div>
+            {{-- [AKHIR PERUBAHAN] Card "Streak Harian" telah dihapus --}}
+        </div>
+
+
+        {{-- ========================================================== --}}
+        {{-- --- BARIS PROGRESS (DIUBAH JADI 3 KARTU) --- --}}
+        {{-- ========================================================== --}}
+        <div class="row g-4 mb-4">
+            <div class="col-lg-12">
+                <div class="glass-card p-4">
+                    <div class="section-header">
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <h2 class="section-title">Progress Anda</h2>
+                    </div>
+
+                    {{-- [PERUBAHAN] Menggunakan 3 stat-card --}}
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-calendar-check"></i>
+                                </div>
+                                <div class="stat-value">{{ $completedQuestsToday }}/{{ $totalQuestsToday }}</div>
+                                <div class="stat-label">Quest Harian Selesai</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-lightning-charge"></i>
+                                </div>
+                                <div class="stat-value">{{ $dailyXP }} / 500</div>
+                                <div class="stat-label">Target XP Harian</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-award"></i>
+                                </div>
+                                <div class="stat-value">{{ $achievements }}/{{ $totalAchievements }}</div>
+                                <div class="stat-label">Pencapaian Terbuka</div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- [AKHIR PERUBAHAN] --}}
+
+                </div>
+            </div>
+            {{-- [PERUBAHAN] Card "Aktivitas Terbaru" telah dipindah ke atas --}}
         </div>
 
         </div>

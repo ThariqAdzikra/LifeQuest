@@ -734,36 +734,43 @@ select.form-control option {
    PERBAIKAN MODAL SUBMISSION
    ================================= */
 
+/* [PERBAIKAN] Menghapus semua aturan 'pointer-events' 
+   Aturan-aturan ini tidak standar dan menyebabkan konflik rendering 
+   dengan z-index, membuat footer tampil di atas modal.
+   Dengan menghapusnya, modal akan kembali ke perilaku default Bootstrap
+   dan tampil DENGAN BENAR di atas SEMUA konten, termasuk footer.
+*/
+
 .modal-backdrop {
     background-color: rgba(0, 0, 0, 0.5) !important;
     z-index: 1050 !important; 
-    pointer-events: none !important; 
+    /* 'pointer-events: none' DIHAPUS DARI SINI */
 }
 
 .modal {
     z-index: 1055 !important; 
-    pointer-events: none !important; 
+    /* 'pointer-events: none' DIHAPUS DARI SINI */
 }
 
 .modal.show {
-    pointer-events: none !important; 
+    /* 'pointer-events: none' DIHAPUS DARI SINI */
 }
 
 .modal-dialog {
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 .modal-content {
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionModal .modal-body {
     padding: 2rem;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 .modal-footer {
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionModal .modal-content {
@@ -771,13 +778,13 @@ select.form-control option {
     backdrop-filter: blur(15px);
     border: 1px solid rgba(0, 212, 255, 0.5);
     border-radius: 1rem;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionModal .modal-header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     background: transparent;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionModal .modal-header .modal-title {
@@ -789,26 +796,26 @@ select.form-control option {
 }
 
 #submissionModal .modal-header .btn-close {
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionModal .modal-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     background: transparent;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionForm {
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionForm * {
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionForm .form-group {
     margin-bottom: 1.5rem;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionForm .form-group label {
@@ -816,7 +823,7 @@ select.form-control option {
     font-weight: 600;
     margin-bottom: 0.5rem;
     display: block;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionForm .form-control {
@@ -827,7 +834,7 @@ select.form-control option {
     width: 100%;
     padding: 0.75rem 1rem;
     font-size: 1rem;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionForm .form-control:focus {
@@ -852,7 +859,7 @@ select.form-control option {
     color: #94a3b8 !important;
     cursor: pointer !important;
     font-family: 'Poppins', sans-serif !important;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionForm input[type="file"]::file-selector-button {
@@ -866,7 +873,7 @@ select.form-control option {
     font-weight: 600 !important;
     margin-right: 0.5rem !important;
     transition: all 0.3s ease !important;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionForm input[type="file"]::file-selector-button:hover {
@@ -883,7 +890,7 @@ select.form-control option {
     padding: 0.75rem 1rem;
     font-family: 'Poppins', sans-serif;
     resize: vertical;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionForm textarea.form-control:focus {
@@ -906,14 +913,14 @@ select.form-control option {
     transition: all 0.3s ease;
     border: none;
     font-family: 'Poppins', sans-serif;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionModal .btn-primary {
     background: #00d4ff !important;
     border-color: #00d4ff !important;
     color: #0a0e27 !important;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionModal .btn-primary:hover {
@@ -926,7 +933,7 @@ select.form-control option {
     background: transparent !important;
     border: 1px solid #f87171 !important;
     color: #f87171 !important;
-    pointer-events: auto !important;
+    /* 'pointer-events: auto' DIHAPUS DARI SINI */
 }
 
 #submissionModal .btn-danger:hover {
