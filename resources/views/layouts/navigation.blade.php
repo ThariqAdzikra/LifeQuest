@@ -19,19 +19,19 @@
                 @if (Auth::user()->isAdmin())
                     <a href="{{ route('admin.dashboard') }}" 
                        class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                       Admin Panel
+                       Home
                     </a>
                     <a href="{{ route('admin.quests.index') }}" 
                        class="{{ request()->routeIs('admin.quests.*') ? 'active' : '' }}">
-                       Kelola Quest
+                       Quest
                     </a>
                     <a href="{{ route('admin.achievements.index') }}" 
                        class="{{ request()->routeIs('admin.achievements.*') ? 'active' : '' }}">
-                       Kelola Achievements 
+                       Achievements 
                     </a>
                     <a href="{{ route('admin.submissions.index') }}" 
                        class="{{ request()->routeIs('admin.submissions.*') ? 'active' : '' }}">
-                       Review Submission
+                       Submission
                     </a>
                     <a href="{{ route('leaderboard') }}" 
                        class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">
@@ -204,19 +204,19 @@
             @if (Auth::user()->isAdmin())
                 <a href="{{ route('admin.dashboard') }}" 
                    class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                   Admin Panel
+                   Home
                 </a>
                 <a href="{{ route('admin.quests.index') }}" 
                    class="{{ request()->routeIs('admin.quests.*') ? 'active' : '' }}">
-                   Kelola Quest
+                   Quest
                 </a>
                 <a href="{{ route('admin.achievements.index') }}" 
                    class="{{ request()->routeIs('admin.achievements.*') ? 'active' : '' }}">
-                   Kelola Achievements 
+                   Achievements 
                 </a>
                 <a href="{{ route('admin.submissions.index') }}" 
                    class="{{ request()->routeIs('admin.submissions.*') ? 'active' : '' }}">
-                   Review Submission
+                   Submission
                 </a>
                 <a href="{{ route('leaderboard') }}" 
                    class="{{ request()->routeIs('leaderboard') ? 'active' : '' }}">

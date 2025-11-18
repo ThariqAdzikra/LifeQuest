@@ -22,7 +22,7 @@
     <p class="page-subtitle">Selesaikan tugas, raih prestasi, dan tingkatkan level karakter Anda di dunia nyata.</p>
 
     {{-- ========================================================== --}}
-    {{-- [PERBAIKAN] Navigasi Tab: Hapus 'onclick' dan ganti dengan 'data-tab-target' --}}
+    {{-- [PERBAIKAN] Navigasi Tab --}}
     {{-- ========================================================== --}}
     <div class="quest-tabs">
         <button class="tab-link active" data-tab-target="myQuests">
@@ -38,11 +38,10 @@
             <i class="bi bi-archive-fill"></i> Riwayat
         </button>
     </div>
-    {{-- --- AKHIR PERBAIKAN --- --}}
 
 
     {{-- ========================================================== --}}
-    {{-- Konten Tab 1: Quest Saya
+    {{-- Konten Tab 1: Quest Saya (Sedang Aktif / Diambil) --}}
     {{-- ========================================================== --}}
     <div id="myQuests" class="tab-content active">
         
@@ -93,6 +92,7 @@
                 <div class="quest-actions">
                     
                     @if (!$log->quest->is_admin_quest)
+                        {{-- Quest Pribadi: Langsung Selesai --}}
                         <form action="{{ route('quests.complete', $log->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
@@ -100,6 +100,7 @@
                         </form>
                     
                     @else
+                        {{-- Quest Admin: Butuh Bukti / Submission --}}
                         @if ($log->status == 'active')
                             <button type="button" 
                                     class="btn btn-primary btn-submit-quest" 
@@ -145,7 +146,7 @@
     </div>
 
     {{-- ========================================================== --}}
-    {{-- Konten Tab 2: Quest Tersedia
+    {{-- Konten Tab 2: Quest Tersedia (Admin & Pribadi yg belum diambil) --}}
     {{-- ========================================================== --}}
     <div id="availableQuests" class="tab-content">
         <div class="section-header">
@@ -229,7 +230,7 @@
     </div>
 
     {{-- ========================================================== --}}
-    {{-- Konten Tab 3: Buat Quest Sendiri
+    {{-- Konten Tab 3: Buat & Kelola Quest Kustom --}}
     {{-- ========================================================== --}}
     <div id="createQuest" class="tab-content">
         <div class="section-header">
@@ -304,11 +305,15 @@
                     <div class="quest-rewards">
                         <span class="reward-tag"><i class="bi bi-star-fill"></i> {{ $quest->exp_reward }} EXP</span>
                         <span class="reward-tag"><i class="bi bi-coin"></i> {{ $quest->gold_reward }} Gold</span>
+                        
+                        {{-- [FIXED] Mengganti $log menjadi $quest --}}
                         @if($quest->stat_reward_type)
                         <span class="reward-tag">
-                            <i class="{{ getStatIcon($quest->stat_reward_type) }}"></i> +{{ $log->quest->stat_reward_value }} {{ ucfirst($log->quest->stat_reward_type) }}
+                            <i class="{{ getStatIcon($quest->stat_reward_type) }}"></i> +{{ $quest->stat_reward_value }} {{ ucfirst($quest->stat_reward_type) }}
                         </span>
                         @endif
+                        {{-- [END FIX] --}}
+                        
                     </div>
                 </div>
                 <div class="quest-actions">
@@ -347,7 +352,7 @@
     </div>
     
     {{-- ========================================================== --}}
-    {{-- Konten Tab 4: Riwayat Quest Selesai
+    {{-- Konten Tab 4: Riwayat Quest Selesai --}}
     {{-- ========================================================== --}}
     <div id="completedQuests" class="tab-content">
          
@@ -387,19 +392,15 @@
 
 </div>
 
-
-{{-- [PERBAIKAN] BLOK MODAL DIHAPUS DARI SINI --}}
-{{-- HTML Modal sekarang ada di app.blade.php --}}
-
 @endsection
 
 @push('scripts')
 {{-- 1. Panggil SweetAlert CDN --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-{{-- 2. [PENTING] Pastikan baris ini ADA. --}}
+{{-- 2. Bootstrap JS --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-{{-- 3. Panggil file main.js kustom Anda --}}
+{{-- 3. Panggil file main.js kustom --}}
 <script src="{{ asset('js/quest/main.js') }}"></script>
 @endpush
