@@ -1,9 +1,14 @@
 const QuestModule = (function () {
+    // --- Variabel untuk Halaman Index/Modal (Edit & Delete) ---
     let modal;
     let closeModalBtn;
     let cancelModalBtn;
     let editForm;
     let achievementSelect;
+
+    // --- Variabel untuk Halaman Create ---
+    let createDifficultySelect;
+    let createExpInput;
 
     function moveModalToBody() {
         const modalToMove = document.getElementById('editQuestModal');
@@ -26,10 +31,6 @@ const QuestModule = (function () {
         }
     }
 
-    /**
-     * Menangani event klik pada tombol hapus quest.
-     * @param {Event} event - Event klik
-     */
     function handleDeleteClick(event) {
         event.preventDefault();
         const form = this.closest('form');
@@ -54,13 +55,11 @@ const QuestModule = (function () {
         });
     }
 
-    /**
-     * Menangani error saat fetch data quest.
-     * @param {Error} error - Objek Error
-     */
     function handleFetchError(error) {
         console.error('Error:', error);
-        achievementSelect.innerHTML = '<option value="">Gagal memuat</option>';
+        if (achievementSelect) {
+            achievementSelect.innerHTML = '<option value="">Gagal memuat</option>';
+        }
         Swal.fire({
             title: 'Error!',
             text: 'Gagal memuat data quest atau achievements.',
@@ -73,11 +72,6 @@ const QuestModule = (function () {
         });
     }
 
-    /**
-     * Mengisi form modal dengan data dari server.
-     * @param {object} data - Data JSON dari server
-     * @param {string} questId - ID quest yang sedang diedit
-     */
     function populateModalForm(data, questId) {
         const questData = data.quest || data;
         const achievementsList = data.achievements || [];
@@ -91,17 +85,20 @@ const QuestModule = (function () {
         document.getElementById('edit_stat_reward_type').value = questData.stat_reward_type || '';
         document.getElementById('edit_stat_reward_value').value = questData.stat_reward_value || 0;
 
-        achievementSelect.innerHTML = '<option value="">Tidak ada</option>';
-        achievementsList.forEach(achievement => {
-            const option = document.createElement('option');
-            option.value = achievement.id;
-            option.textContent = achievement.title;
-            achievementSelect.appendChild(option);
-        });
+        if (achievementSelect) {
+            achievementSelect.innerHTML = '<option value="">Tidak ada</option>';
+            achievementsList.forEach(achievement => {
+                const option = document.createElement('option');
+                option.value = achievement.id;
+                option.textContent = achievement.title;
+                achievementSelect.appendChild(option);
+            });
+            achievementSelect.value = questData.achievement_id || '';
+        }
 
-        achievementSelect.value = questData.achievement_id || '';
-
-        editForm.action = `/admin/quests/${questId}`;
+        if (editForm) {
+            editForm.action = `/admin/quests/${questId}`;
+        }
 
         showModal();
     }
@@ -109,7 +106,9 @@ const QuestModule = (function () {
     function handleEditClick() {
         const questId = this.getAttribute('data-quest-id');
 
-        achievementSelect.innerHTML = '<option value="">Memuat achievements...</option>';
+        if (achievementSelect) {
+            achievementSelect.innerHTML = '<option value="">Memuat achievements...</option>';
+        }
 
         fetch(`/admin/quests/${questId}/edit`)
             .then(response => {
@@ -124,23 +123,35 @@ const QuestModule = (function () {
             .catch(handleFetchError);
     }
 
-    /**
-     * Menangani penutupan modal via klik di luar area modal.
-     * @param {Event} e - Event klik
-     */
     function handleOutsideModalClick(e) {
         if (e.target === modal) {
             closeModal();
         }
     }
 
-    /**
-     * Menangani penutupan modal via tombol 'Escape'.
-     * @param {Event} e - Event keydown
-     */
     function handleEscKey(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
             closeModal();
+        }
+    }
+
+    function initCreateForm() {
+        createDifficultySelect = document.getElementById('difficulty');
+        createExpInput = document.getElementById('exp_reward');
+
+        if (createDifficultySelect && createExpInput) {
+            
+            createDifficultySelect.addEventListener('change', function() {
+                const difficulty = this.value;
+                
+                if (difficulty === 'easy') {
+                    createExpInput.value = 10;
+                } else if (difficulty === 'medium') {
+                    createExpInput.value = 100;
+                } else if (difficulty === 'hard') {
+                    createExpInput.value = 1000; 
+                }
+            });
         }
     }
 
@@ -170,6 +181,8 @@ const QuestModule = (function () {
         }
         
         document.addEventListener('keydown', handleEscKey);
+
+        initCreateForm();
     }
 
     return {

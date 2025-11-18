@@ -11,9 +11,7 @@ use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
+
     public function edit()
     {
         return view('profile.edit', [
@@ -21,9 +19,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -59,10 +54,6 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit')->with('status', 'profile-updated');
     }
 
-    /**
-     * Update the user's profile photo.
-     * (Anda bisa hapus ini jika hanya pakai 'avatar')
-     */
     public function updatePhoto(Request $request)
     {
         $request->validate([
@@ -85,10 +76,6 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit')->with('status', 'photo-updated');
     }
 
-    /**
-     * Delete the user's profile photo.
-     * (Anda bisa hapus ini jika hanya pakai 'avatar')
-     */
     public function deletePhoto()
     {
         $user = Auth::user();
@@ -102,9 +89,6 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit')->with('status', 'photo-deleted');
     }
 
-    /**
-     * Update the user's password.
-     */
     public function updatePassword(Request $request)
     {
         $validated = $request->validate([
@@ -119,21 +103,13 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit')->with('status', 'password-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request)
     {
-        // ============================================
-        // [PERBAIKAN] Cek apakah user adalah admin
-        // ============================================
+        // Cek apakah user adalah admin
         if (Auth::user()->isAdmin()) {
             // Jika admin, kembalikan dengan error
             return redirect()->route('profile.edit')->withErrors(['password' => 'Admin tidak dapat menghapus akunnya sendiri.']);
         }
-        // ============================================
-        // --- AKHIR PERBAIKAN ---
-        // ============================================
 
         $request->validate([
             'password' => ['required', 'current_password'],
