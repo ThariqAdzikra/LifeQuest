@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'HabitQuest - Jejak Kebiasaan Positif Anda')
+@section('title', 'LifeQuest - Jejak Kebiasaan Positif Anda')
 
 @push('styles')
     {{-- Tambahkan CDN untuk Bootstrap Icons --}}

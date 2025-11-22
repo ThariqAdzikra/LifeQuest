@@ -27,7 +27,7 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="warrior@habitquest.com">
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="warrior@Lifequest.com">
                 @error('email')
                     <div class="error-message">{{ $message }}</div>
                 @enderror

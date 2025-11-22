@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Verify Email - HabitQuest')
+@section('title', 'Verify Email - LifeQuest')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/auth/auth.css') }}">
