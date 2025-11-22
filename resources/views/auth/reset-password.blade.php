@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Reset Password - HabitQuest')
+@section('title', 'Reset Password - LifeQuest')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/auth/auth.css') }}">
@@ -18,7 +18,7 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" placeholder="warrior@habitquest.com">
+                <input id="email" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" placeholder="warrior@lifequest.com">
                 @error('email')
                     <div class="error-message">{{ $message }}</div>
                 @enderror

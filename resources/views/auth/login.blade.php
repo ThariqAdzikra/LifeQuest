@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Login - HabitQuest')
+@section('title', 'Login - LifeQuest')
 
 @push('styles')
     {{-- Link ke CSS autentikasi kustom --}}
@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 {{-- PERBAIKAN: Menggunakan autocomplete="off" --}}
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="off" placeholder="warrior@habitquest.com">
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="off" placeholder="warrior@lifequest.com">
                 @error('email')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
