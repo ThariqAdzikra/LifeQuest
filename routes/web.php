@@ -25,7 +25,7 @@ Route::get('/', [LandingController::class, 'index'])->name('landing');
 // Syarat: Login ('auth') DAN Bukan Admin ('user')
 // ========================================
 Route::middleware(['auth', 'verified', 'user'])->group(function () {
-    
+
     // Dashboard User (Player)
     // Jika Admin mencoba akses ini, akan ditendang ke Admin Dashboard oleh UserMiddleware
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -41,8 +41,7 @@ Route::middleware(['auth', 'verified', 'user'])->group(function () {
     // Achievement (Player View)
     Route::resource('achievements', AchievementController::class)->only(['index']);
 
-    // Leaderboard
-    Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
+    // Route Leaderboard dipindahkan dari sini ke Section 3
 });
 
 
@@ -54,6 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Leaderboard
+    // Dipindahkan ke sini agar bisa diakses Admin DAN Player
+    Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
 });
 
 
@@ -62,7 +65,7 @@ Route::middleware('auth')->group(function () {
 // Syarat: Login ('auth') DAN Admin ('admin')
 // ========================================
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    
+
     // /admin/dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
@@ -73,14 +76,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/quests/{quest}/edit', [AdminQuestController::class, 'edit'])->name('quests.edit');
     Route::put('/quests/{quest}', [AdminQuestController::class, 'update'])->name('quests.update');
     Route::delete('/quests/{quest}', [AdminQuestController::class, 'destroy'])->name('quests.destroy');
-    
+
     // /admin/submissions (Review)
     Route::get('/submissions', [SubmissionController::class, 'index'])->name('submissions.index');
     Route::post('/submissions/{questLog}/approve', [SubmissionController::class, 'approve'])->name('submissions.approve');
     Route::post('/submissions/{questLog}/reject', [SubmissionController::class, 'reject'])->name('submissions.reject');
 
     // /admin/achievements (CRUD Achievement)
-    Route::resource('achievements', AdminAchievementController::class); 
+    Route::resource('achievements', AdminAchievementController::class);
 });
 
 require __DIR__ . '/auth.php';
