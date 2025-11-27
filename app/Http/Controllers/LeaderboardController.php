@@ -11,45 +11,40 @@ class LeaderboardController extends Controller
 {
     public function index()
     {
-        // Ambil 20 pengguna teratas (NON-ADMIN)
-        // [PERBAIKAN] Diurutkan berdasarkan jumlah quest admin yang selesai
+        // 1. Ambil 20 pengguna teratas (NON-ADMIN) untuk tabel
         $topUsers = User::where('is_admin', 0)
-            // [PERBAIKAN] Menggunakan nama relasi 'questLogs' dari User.php
             ->withCount([
                 'questLogs' => function ($query) {
-                    $query->where('status', 'completed') 
-                    
+                    $query->where('status', 'completed')
                         ->whereHas('quest', function ($q) {
                             $q->where('is_admin_quest', true);
                         });
                 }
             ])
-            // [PERBAIKAN] Nama count default berubah menjadi 'quest_logs_count'
-            ->orderBy('quest_logs_count', 'desc')
-            // Jika ada yang sama, urutkan berdasarkan nama
-            ->orderBy('name', 'asc')
+            ->orderBy('quest_logs_count', 'desc') // Urutkan berdasarkan jumlah quest
+            ->orderBy('name', 'asc') // Tie-breaker: urutkan nama A-Z
             ->take(20)
             ->get();
 
         // 2. Ambil data pengguna yang sedang login
         $currentUser = Auth::user();
         $currentUserRank = null;
-        $currentUserQuestCount = 0; 
+        $currentUserQuestCount = 0;
 
-        // 3. Temukan peringkat pengguna (jika dia BUKAN admin)
+        // 3. Hitung peringkat pengguna (Hanya jika dia BUKAN admin)
+        // Admin tidak ikut dalam peringkat leaderboard
         if ($currentUser->is_admin == 0) {
 
-            // A. Dapatkan jumlah quest admin yang diselesaikan user saat ini
-            // [PERBAIKAN] Menggunakan nama relasi 'questLogs'
+            // A. Hitung Quest Admin milik user saat ini
             $currentUserQuestCount = $currentUser->questLogs()
                 ->where('status', 'completed')
                 ->whereHas('quest', function ($q) {
                     $q->where('is_admin_quest', true);
                 })->count();
 
-            // B. Hitung berapa banyak user (non-admin) yang memiliki quest count > dari user saat ini
-            $higherRankedUsers = User::where('is_admin', 0)
-                // [PERBAIKAN] Menggunakan nama relasi 'questLogs'
+            // B. Hitung User yang rank-nya LEBIH TINGGI (Poin lebih banyak)
+            // Menggunakan get() lalu count() untuk memastikan 'having' terbaca dengan benar
+            $usersWithMorePoints = User::where('is_admin', 0)
                 ->withCount([
                     'questLogs' => function ($query) {
                         $query->where('status', 'completed')
@@ -58,29 +53,33 @@ class LeaderboardController extends Controller
                             });
                     }
                 ])
+                ->having('quest_logs_count', '>', $currentUserQuestCount)
+                ->get();
 
-                ->where(function ($query) use ($currentUserQuestCount, $currentUser) {
+            // C. Hitung User yang rank-nya LEBIH TINGGI karena Tie-Breaker (Poin SAMA tapi Nama lebih Awal)
+            $usersWithSamePointsButHigherName = User::where('is_admin', 0)
+                ->withCount([
+                    'questLogs' => function ($query) {
+                        $query->where('status', 'completed')
+                            ->whereHas('quest', function ($q) {
+                                $q->where('is_admin_quest', true);
+                            });
+                    }
+                ])
+                ->having('quest_logs_count', '=', $currentUserQuestCount)
+                ->where('name', '<', $currentUser->name) // Nama 'A' ranknya lebih tinggi dari 'B'
+                ->get();
 
-                    $query->having('quest_logs_count', '>', $currentUserQuestCount);
-
-                    $query->orWhere(function ($q_inner) use ($currentUserQuestCount, $currentUser) {
-                        // Bagian ini akan ditempatkan di HAVING
-                        $q_inner->having('quest_logs_count', '=', $currentUserQuestCount)
-                            // Bagian ini akan ditempatkan di WHERE
-                            ->where('name', '<', $currentUser->name);
-                    });
-                })
-                ->count();
-
-            $currentUserRank = $higherRankedUsers + 1;
+            // Total user di atas kita + 1 = Peringkat Kita
+            $currentUserRank = $usersWithMorePoints->count() + $usersWithSamePointsButHigherName->count() + 1;
         }
 
-        // Kirim data ke view (termasuk data count baru)
+        // Kirim data ke view
         return view('leaderboard.index', [
             'topUsers' => $topUsers,
             'currentUser' => $currentUser,
             'currentUserRank' => $currentUserRank,
-            'currentUserQuestCount' => $currentUserQuestCount 
+            'currentUserQuestCount' => $currentUserQuestCount
         ]);
     }
 }
