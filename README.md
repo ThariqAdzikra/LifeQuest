@@ -1,7 +1,7 @@
 # ⚔️ LifeQuest
 
 Sebuah platform gamifikasi produktivitas berbasis web yang dikembangkan menggunakan **Laravel**.
-Sistem ini dirancang untuk mengubah aktivitas positif dan 'to-do list' harian menjadi sebuah petualangan RPG yang menarik. Pengguna dapat menyelesaikan tugas (Quests) untuk mendapatkan imbalan (XP & Gold), naik level, dan membangun kebiasaan positif di dunia nyata.
+Sistem ini dirancang untuk mengubah aktivitas positif dan 'to-do list' harian menjadi sebuah petualangan RPG yang menarik. Pengguna dapat menyelesaikan tugas (Quests) untuk mendapatkan imbalan (XP & Gold), dan membangun kebiasaan positif di dunia nyata.
 
 -----
 
