@@ -27,7 +27,7 @@
     
     {{-- Card Form --}}
     <div class="glass-card">
-        @include('partials.admin_validation_errors') {{-- Include partials error --}}
+        @include('partials.admin_validation_errors')
         
         <form action="{{ route('admin.achievements.update', $achievement) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -46,9 +46,9 @@
             <div class="form-group">
                 <label for="icon">Ikon Achievement (Opsional)</label>
                  @if($achievement->icon_path)
-                 {{-- Gunakan class untuk styling preview --}}
                  <div class="current-icon-preview">
-                     <img src="{{ Storage::url($achievement->icon_path) }}" alt="Current Icon">
+                     {{-- PERBAIKAN DI SINI: Ganti Storage::url menjadi asset() --}}
+                     <img src="{{ asset($achievement->icon_path) }}" alt="Current Icon">
                      <small class="d-block">Ikon saat ini. Upload baru untuk mengganti.</small>
                  </div>
                  @endif
