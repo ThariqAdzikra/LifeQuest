@@ -46,11 +46,6 @@
         </div>
     </footer>
 
-    {{-- ========================================================== --}}
-    {{-- [PERBAIKAN] HTML MODAL DIPINDAHKAN KE SINI
-    {{-- Ini memastikan modal berada di root <body> dan akan
-    {{-- selalu tampil di atas semua elemen lain, termasuk footer.
-    {{-- ========================================================== --}}
     <div class="modal fade" id="submissionModal" tabindex="-1" aria-labelledby="submissionModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             
@@ -85,10 +80,6 @@
         </div>
     </div>
     {{-- --- AKHIR BLOK MODAL --- --}}
-
-
-    {{-- BARU: Link ke file JS eksternal Anda --}}
-    <script src="{{ asset('js/app/main.js') }}" defer></script>
     
    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
     

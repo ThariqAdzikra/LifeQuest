@@ -41,7 +41,8 @@
             <div class="leaderboard-row">
                 <div class="icon-col">
                     @if($achievement->icon_path)
-                        <img src="{{ Storage::url($achievement->icon_path) }}" alt="Icon">
+                        {{-- PERBAIKAN: Menggunakan asset() karena path di DB sudah lengkap (storage/...) --}}
+                        <img src="{{ asset($achievement->icon_path) }}" alt="Icon">
                     @else
                         <div class="icon-placeholder">
                             <i class="bi bi-image"></i>

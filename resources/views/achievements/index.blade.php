@@ -4,13 +4,13 @@
 
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-{{-- Pastikan Anda memanggil file CSS yang benar --}}
+{{-- Memanggil file CSS --}}
 <link rel="stylesheet" href="{{ asset('css/achievement/style.css') }}">
 @endpush
 
 @section('content')
 
-{{-- Helper PHP (Tidak berubah) --}}
+{{-- Helper PHP untuk menghitung Level & EXP --}}
 @php
     function calculateLevel($exp) {
         if ($exp <= 0) return 1;
@@ -31,20 +31,19 @@
     $expPercentage = ($expNeededForNextLevel > 0) ? ($expInCurrentLevel / $expNeededForNextLevel) * 100 : 0;
 @endphp
 
-{{-- Menggunakan container yang sama --}}
 <div class="quest-board-container">
     
-    {{-- Judul Halaman (Tidak berubah) --}}
+    {{-- Judul Halaman --}}
     <h1 class="page-title">
         <i class="bi bi-person-circle page-title-icon"></i>
         Character Stats
     </h1>
     <p class="page-subtitle">Statistik dan progres Anda di LifeQuest</p>
 
-    {{-- Grid Statistik (Tidak berubah) --}}
+    {{-- Grid Statistik --}}
     <div class="stats-container">
 
-        {{-- Kartu Level & EXP (Tidak berubah) --}}
+        {{-- Kartu Level & EXP --}}
         <div class="glass-card stat-card-primary" style="grid-column: 1 / -1;">
             <div class="stat-value">
                 <i class="bi bi-person-badge-fill"></i> {{ $user->name }}
@@ -62,7 +61,7 @@
             </div>
         </div>
 
-        {{-- Kartu Atribut (Tidak berubah) --}}
+        {{-- Kartu Atribut: Gold --}}
         <div class="glass-card stat-card-attribute">
             <div class="stat-icon gold">
                 <i class="bi bi-coin"></i>
@@ -73,6 +72,7 @@
             </div>
         </div>
 
+        {{-- Kartu Atribut: Quest Completed --}}
         <div class="glass-card stat-card-attribute">
             <div class="stat-icon completed">
                 <i class="bi bi-check-circle-fill"></i>
@@ -83,6 +83,7 @@
             </div>
         </div>
 
+        {{-- Kartu Atribut: Strength --}}
         <div class="glass-card stat-card-attribute">
             <div class="stat-icon strength">
                 <i class="bi bi-person-arms-up"></i>
@@ -93,6 +94,7 @@
             </div>
         </div>
 
+        {{-- Kartu Atribut: Stamina --}}
         <div class="glass-card stat-card-attribute">
             <div class="stat-icon stamina">
                 <i class="bi bi-lightning-charge-fill"></i>
@@ -103,6 +105,7 @@
             </div>
         </div>
 
+        {{-- Kartu Atribut: Intelligence --}}
         <div class="glass-card stat-card-attribute">
             <div class="stat-icon intelligence">
                 <i class="bi bi-book-fill"></i>
@@ -113,6 +116,7 @@
             </div>
         </div>
 
+        {{-- Kartu Atribut: Agility --}}
         <div class="glass-card stat-card-attribute">
             <div class="stat-icon agility">
                 <i class="bi bi-wind"></i>
@@ -125,31 +129,25 @@
 
     </div>
 
-    {{-- Judul Section (Tidak berubah) --}}
+    {{-- Judul Section Achievements --}}
     <h2 class="section-title-sub">
         <i class="bi bi-trophy-fill"></i> Unlocked Achievements
     </h2>
     
-    {{-- Kontainer 5 kolom --}}
+    {{-- Kontainer Achievements --}}
     <div class="unlocked-achievements-container">
         
         @forelse ($unlockedAchievements as $achievement)
             
             <div class="glass-card achievement-card">
-                
-                {{-- 
-                  =============================================
-                  PERUBAHAN UTAMA ADA DI SINI
-                  Menambahkan 'storage/' ke path gambar
-                  =============================================
-                --}}
+                {{-- Gambar Achievement dengan Rarity --}}
                 <div class="achievement-image-container rarity-{{ $achievement->rarity }}">
-                    <img src="{{ $achievement->icon_path ? asset('storage/' . $achievement->icon_path) : asset('images/default-trophy.png') }}" 
+                    <img src="{{ $achievement->icon_path ? asset($achievement->icon_path) : asset('images/default-trophy.png') }}" 
                          alt="{{ $achievement->title }}" 
                          class="achievement-image">
                 </div>
                 
-                {{-- Info (Tidak berubah) --}}
+                {{-- Info Achievement --}}
                 <div class="achievement-info">
                     <h3 class="rarity-{{ $achievement->rarity }}">{{ $achievement->title }}</h3>
                     <p>{{ $achievement->description }}</p>
@@ -157,7 +155,7 @@
             </div>
             
         @empty
-            {{-- Empty state (Tidak berubah) --}}
+            {{-- Empty State --}}
             <div class="empty-state-card">
                 <i class="bi bi-trophy"></i>
                 Anda belum mendapatkan achievement apapun.
@@ -170,7 +168,6 @@
 @endsection
 
 @push('scripts')
-{{-- Script (Tidak berubah) --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const expBar = document.querySelector('.exp-bar-fill');
