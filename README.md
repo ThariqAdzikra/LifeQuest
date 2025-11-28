@@ -1,18 +1,61 @@
 # ⚔️ LifeQuest
 
-Sebuah platform gamifikasi produktivitas berbasis web yang dikembangkan menggunakan **Laravel**.
+Sebuah platform gamifikasi produktivitas berbasis web yang dikembangkan menggunakan **Laravel 12**.
 Sistem ini dirancang untuk mengubah aktivitas positif dan 'to-do list' harian menjadi sebuah petualangan RPG yang menarik. Pengguna dapat menyelesaikan tugas (Quests) untuk mendapatkan imbalan (XP & Gold), naik level, dan membangun kebiasaan positif di dunia nyata.
+
+> **Gamifikasi produktivitas** 🎮 + **RPG System** 🗡️ + **Habit Tracking** 📊 = **LifeQuest** ⚔️
 
 -----
 
 ## 🚀 Tech Stack
 
   - **Framework:** Laravel 12
-  - **Language:** PHP 8.3
-  - **Database:** MySQL
-  - **Frontend:** Blade, Custom CSS, Alpine.js
-  - **Frontend (JS Libraries):** SweetAlert2, Cropper.js, Bootstrap 5 (JS Components)
-  - **Environment:** Composer, NPM, Vite
+  - **Language:** PHP 8.3+
+  - **Database:** MySQL / SQLite (development)
+  - **Frontend:** Blade Templates, Custom CSS, Alpine.js, Tailwind CSS
+  - **Build Tools:** Vite, NPM, Composer
+  - **JS Libraries:** SweetAlert2, Cropper.js, Axios
+  - **Icons:** Bootstrap Icons
+  - **External API:** OpenWeatherMap (Weather Widget)
+
+-----
+
+## 🏗️ Arsitektur Aplikasi
+
+### Model-View-Controller (MVC)
+
+```
+app/
+├── Models/               # 4 Core Models
+│   ├── User.php         # User dengan RPG stats
+│   ├── Quest.php        # Quest definitions
+│   ├── QuestLog.php     # Quest history & submissions
+│   └── Achievement.php  # Achievement system
+├── Http/Controllers/    # 12 Controllers
+│   ├── DashboardController.php
+│   ├── QuestController.php
+│   ├── AchievementController.php
+│   ├── LeaderboardController.php
+│   ├── ProfileController.php
+│   └── Admin/          # Admin Controllers
+│       ├── AdminDashboardController.php
+│       ├── AdminQuestController.php
+│       ├── AdminAchievementController.php
+│       └── SubmissionController.php
+├── Services/           # Business Logic
+│   └── AchievementService.php
+└── Helpers/           # Global Helper Functions
+    └── helpers.php
+```
+
+### Database Schema (23 Migrations)
+
+**Core Tables:**
+- `users` - User accounts dengan RPG stats (level, XP, gold, intelligence, strength, stamina, agility)
+- `quests` - Quest templates (admin & user created)
+- `quest_logs` - Quest progress tracking & submissions
+- `achievements` - Achievement definitions dengan JSON conditions
+- `user_achievements` - Unlocked achievements (pivot table)
 
 -----
 
@@ -20,43 +63,112 @@ Sistem ini dirancang untuk mengubah aktivitas positif dan 'to-do list' harian me
 
 ### 👥 Manajemen Pengguna
 
-  - Role: **Admin** & **Player** (Pengguna)
-  - Autentikasi & otorisasi bawaan Laravel
+  - **Role System:** Admin & Player dengan middleware-based access control
+  - **Autentikasi:** Laravel Breeze (Login, Register, Email Verification, Password Reset)
+  - **RPG Stats:** Intelligence, Strength, Stamina, Agility (dapat ditingkatkan via quests)
 
-### 📊 Modul Dashboard
+### 📊 Dashboard Player
 
-  - Menampilkan ringkasan statistik pemain (XP, Gold, Stats)
-  - Widget Kustom: Jam Real-time, Cuaca (via API), dan Quotes Motivasi
-  - Ringkasan progres harian
+  - **Statistik Global:** Total XP, Gold, Level, Quest Completed, Achievements Unlocked
+  - **Progress Harian:** Quest hari ini, XP earned today
+  - **Widget Interaktif:** 
+    - Real-time Clock
+    - Weather Widget (OpenWeatherMap API)
+    - Motivational Quotes
+  - **Recent Activities:** 5 quest terakhir yang diselesaikan
 
-### 🛡️ Modul Quest
+### 🛡️ Sistem Quest Lengkap
 
-  - **Admin Quest:** Quest resmi yang dibuat oleh Admin, seringkali memerlukan bukti (submission)
-  - **User Quest:** Quest kustom yang dibuat pengguna untuk diri sendiri
-  - Frekuensi Quest: Harian (Daily), Mingguan (Weekly), dan Sekali Selesai (Once)
-  - Logika Reset Otomatis untuk quest harian/mingguan
+#### Tipe Quest
+  - **Admin Quest:** Dibuat oleh admin, biasanya memerlukan submission proof
+  - **User Quest:** Quest personal yang dibuat player sendiri
 
-### 🏆 Modul Achievements
+#### Frekuensi Quest
+  - **Daily (Harian):** Reset setiap hari tengah malam, bisa diambil ulang
+  - **Weekly (Mingguan):** Reset setiap minggu
+  - **Once (Sekali):** Quest permanen, selesai satu kali
 
-  - Daftar pencapaian yang dapat dibuka oleh pemain
-  - Dikelola sepenuhnya oleh Admin
+#### Difficulty Levels
+  - **Easy:** 1x reward multiplier
+  - **Medium:** 1.5x reward multiplier  
+  - **Hard:** 2x reward multiplier
 
-### 👤 Modul Profil Pengguna
+#### Quest Rewards
+  - **XP** - Experience points untuk leveling
+  - **Gold** - Virtual currency
+  - **Stats Boost** - Intelligence / Strength / Stamina / Agility
 
-  - Pengaturan profil (Ganti nama, email, password)
-  - Fitur upload avatar kustom dengan *cropping* (menggunakan Cropper.js)
+#### Quest Workflow (Player)
+1. Browse available quests
+2. Take quest → Quest log created dengan status 'pending'
+3. Complete quest:
+   - **User Quest:** Langsung complete, dapat reward
+   - **Admin Quest:** Upload submission proof → status 'submitted'
+4. Menunggu admin review (untuk admin quest)
+5. Terima reward setelah approved
 
-### 👑 Panel Admin
+### 🏆 Achievement System (Auto-Unlock)
 
-  - **Review Submissions:** Admin dapat menyetujui (Approve) atau menolak (Reject) bukti quest yang dikirim pemain
-  - **CRUD Quests:** Mengelola semua quest resmi (Admin Quest)
-  - **CRUD Achievements:** Mengelola semua pencapaian di platform
+  - **Achievement Conditions** (berbasis JSON):
+    ```json
+    {"quests_completed": 10}  // Complete 10 quests
+    {"stat": "intelligence", "value": 50}  // Reach 50 intelligence
+    {"gold_earned": 1000}  // Earn 1000 gold
+    ```
+  - **Auto-Detection:** `AchievementService` otomatis check & unlock saat quest completed
+  - **Achievement Rewards:** Bonus XP & Gold
+  - **Progress Tracking:** Visual progress bar untuk locked achievements
 
-### 🔔 Sistem Notifikasi Real-time
+### 💼 Panel Admin Komprehensif
 
-  - Penanda (badge) angka pada ikon lonceng untuk notifikasi baru
-  - **Admin:** Mendapat notifikasi saat ada submission baru
-  - **Player:** Mendapat notifikasi saat ada quest admin baru
+#### Quest Management (CRUD)
+  - Create/Edit/Delete admin quests
+  - Set difficulty, frequency, rewards, stat bonus
+  - Link quest ke achievement tertentu
+  - Toggle active/inactive status
+
+#### Submission Review System
+  - List semua submissions dari players
+  - View submission proof (images, documents)
+  - **Approve:** Berikan reward & unlock achievement
+  - **Reject:** Kembalikan ke 'pending' dengan admin notes
+  - Notifikasi otomatis ke player
+
+#### Achievement Management (CRUD)
+  - Create achievements dengan kondisi unlock
+  - Upload custom icon untuk setiap achievement
+  - Set reward values (XP & Gold)
+
+### 📈 Leveling System
+
+  - **Formula:** `Level = floor(pow(XP / 100, 0.5)) + 1`
+  - **Contoh Progression:**
+    - Level 1: 0 XP
+    - Level 2: 100 XP  
+    - Level 3: 400 XP
+    - Level 4: 900 XP
+    - Level 5: 1,600 XP
+    - Level 10: 8,100 XP
+
+### 🏅 Leaderboard Global
+
+  - Ranking pemain berdasarkan total XP (level tertinggi)
+  - Menampilkan Top 100 players
+  - Public untuk semua authenticated users
+  - Lihat stats pemain lain (level, gold, intelligence, dll)
+
+### 👤 Profile Management
+
+  - Update nama, email, password
+  - **Avatar Upload** dengan image cropping (Cropper.js)
+  - Delete account option
+  - View personal stats & achievements
+
+### 🔔 Notification System
+
+  - **Badge Counter:** Real-time notification count di navbar
+  - **For Admin:** Notifikasi saat ada submission baru dari player
+  - **For Player:** Notifikasi saat admin membuat quest baru
 
 -----
 
@@ -128,16 +240,117 @@ Sistem ini dirancang untuk mengubah aktivitas positif dan 'to-do list' harian me
 
 -----
 
+## 📂 Struktur Project
+
+```
+LifeQuest/
+├── app/                        # Application Core
+│   ├── Models/                # Eloquent Models (User, Quest, Achievement)
+│   ├── Http/Controllers/      # Request Handlers
+│   ├── Services/              # Business Logic
+│   └── Helpers/               # Global Helper Functions
+├── database/
+│   ├── migrations/            # 23 Database Migrations
+│   └── seeders/               # Sample Data Seeders
+├── resources/
+│   ├── views/                 # 30+ Blade Templates
+│   ├── css/                   # Custom Styling
+│   └── js/                    # Frontend Logic
+├── routes/
+│   ├── web.php               # Web Routes
+│   └── auth.php              # Authentication Routes
+└── public/                    # Public Assets & Entry Point
+```
+
+-----
+
+## 🎯 Workflow Penggunaan
+
+### Player Journey
+1. **Register & Login** → Verifikasi email
+2. **Dashboard** → Cek stats, daily progress, widgets
+3. **Browse Quests** → Lihat quest admin & buat quest sendiri
+4. **Take Quest** → Quest masuk ke quest log
+5. **Complete Quest:**
+   - User Quest: Langsung selesai → Terima reward
+   - Admin Quest: Upload bukti → Tunggu approval
+6. **Earn Rewards** → XP, Gold, Stats meningkat
+7. **Level Up** → Achievement auto-unlock
+8. **Leaderboard** → Bandingkan dengan player lain
+
+### Admin Journey
+1. **Login** → Admin dashboard
+2. **Create Quest** → Set difficulty, rewards, requirements
+3. **Manage Quests** → CRUD operations pada quest
+4. **Review Submissions:**
+   - Lihat bukti dari player
+   - Approve → Player dapat reward
+   - Reject → Kembali ke pending dengan notes
+5. **Manage Achievements** → Create & edit achievements
+6. **Monitor Platform** → Lihat statistik & aktivitas user
+
+-----
+
+## 🌟 Highlights & Features
+
+✅ **Role-based Access Control** - Middleware untuk Admin & Player  
+✅ **RPG Gamification** - Level, XP, Gold, 4 Stats  
+✅ **Quest System** - Daily/Weekly/Once dengan auto-reset  
+✅ **Achievement Auto-Unlock** - Service layer dengan JSON conditions  
+✅ **Submission Review** - Admin approval workflow  
+✅ **File Upload** - Avatar dengan cropping, submission proofs  
+✅ **Notification System** - Real-time badge counter  
+✅ **Leaderboard** - Global player ranking  
+✅ **Responsive Design** - Mobile-friendly dengan Tailwind CSS  
+
+-----
+
 ## 📜 Lisensi
 
-Project ini dibuat **for educational purpose only**.
-Tidak diperjualbelikan dan ditujukan untuk kebutuhan akademik Universitas Riau.
+Project ini dibuat **for educational purpose only**.  
+Tidak diperjualbelikan dan ditujukan untuk kebutuhan akademik **Universitas Riau**.
 
 -----
 
 ## 👨‍💻 Pengembang
 
-**Thariq Adzikra**
-**2303113029**
-*Mata Kuliah Pengembangan Sistem Informasi Berbasis Web Lanjut*
-Fakultas Matematika dan Ilmu Pengetahuan Alam – Universitas Riau
+<div align="center">
+
+### **Muhammad Thariq Adzikra**
+
+**NIM:** 2303113029  
+**Program Studi:** Sistem Informasi B 2023  
+**Fakultas:** Matematika dan Ilmu Pengetahuan Alam  
+**Universitas:** Universitas Riau
+
+---
+
+**Mata Kuliah:**  
+*Pengembangan Sistem Informasi Berbasis Web Lanjut*
+
+---
+
+📧 Email: [Contact via GitHub](https://github.com/ThariqAdzikra)  
+🔗 Repository: [LifeQuest](https://github.com/ThariqAdzikra/LifeQuest)
+
+</div>
+
+-----
+
+## 🙏 Acknowledgments
+
+- **Laravel Team** - Framework yang luar biasa
+- **Tailwind CSS** - Utility-first CSS framework
+- **Alpine.js** - Lightweight JavaScript framework
+- **OpenWeatherMap** - Weather API
+- **Bootstrap Icons** - Icon library
+
+-----
+
+<div align="center">
+
+**Made with ❤️ and ☕ for learning purposes**
+
+⭐ Star this repo if you find it helpful!
+
+</div>
