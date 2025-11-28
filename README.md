@@ -240,30 +240,6 @@ app/
 
 -----
 
-## 📂 Struktur Project
-
-```
-LifeQuest/
-├── app/                        # Application Core
-│   ├── Models/                # Eloquent Models (User, Quest, Achievement)
-│   ├── Http/Controllers/      # Request Handlers
-│   ├── Services/              # Business Logic
-│   └── Helpers/               # Global Helper Functions
-├── database/
-│   ├── migrations/            # 23 Database Migrations
-│   └── seeders/               # Sample Data Seeders
-├── resources/
-│   ├── views/                 # 30+ Blade Templates
-│   ├── css/                   # Custom Styling
-│   └── js/                    # Frontend Logic
-├── routes/
-│   ├── web.php               # Web Routes
-│   └── auth.php              # Authentication Routes
-└── public/                    # Public Assets & Entry Point
-```
-
------
-
 ## 🎯 Workflow Penggunaan
 
 ### Player Journey
