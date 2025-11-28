@@ -351,6 +351,4 @@ Tidak diperjualbelikan dan ditujukan untuk kebutuhan akademik **Universitas Riau
 
 **Made with ❤️ and ☕ for learning purposes**
 
-⭐ Star this repo if you find it helpful!
-
 </div>
