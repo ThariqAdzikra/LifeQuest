@@ -313,16 +313,6 @@ Tidak diperjualbelikan dan ditujukan untuk kebutuhan akademik **Universitas Riau
 
 -----
 
-## 🙏 Acknowledgments
-
-- **Laravel Team** - Framework yang luar biasa
-- **Tailwind CSS** - Utility-first CSS framework
-- **Alpine.js** - Lightweight JavaScript framework
-- **OpenWeatherMap** - Weather API
-- **Bootstrap Icons** - Icon library
-
------
-
 <div align="center">
 
 **Made with ❤️ and ☕ for learning purposes**
