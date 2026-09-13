@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --gold: 251 191 36;
+    --crimson: 244 63 94;
+    --emerald: 52 211 153;
+  }
+
+  * {
+    @apply border-stone-800/50;
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-[#0a0a0a] text-stone-100 font-sans;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(180, 120, 30, 0.06) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    @apply bg-amber-500/30 text-amber-100;
+  }
+}
+
+@layer utilities {
+  .font-rpg {
+    font-family: 'Cinzel', serif;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(120, 80, 20, 0.4) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(120, 80, 20, 0.4);
+    border-radius: 3px;
+  }
+
+  .border-glow-gold {
+    box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.15), inset 0 1px 0 rgba(251, 191, 36, 0.05);
+  }
+
+  .text-glow-gold {
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+  }
+
+  .surface {
+    @apply bg-stone-950/80 border border-stone-800/60 backdrop-blur-md;
+  }
+
+  .surface-raised {
+    @apply bg-stone-900/60 border border-stone-700/40 backdrop-blur-sm;
+  }
+}
+
+/* Page transition */
+.page-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms, transform 200ms;
+}
